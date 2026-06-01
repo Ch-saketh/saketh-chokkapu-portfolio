@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-ml: 400px;
+  --breakpoint-xsm: 550px;
+  
+  --color-background: rgba(246, 245, 242, 1);
+  --color-foreground: rgba(34, 34, 34, 1);
+  --color-muted-foreground: rgba(46, 45, 45, 0.8);
+  --color-border: rgba(200, 200, 200, 1);
+
+  --font-jost: 'Jost', 'system-ui', 'serif';
+  --font-funnel: 'Funnel Sans', 'system-ui', 'serif'; 
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background text-foreground;
+  font-family: "Jost", system-ui, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
