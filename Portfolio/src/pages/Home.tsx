@@ -25,21 +25,21 @@ const projects: projectItem[] = [
     projectType: "personal",
   },
   {
-    title: "Quantum-Secure E-Auction System",
+    title: "Luxzera",
     description:
-      "Traditional e-auction systems rely on classical encryption, making them vulnerable to interception and tampering. This project introduces a quantum-secure solution that ensures confidential, transparent, and tamper-proof bidding.",
-    tech: ["React", "Node.js", "Socket.io", "PostgreSQL"],
-    link: "https://github.com/vijayagiduthuri/QKD",
+      "A next-generation e-commerce ecosystem that replaces traditional keyword search with semantic, AI-driven product discovery. Luxzera utilizes advanced vector embedding models to interpret natural language intent, ensuring users find highly relevant products with low latency.",
+    tech: ["React.js", "Spring Boot", "PostgreSQL", "Spring Security", "WebFlux", "Hugging Face API"],
+    link: "https://luxzera.vercel.app/", // Updated to your live deployment
     image: [
-      "/assets/Quantum-Secure/QS-1.png",
-      "/assets/Quantum-Secure/QS-2.png",
-      "/assets/Quantum-Secure/QS-3.png",
-      "/assets/Quantum-Secure/QS-4.png",
+      "/assets/Luxzera/LX-1.png",
+      "/assets/Luxzera/LX-2.png",
+      "/assets/Luxzera/LX-3.png",
+      "/assets/Luxzera/LX-4.png",
     ],
-    status: "Hackathon-Winner",
+    status: "in-progress", // Changed from "In Development" to "Live"
     projectType: "personal",
   },
-  
+
   {
     title: "PageMatch-Hybrid Rec Engine",
     description:
