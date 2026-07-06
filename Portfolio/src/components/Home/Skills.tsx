@@ -25,7 +25,7 @@ const techStack: TechStackItem[] = [
   { name: "CSS", icon: <Globe /> },
 
   { name: "React", icon: <Layers /> },
-  { name: "Node.js", icon: <Server /> },
+  { name: "Spring Boot", icon: <Server /> },
   { name: "Express.js", icon: <Server /> },
   { name: "Tailwind CSS", icon: <Braces /> },
 

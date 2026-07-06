@@ -6,7 +6,7 @@ import Projects from "../components/Home/Projects";
 import Services from "../components/Home/Services";
 import Contact from "../components/Home/Contact";
 import { projectItem } from "../utils/constants";
-import DeveloperTools from "../components/Home/DeveloperTools";
+import MLModels from "../components/Home/MLModels";
 
 const projects: projectItem[] = [
   {
@@ -62,7 +62,7 @@ const Home: React.FC = () => {
     <div>
       <Hero />
       <Projects projects={projects} />
-      <DeveloperTools />
+      <MLModels />
       <Skills />
       <About />
       <Services />
