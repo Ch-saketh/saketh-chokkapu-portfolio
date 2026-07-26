@@ -6,6 +6,7 @@ import {
   Mail,
   MessageCircle,
 } from "lucide-react";
+import { handleMailClick } from "../../utils/constants";
 import { staggerContainer, fadeUp } from "../../utils/animations";
 
 /* ===================== COMPONENT ===================== */
@@ -74,6 +75,7 @@ const Footer: React.FC = () => {
             </h4>
             <a
               href="mailto:chokkapusaketh@gmail.com"
+              onClick={(e) => handleMailClick(e)}
               className="
                 flex items-center gap-2 md:gap-3
                 text-neutral-700

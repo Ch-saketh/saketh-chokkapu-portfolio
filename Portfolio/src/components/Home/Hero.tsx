@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
 import YourImg from "/assets/yourimage.png";
 import CVPDF from "/assets/sample-cv.pdf";
-import { SocialLink } from "../../utils/constants";
+import { handleMailClick, SocialLink } from "../../utils/constants";
 import {
   staggerContainerSlow,
   fadeUp,
@@ -146,8 +146,9 @@ Building systems  | Smooth UX | Efficient architecture            </motion.p>
                 <a
                   key={i}
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={(e) => href.startsWith("mailto:") && handleMailClick(e)}
+                  target={href.startsWith("mailto:") ? "_self" : "_blank"}
+                  rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                   className="text-neutral-500 hover:text-black transition"
                 >
                   {icon}

@@ -7,6 +7,7 @@ import {
 import React from "react";
 import { motion } from "framer-motion";
 import { staggerContainer, fadeUp, hoverScale } from "../../utils/animations";
+import { handleMailClick } from "../../utils/constants";
 
 /* =======================
    COMPONENT
@@ -110,8 +111,9 @@ const Contact: React.FC = () => {
                 <motion.a
                   key={link.platform}
                   href={link.href}
+                  onClick={(e) => link.platform === "Email" && handleMailClick(e)}
                   target={link.platform === "Email" ? "_self" : "_blank"}
-                  rel="noopener noreferrer"
+                  rel={link.platform === "Email" ? undefined : "noopener noreferrer"}
                   variants={fadeUp}
                   whileHover={hoverScale}
                   whileTap={{ scale: 0.98 }}
