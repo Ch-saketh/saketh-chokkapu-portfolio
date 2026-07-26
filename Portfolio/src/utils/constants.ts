@@ -62,8 +62,20 @@ export const handleMailClick = (
   email = "chokkapusaketh@gmail.com"
 ) => {
   e.preventDefault();
-  window.location.href = `mailto:${email}`;
-  setTimeout(() => {
-    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${email}`, "_blank");
-  }, 400);
+
+  const isMobile =
+    typeof navigator !== "undefined" &&
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+
+  if (isMobile) {
+    window.location.href = `mailto:${email}`;
+  } else {
+    window.open(
+      `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  }
 };
