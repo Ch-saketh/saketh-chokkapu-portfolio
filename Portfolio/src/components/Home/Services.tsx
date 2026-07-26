@@ -22,7 +22,7 @@ const services: ServiceItem[] = [
   { icon: "Book", title: "Courses & Training" },
 ];
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, React.ElementType> = {
   Code,
   Globe,
   Server,
