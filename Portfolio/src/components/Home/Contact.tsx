@@ -36,7 +36,7 @@ const Contact: React.FC = () => {
       handle: "Detailed inquiries",
       action: "Send email",
       icon: <Mail strokeWidth={1.5} className="w-6 h-6" />,
-      href: "chokkapusaketh@gmail.com",
+      href: "mailto:chokkapusaketh@gmail.com",
       isPrimary: false,
     },
   ];
