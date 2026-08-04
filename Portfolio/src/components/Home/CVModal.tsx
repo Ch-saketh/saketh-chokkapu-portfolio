@@ -38,6 +38,7 @@ export const CVModal: React.FC<CVModalProps> = ({
   const [zoomScale, setZoomScale] = useState(1);
   const modalRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const annotationRef = useRef<HTMLDivElement>(null);
 
   // Keyboard shortcut listener (Esc to close, + / - to zoom)
   useEffect(() => {
@@ -70,7 +71,7 @@ export const CVModal: React.FC<CVModalProps> = ({
     };
   }, [isOpen, isMinimized]);
 
-  // Render original PDF onto pure white HTML canvas using PDF.js
+  // Render original PDF onto pure white HTML canvas + interactive Clickable Links Layer
   useEffect(() => {
     if (!isOpen) return;
 
@@ -108,15 +109,25 @@ export const CVModal: React.FC<CVModalProps> = ({
         const canvas = canvasRef.current;
         if (!canvas) return;
 
-        const context = canvas.getContext("2d");
+        const context = canvas.getContext("2d", { alpha: false });
         if (!context) return;
 
-        // Render at 2.5x resolution for ultra-sharp crisp text rendering
-        const scale = 2.5;
-        const viewport = page.getViewport({ scale });
+        // Ultra High-DPI Resolution for 100% Razor-Sharp Crisp Text
+        const dpr = window.devicePixelRatio || 2;
+        const renderScale = Math.max(dpr * 3.5, 4.0);
+        const viewport = page.getViewport({ scale: renderScale });
 
         canvas.height = viewport.height;
         canvas.width = viewport.width;
+
+        // Display viewport for 1:1 CSS size matching
+        const displayViewport = page.getViewport({ scale: 1.5 });
+        canvas.style.width = `${displayViewport.width}px`;
+        canvas.style.height = `${displayViewport.height}px`;
+
+        // Enable image sharpening & text anti-aliasing
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = "high";
 
         const renderContext = {
           canvasContext: context,
@@ -124,6 +135,43 @@ export const CVModal: React.FC<CVModalProps> = ({
         };
 
         await page.render(renderContext).promise;
+
+        // Render Interactive Link Annotations over Canvas
+        if (annotationRef.current) {
+          const annotations = await page.getAnnotations();
+          const annotationDiv = annotationRef.current;
+          annotationDiv.innerHTML = "";
+          annotationDiv.style.width = `${displayViewport.width}px`;
+          annotationDiv.style.height = `${displayViewport.height}px`;
+
+          annotations.forEach((annot: any) => {
+            if (annot.subtype === "Link" && (annot.url || annot.dest)) {
+              const link = document.createElement("a");
+              link.href = annot.url || "#";
+              if (annot.url) {
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+              }
+              link.className =
+                "absolute cursor-pointer rounded hover:bg-blue-500/15 transition-colors";
+
+              // Convert PDF bounding box [x1, y1, x2, y2] to CSS coordinates
+              const rect = displayViewport.convertToViewportRectangle(annot.rect);
+              const left = Math.min(rect[0], rect[2]);
+              const top = Math.min(rect[1], rect[3]);
+              const width = Math.abs(rect[2] - rect[0]);
+              const height = Math.abs(rect[3] - rect[1]);
+
+              link.style.left = `${left}px`;
+              link.style.top = `${top}px`;
+              link.style.width = `${width}px`;
+              link.style.height = `${height}px`;
+              link.title = annot.url || "Open Link";
+
+              annotationDiv.appendChild(link);
+            }
+          });
+        }
 
         if (isMounted) {
           setIsLoading(false);
@@ -165,79 +213,36 @@ export const CVModal: React.FC<CVModalProps> = ({
 
   const transformOrigin = getGenieTransformOrigin();
 
-  // macOS 3D Genie Lamp Folding Warp animation variants
+  // 60fps Fluid macOS Window Spring Animation
   const genieVariants: Variants = {
     hidden: {
       opacity: 0,
-      scaleX: 0.05,
-      scaleY: 0.02,
-      rotateX: 60,
-      rotateY: -15,
-      skewX: -20,
+      scale: 0.05,
       x: originRect ? originRect.left + originRect.width / 2 - window.innerWidth / 2 : 0,
-      y: originRect ? originRect.top + originRect.height / 2 - window.innerHeight / 2 : 150,
-      clipPath: "polygon(45% 0%, 55% 0%, 51% 100%, 49% 100%)",
-      filter: "blur(16px) brightness(1.2)",
+      y: originRect ? originRect.top + originRect.height / 2 - window.innerHeight / 2 : 100,
+      borderRadius: "40px",
     },
     visible: {
-      opacity: [0, 0.6, 0.9, 1],
-      scaleX: [0.05, 0.35, 0.75, 1],
-      scaleY: [0.02, 0.25, 0.7, 1],
-      rotateX: [60, 35, 10, 0],
-      rotateY: [-15, -8, -2, 0],
-      skewX: [-20, -10, -3, 0],
-      x: [
-        originRect ? originRect.left + originRect.width / 2 - window.innerWidth / 2 : 0,
-        originRect ? (originRect.left + originRect.width / 2 - window.innerWidth / 2) * 0.65 : 0,
-        originRect ? (originRect.left + originRect.width / 2 - window.innerWidth / 2) * 0.25 : 0,
-        0,
-      ],
-      y: [
-        originRect ? originRect.top + originRect.height / 2 - window.innerHeight / 2 : 150,
-        originRect ? (originRect.top + originRect.height / 2 - window.innerHeight / 2) * 0.55 : 60,
-        originRect ? (originRect.top + originRect.height / 2 - window.innerHeight / 2) * 0.18 : 12,
-        0,
-      ],
-      clipPath: [
-        "polygon(45% 0%, 55% 0%, 51% 100%, 49% 100%)",
-        "polygon(25% 0%, 75% 0%, 62% 100%, 38% 100%)",
-        "polygon(8% 0%, 92% 0%, 82% 100%, 18% 100%)",
-        "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-      ],
-      filter: ["blur(16px)", "blur(8px)", "blur(2px)", "blur(0px)"],
+      opacity: 1,
+      scale: 1,
+      x: 0,
+      y: 0,
+      borderRadius: isFullscreen ? "0px" : "26px",
       transition: {
-        duration: 0.65,
-        ease: [0.22, 1, 0.36, 1],
+        type: "spring",
+        stiffness: 360,
+        damping: 26,
+        mass: 0.6,
       },
     },
     exit: {
-      opacity: [1, 0.9, 0.5, 0],
-      scaleX: [1, 0.65, 0.3, 0.05],
-      scaleY: [1, 0.55, 0.18, 0.01],
-      rotateX: [0, 20, 45, 65],
-      rotateY: [0, 8, 15, 22],
-      skewX: [0, 8, 16, 24],
-      x: [
-        0,
-        originRect ? (originRect.left + originRect.width / 2 - window.innerWidth / 2) * 0.35 : 0,
-        originRect ? (originRect.left + originRect.width / 2 - window.innerWidth / 2) * 0.75 : 0,
-        originRect ? originRect.left + originRect.width / 2 - window.innerWidth / 2 : 0,
-      ],
-      y: [
-        0,
-        originRect ? (originRect.top + originRect.height / 2 - window.innerHeight / 2) * 0.35 : 30,
-        originRect ? (originRect.top + originRect.height / 2 - window.innerHeight / 2) * 0.75 : 90,
-        originRect ? originRect.top + originRect.height / 2 - window.innerHeight / 2 : 150,
-      ],
-      clipPath: [
-        "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-        "polygon(12% 0%, 88% 0%, 72% 100%, 28% 100%)",
-        "polygon(28% 0%, 72% 0%, 58% 100%, 40% 100%)",
-        "polygon(45% 0%, 55% 0%, 51% 100%, 49% 100%)",
-      ],
-      filter: ["blur(0px)", "blur(5px)", "blur(12px)", "blur(18px)"],
+      opacity: 0,
+      scale: 0.05,
+      x: originRect ? originRect.left + originRect.width / 2 - window.innerWidth / 2 : 0,
+      y: originRect ? originRect.top + originRect.height / 2 - window.innerHeight / 2 : 100,
+      borderRadius: "40px",
       transition: {
-        duration: 0.52,
+        duration: 0.25,
         ease: [0.32, 0, 0.67, 0],
       },
     },
@@ -404,19 +409,29 @@ export const CVModal: React.FC<CVModalProps> = ({
                 </div>
               )}
 
-              {/* High-DPI Crisp Canvas for Original PDF with Smooth Scale */}
+              {/* High-DPI Crisp Canvas + Interactive Clickable Hyperlinks Layer */}
               <div
                 style={{
                   transform: `scale(${zoomScale})`,
                   transformOrigin: "top center",
                 }}
-                className="transition-transform duration-200 ease-out flex justify-center items-center"
+                className="relative transition-transform duration-200 ease-out flex justify-center items-center"
               >
                 <canvas
                   ref={canvasRef}
-                  className={`max-w-full h-auto bg-white border border-neutral-200/80 shadow-md rounded-md transition-opacity duration-300 ${
+                  style={{
+                    imageRendering: "-webkit-optimize-contrast",
+                    WebkitFontSmoothing: "antialiased",
+                  }}
+                  className={`bg-white border border-neutral-200/80 shadow-md rounded-md transition-opacity duration-300 ${
                     isLoading || loadError ? "hidden" : "block"
                   }`}
+                />
+
+                {/* Clickable PDF Link Overlay Layer */}
+                <div
+                  ref={annotationRef}
+                  className="absolute inset-0 pointer-events-auto z-10"
                 />
               </div>
 
