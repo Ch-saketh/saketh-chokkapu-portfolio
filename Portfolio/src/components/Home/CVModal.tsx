@@ -37,6 +37,7 @@ export const CVModal: React.FC<CVModalProps> = ({
   const [loadError, setLoadError] = useState(false);
   const [zoomScale, setZoomScale] = useState(1);
   const modalRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const annotationRef = useRef<HTMLDivElement>(null);
 
@@ -112,16 +113,24 @@ export const CVModal: React.FC<CVModalProps> = ({
         const context = canvas.getContext("2d", { alpha: false });
         if (!context) return;
 
+        // Calculate perfect fit scale matching the container width cleanly
+        const containerWidth = containerRef.current
+          ? containerRef.current.clientWidth - 32
+          : window.innerWidth * 0.75;
+        const baseViewport = page.getViewport({ scale: 1.0 });
+        const fitScale = Math.max(containerWidth / baseViewport.width, 1.1);
+
+        // Display viewport for 1:1 CSS size matching container width perfectly
+        const displayViewport = page.getViewport({ scale: fitScale });
+
         // Ultra High-DPI Resolution for 100% Razor-Sharp Crisp Text
         const dpr = window.devicePixelRatio || 2;
-        const renderScale = Math.max(dpr * 3.5, 4.0);
+        const renderScale = fitScale * Math.max(dpr * 2, 2.5);
         const viewport = page.getViewport({ scale: renderScale });
 
         canvas.height = viewport.height;
         canvas.width = viewport.width;
 
-        // Display viewport for 1:1 CSS size matching
-        const displayViewport = page.getViewport({ scale: 1.5 });
         canvas.style.width = `${displayViewport.width}px`;
         canvas.style.height = `${displayViewport.height}px`;
 
@@ -388,9 +397,10 @@ export const CVModal: React.FC<CVModalProps> = ({
               </div>
             </div>
 
-            {/* ================= 100% PURE WHITE CANVAS VIEWPORT WITH ZOOM ================= */}
+            {/* ================= PERFECT FIT CANVAS VIEWPORT ================= */}
             <div
-              className="relative flex-1 w-full h-full bg-white overflow-auto flex flex-col items-center justify-start p-4 sm:p-6 md:p-8"
+              ref={containerRef}
+              className="relative flex-1 w-full h-full bg-white overflow-auto flex flex-col items-center justify-start p-2 sm:p-4"
               onWheel={(e) => {
                 if (e.ctrlKey || e.metaKey) {
                   e.preventDefault();
@@ -423,7 +433,7 @@ export const CVModal: React.FC<CVModalProps> = ({
                     imageRendering: "-webkit-optimize-contrast",
                     WebkitFontSmoothing: "antialiased",
                   }}
-                  className={`bg-white border border-neutral-200/80 shadow-md rounded-md transition-opacity duration-300 ${
+                  className={`bg-white border border-neutral-200/60 shadow-sm rounded-md transition-opacity duration-300 ${
                     isLoading || loadError ? "hidden" : "block"
                   }`}
                 />
