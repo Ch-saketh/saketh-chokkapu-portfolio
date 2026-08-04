@@ -72,7 +72,7 @@ export const CVModal: React.FC<CVModalProps> = ({
     };
   }, [isOpen, isMinimized]);
 
-  // Render original PDF onto pure white HTML canvas + interactive Clickable Links Layer
+  // Render original PDF onto pure white HTML canvas edge-to-edge with ZERO GAPS
   useEffect(() => {
     if (!isOpen) return;
 
@@ -113,14 +113,14 @@ export const CVModal: React.FC<CVModalProps> = ({
         const context = canvas.getContext("2d", { alpha: false });
         if (!context) return;
 
-        // Calculate perfect fit scale matching the container width cleanly
+        // Calculate EXACT fit scale to fill 100% of container width with ZERO GAPS
         const containerWidth = containerRef.current
-          ? containerRef.current.clientWidth - 32
-          : window.innerWidth * 0.75;
+          ? containerRef.current.clientWidth
+          : window.innerWidth * 0.8;
         const baseViewport = page.getViewport({ scale: 1.0 });
-        const fitScale = Math.max(containerWidth / baseViewport.width, 1.1);
+        const fitScale = containerWidth / baseViewport.width;
 
-        // Display viewport for 1:1 CSS size matching container width perfectly
+        // Display viewport for 100% edge-to-edge width matching
         const displayViewport = page.getViewport({ scale: fitScale });
 
         // Ultra High-DPI Resolution for 100% Razor-Sharp Crisp Text
@@ -397,10 +397,10 @@ export const CVModal: React.FC<CVModalProps> = ({
               </div>
             </div>
 
-            {/* ================= PERFECT FIT CANVAS VIEWPORT ================= */}
+            {/* ================= 100% EDGE-TO-EDGE ZERO GAPS CANVAS VIEWPORT ================= */}
             <div
               ref={containerRef}
-              className="relative flex-1 w-full h-full bg-white overflow-auto flex flex-col items-center justify-start p-2 sm:p-4"
+              className="relative flex-1 w-full h-full bg-white overflow-y-auto overflow-x-hidden p-0 m-0 flex flex-col items-center justify-start"
               onWheel={(e) => {
                 if (e.ctrlKey || e.metaKey) {
                   e.preventDefault();
@@ -419,13 +419,13 @@ export const CVModal: React.FC<CVModalProps> = ({
                 </div>
               )}
 
-              {/* High-DPI Crisp Canvas + Interactive Clickable Hyperlinks Layer */}
+              {/* Edge-to-Edge Canvas + Clickable Links Layer */}
               <div
                 style={{
                   transform: `scale(${zoomScale})`,
                   transformOrigin: "top center",
                 }}
-                className="relative transition-transform duration-200 ease-out flex justify-center items-center"
+                className="relative w-full transition-transform duration-200 ease-out flex justify-center items-start p-0 m-0"
               >
                 <canvas
                   ref={canvasRef}
@@ -433,7 +433,7 @@ export const CVModal: React.FC<CVModalProps> = ({
                     imageRendering: "-webkit-optimize-contrast",
                     WebkitFontSmoothing: "antialiased",
                   }}
-                  className={`bg-white border border-neutral-200/60 shadow-sm rounded-md transition-opacity duration-300 ${
+                  className={`w-full h-auto bg-white border-none rounded-none shadow-none p-0 m-0 block ${
                     isLoading || loadError ? "hidden" : "block"
                   }`}
                 />
