@@ -74,6 +74,37 @@ html.light .text-neutral-300,
 html.light .text-neutral-400 {
   color: #555555 !important;
 }
+/* ── Light Mode: neutralize ALL green accents ── */
+/* text-[#00FF66] → neutral dark */
+html.light .text-\[\#00FF66\] {
+  color: #333333 !important;
+}
+
+/* bg-[#00FF66] → light neutral surface */
+html.light .bg-\[\#00FF66\] {
+  background-color: #F0F0EE !important;
+  color: #222222 !important;
+}
+html.light .bg-\[\#00FF66\]:hover {
+  background-color: #E0E0DE !important;
+}
+
+/* semi-transparent green tints → neutral tints */
+html.light .bg-\[\#00FF66\]\/10,
+html.light .bg-\[\#00FF66\]\/15,
+html.light .bg-\[\#00FF66\]\/20 {
+  background-color: rgba(0,0,0,0.04) !important;
+  color: #333333 !important;
+}
+
+/* green borders → neutral */
+html.light .border-\[\#00FF66\] {
+  border-color: #D4D4D0 !important;
+}
+html.light .border-\[\#00FF66\]\/30,
+html.light .border-\[\#00FF66\]\/50 {
+  border-color: rgba(0,0,0,0.12) !important;
+}
 
 
 

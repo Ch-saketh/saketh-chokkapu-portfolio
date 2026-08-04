@@ -248,23 +248,31 @@ export const CVModal: React.FC<CVModalProps> = ({
                 : "bg-[#0B0F17] text-white border-[#1E293B]"
             }`}
           >
-            {/* ================= TERMINAL GREEN HEADER ================= */}
-            <div className="relative flex items-center justify-between px-4 sm:px-5 py-3 bg-[#00FF66] text-black border-b border-[#00FF66] select-none shrink-0 gap-2 font-sans">
+            {/* ================= HEADER (GREEN in dark / WHITE in light) ================= */}
+            <div className={`relative flex items-center justify-between px-4 sm:px-5 py-3 select-none shrink-0 gap-2 font-sans border-b ${
+              theme === "light"
+                ? "bg-white text-[#222222] border-neutral-200"
+                : "bg-[#00FF66] text-black border-[#00FF66]"
+            }`}>
               {/* Single Bold Close (X) Button on Far Left */}
               <div className="flex items-center">
                 <button
                   onClick={onClose}
                   title="Close (Esc)"
-                  className="w-8 h-8 rounded-full bg-black hover:bg-neutral-800 active:bg-neutral-900 text-white shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer active:scale-90 shrink-0 group"
+                  className={`w-8 h-8 rounded-full shadow-sm transition-all duration-200 flex items-center justify-center cursor-pointer active:scale-90 shrink-0 ${
+                    theme === "light"
+                      ? "bg-neutral-200 hover:bg-neutral-300 text-[#222222]"
+                      : "bg-black hover:bg-neutral-800 text-white"
+                  }`}
                 >
-                  <X className="w-4.5 h-4.5 stroke-[2.5]" />
+                  <X className="w-4.5 h-4.5 stroke-[2.5]" style={{ color: theme === 'light' ? '#222222' : 'white' }} />
                 </button>
               </div>
 
               {/* Perfectly Centered Document Title */}
               <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 max-w-[45%] sm:max-w-[60%] truncate pointer-events-none">
-                <FileText className="w-4 h-4 text-black shrink-0" />
-                <span className="text-xs sm:text-sm font-bold tracking-tight text-black truncate">
+                <FileText className={`w-4 h-4 shrink-0 ${theme === "light" ? "text-[#555555]" : "text-black"}`} />
+                <span className={`text-xs sm:text-sm font-bold tracking-tight truncate ${theme === "light" ? "text-[#222222]" : "text-black"}`}>
                   Saketh Chokkapu — Resume.pdf
                 </span>
               </div>
@@ -276,24 +284,23 @@ export const CVModal: React.FC<CVModalProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Open in new tab"
-                  className="text-black/70 hover:text-black transition cursor-pointer hidden md:block"
+                  className={`transition cursor-pointer hidden md:block ${theme === "light" ? "text-neutral-500 hover:text-[#222222]" : "text-black/70 hover:text-black"}`}
                 >
                   <ExternalLink className="w-4 h-4" />
                 </a>
 
-                {/* Pure Black Capsule Block Download Button */}
+                {/* Download Button */}
                 <a
                   href={CVPDF}
                   download="Saketh_Chokkapu_Resume.pdf"
-                  className="
-                    flex items-center gap-2 px-4 sm:px-5 py-2 
-                    bg-black hover:bg-neutral-800 active:bg-neutral-900 
-                    text-white text-xs font-bold rounded-full 
-                    transition-all shadow-sm active:scale-95 cursor-pointer shrink-0
-                  "
+                  className={`flex items-center gap-2 px-4 sm:px-5 py-2 text-xs font-bold rounded-full transition-all shadow-sm active:scale-95 cursor-pointer shrink-0 ${
+                    theme === "light"
+                      ? "bg-[#222222] hover:bg-black text-white"
+                      : "bg-black hover:bg-neutral-800 text-white"
+                  }`}
                 >
-                  <Download className="w-3.5 h-3.5 text-white" />
-                  <span className="hidden sm:inline">Download CV</span>
+                  <Download className="w-3.5 h-3.5" style={{ color: 'white' }} />
+                  <span className="hidden sm:inline" style={{ color: 'white' }}>Download CV</span>
                 </a>
               </div>
             </div>
