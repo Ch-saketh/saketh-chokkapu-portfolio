@@ -8,6 +8,7 @@ import {
   Loader2,
 } from "lucide-react";
 import CVPDF from "/assets/sample-cv.pdf";
+import { useTheme } from "../../context/ThemeContext";
 
 interface CVModalProps {
   isOpen: boolean;
@@ -26,6 +27,7 @@ export const CVModal: React.FC<CVModalProps> = ({
   onClose,
   originRect: _originRect,
 }) => {
+  const { theme } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -240,7 +242,11 @@ export const CVModal: React.FC<CVModalProps> = ({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="relative z-10 flex flex-col w-full max-w-5xl h-[88vh] sm:h-[86vh] rounded-[26px] bg-[#0B0F17] text-white border border-[#1E293B] shadow-[0_25px_80px_rgba(0,0,0,0.6)] overflow-hidden transition-all duration-300 font-sans"
+            className={`relative z-10 flex flex-col w-full max-w-5xl h-[88vh] sm:h-[86vh] rounded-[26px] shadow-[0_25px_80px_rgba(0,0,0,0.35)] overflow-hidden transition-all duration-300 font-sans border ${
+              theme === "light"
+                ? "bg-white text-[#222222] border-neutral-200"
+                : "bg-[#0B0F17] text-white border-[#1E293B]"
+            }`}
           >
             {/* ================= TERMINAL GREEN HEADER ================= */}
             <div className="relative flex items-center justify-between px-4 sm:px-5 py-3 bg-[#00FF66] text-black border-b border-[#00FF66] select-none shrink-0 gap-2 font-sans">
