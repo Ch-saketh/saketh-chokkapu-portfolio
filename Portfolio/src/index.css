@@ -75,27 +75,8 @@ html.light .text-neutral-400 {
   color: #555555 !important;
 }
 
-/* Black & White Light Mode Accents */
-html.light .text-\[\#00FF66\] {
-  color: #000000 !important;
-}
 
-html.light .bg-\[\#00FF66\] {
-  background-color: #000000 !important;
-  color: #FFFFFF !important;
-}
 
-html.light .bg-\[\#00FF66\]:hover {
-  background-color: #171717 !important;
-}
-
-html.light .bg-\[\#00FF66\]\/10,
-html.light .bg-\[\#00FF66\]\/15,
-html.light .bg-\[\#00FF66\]\/20 {
-  background-color: rgba(0, 0, 0, 0.06) !important;
-  border-color: rgba(0, 0, 0, 0.2) !important;
-  color: #000000 !important;
-}
 
 /* Navbar in Black & White Light Mode */
 html.light header {
