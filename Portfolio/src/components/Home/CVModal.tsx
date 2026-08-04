@@ -137,7 +137,7 @@ export const CVModal: React.FC<CVModalProps> = ({
             className="absolute inset-0 bg-black/60 backdrop-blur-md transition-all duration-300"
           />
 
-          {/* macOS Window Container */}
+          {/* macOS Glassmorphism Window Container */}
           <motion.div
             ref={modalRef}
             variants={genieVariants}
@@ -146,8 +146,10 @@ export const CVModal: React.FC<CVModalProps> = ({
             exit="exit"
             style={{ transformOrigin }}
             className={`
-              relative z-10 flex flex-col w-full bg-neutral-900/95 border border-white/20 
-              shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] backdrop-blur-2xl text-neutral-100 
+              relative z-10 flex flex-col w-full 
+              bg-gradient-to-b from-neutral-900/70 via-neutral-950/75 to-neutral-900/80 
+              border border-white/20 shadow-[0_32px_80px_rgba(0,0,0,0.7),inset_0_1px_1px_rgba(255,255,255,0.25)] 
+              backdrop-blur-3xl backdrop-saturate-200 text-neutral-100 
               overflow-hidden transition-all duration-300
               ${
                 isFullscreen
@@ -156,8 +158,8 @@ export const CVModal: React.FC<CVModalProps> = ({
               }
             `}
           >
-            {/* ================= macOS WINDOW HEADER ================= */}
-            <div className="flex items-center justify-between px-4 py-3 bg-neutral-800/80 border-b border-white/10 select-none">
+            {/* ================= macOS WINDOW HEADER (GLASS) ================= */}
+            <div className="flex items-center justify-between px-4 py-3 bg-white/10 backdrop-blur-2xl border-b border-white/15 select-none shadow-sm">
               {/* Traffic Light Window Buttons */}
               <div className="flex items-center gap-2 w-28">
                 {/* Red: Close */}
@@ -201,25 +203,27 @@ export const CVModal: React.FC<CVModalProps> = ({
               {/* Title & Document Badge */}
               <div className="flex items-center gap-2 max-w-[40%] sm:max-w-md truncate">
                 <FileText className="w-4 h-4 text-blue-400 shrink-0" />
-                <span className="text-xs sm:text-sm font-medium tracking-wide text-neutral-200 truncate">
+                <span className="text-xs sm:text-sm font-medium tracking-wide text-white truncate drop-shadow-sm">
                   Saketh_Chokkapu_CV.pdf
                 </span>
-                <span className="hidden md:inline-block px-2 py-0.5 text-[10px] uppercase tracking-wider font-semibold bg-neutral-700/60 text-neutral-300 rounded border border-neutral-600/50">
+                <span className="hidden md:inline-block px-2.5 py-0.5 text-[10px] uppercase tracking-wider font-semibold bg-white/10 text-white/90 rounded-full border border-white/20 backdrop-blur-md">
                   PDF Preview
                 </span>
               </div>
 
               {/* Header Right Actions */}
               <div className="flex items-center gap-1.5 sm:gap-2">
-                {/* Download CV Action Button */}
+                {/* Download CV Action Button (Glass Glow) */}
                 <a
                   href={CVPDF}
                   download="Saketh_Chokkapu_CV.pdf"
                   className="
-                    flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-1.5 
-                    bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 
-                    text-white text-xs font-medium rounded-lg shadow-md shadow-blue-500/20 
-                    hover:shadow-blue-500/30 transition-all active:scale-95 cursor-pointer
+                    flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-1.5 
+                    bg-gradient-to-r from-blue-500/80 via-indigo-500/80 to-purple-500/80 
+                    hover:from-blue-500 hover:to-purple-500 
+                    text-white text-xs font-medium rounded-xl shadow-lg shadow-blue-500/25 
+                    border border-white/25 backdrop-blur-lg
+                    transition-all active:scale-95 cursor-pointer
                   "
                 >
                   <Download className="w-3.5 h-3.5" />
@@ -232,7 +236,7 @@ export const CVModal: React.FC<CVModalProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Open in new browser tab"
-                  className="p-1.5 text-neutral-400 hover:text-white hover:bg-neutral-700/60 rounded-lg transition-colors cursor-pointer hidden sm:flex"
+                  className="p-1.5 text-neutral-300 hover:text-white hover:bg-white/15 rounded-xl border border-transparent hover:border-white/20 backdrop-blur-md transition-all cursor-pointer hidden sm:flex"
                 >
                   <ExternalLink className="w-4 h-4" />
                 </a>
@@ -240,33 +244,33 @@ export const CVModal: React.FC<CVModalProps> = ({
                 {/* Close Button */}
                 <button
                   onClick={onClose}
-                  className="p-1.5 text-neutral-400 hover:text-white hover:bg-neutral-700/60 rounded-lg transition-colors cursor-pointer sm:hidden"
+                  className="p-1.5 text-neutral-300 hover:text-white hover:bg-white/15 rounded-xl border border-transparent hover:border-white/20 backdrop-blur-md transition-all cursor-pointer sm:hidden"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
             </div>
 
-            {/* ================= SECONDARY CONTROL TOOLBAR ================= */}
-            <div className="flex items-center justify-between px-4 py-2 bg-neutral-950/70 border-b border-white/5 text-xs text-neutral-400">
+            {/* ================= SECONDARY CONTROL TOOLBAR (GLASS) ================= */}
+            <div className="flex items-center justify-between px-4 py-2 bg-white/5 backdrop-blur-xl border-b border-white/10 text-xs text-neutral-300">
               {/* Zoom Controls */}
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 bg-white/10 px-2 py-1 rounded-xl border border-white/10 backdrop-blur-md">
                 <button
                   onClick={handleZoomOut}
                   disabled={zoomLevel <= 50}
                   title="Zoom Out"
-                  className="p-1 hover:text-white hover:bg-neutral-800 rounded disabled:opacity-30 disabled:cursor-not-allowed transition cursor-pointer"
+                  className="p-1 hover:text-white hover:bg-white/15 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed transition cursor-pointer"
                 >
                   <ZoomOut className="w-3.5 h-3.5" />
                 </button>
-                <span className="w-12 text-center text-[11px] font-mono text-neutral-300">
+                <span className="w-12 text-center text-[11px] font-mono text-white font-medium">
                   {zoomLevel}%
                 </span>
                 <button
                   onClick={handleZoomIn}
                   disabled={zoomLevel >= 200}
                   title="Zoom In"
-                  className="p-1 hover:text-white hover:bg-neutral-800 rounded disabled:opacity-30 disabled:cursor-not-allowed transition cursor-pointer"
+                  className="p-1 hover:text-white hover:bg-white/15 rounded-lg disabled:opacity-30 disabled:cursor-not-allowed transition cursor-pointer"
                 >
                   <ZoomIn className="w-3.5 h-3.5" />
                 </button>
@@ -275,7 +279,7 @@ export const CVModal: React.FC<CVModalProps> = ({
                   <button
                     onClick={handleResetZoom}
                     title="Reset Zoom"
-                    className="p-1 ml-1 text-blue-400 hover:bg-neutral-800 rounded transition cursor-pointer"
+                    className="p-1 ml-1 text-blue-400 hover:bg-white/15 rounded-lg transition cursor-pointer"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
                   </button>
@@ -286,24 +290,26 @@ export const CVModal: React.FC<CVModalProps> = ({
               <div className="flex items-center gap-3">
                 <button
                   onClick={handleCopyLink}
-                  className="hover:text-neutral-200 transition flex items-center gap-1 text-[11px] cursor-pointer"
+                  className="hover:text-white transition flex items-center gap-1.5 text-[11px] bg-white/10 hover:bg-white/15 px-3 py-1 rounded-xl border border-white/10 backdrop-blur-md cursor-pointer"
                 >
                   {isCopied ? (
                     <>
                       <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-                      <span className="text-emerald-400">Link Copied!</span>
+                      <span className="text-emerald-400 font-medium">Link Copied!</span>
                     </>
                   ) : (
                     <span>Copy PDF Link</span>
                   )}
                 </button>
-                <span className="hidden sm:inline text-neutral-600">|</span>
-                <span className="hidden sm:inline text-[11px]">macOS Window Mode</span>
+                <span className="hidden sm:inline text-neutral-500">|</span>
+                <span className="hidden sm:inline text-[11px] font-medium text-neutral-300">
+                  macOS Glassmorphism View
+                </span>
               </div>
             </div>
 
-            {/* ================= PDF VIEWING BODY ================= */}
-            <div className="relative flex-1 w-full h-full overflow-auto bg-neutral-950 p-2 sm:p-4 flex items-center justify-center">
+            {/* ================= PDF VIEWING BODY (FROSTED GLASS CANVAS) ================= */}
+            <div className="relative flex-1 w-full h-full overflow-auto bg-black/40 backdrop-blur-md p-2 sm:p-4 flex items-center justify-center">
               <div
                 className="w-full h-full flex justify-center transition-transform duration-200 ease-out origin-top"
                 style={{
@@ -314,22 +320,22 @@ export const CVModal: React.FC<CVModalProps> = ({
                 <iframe
                   src={`${CVPDF}#toolbar=0&navpanes=0&scrollbar=1`}
                   title="Curriculum Vitae Preview"
-                  className="w-full h-full rounded-lg border border-neutral-800 shadow-2xl bg-white min-h-[500px]"
+                  className="w-full h-full rounded-xl border border-white/20 shadow-2xl bg-white min-h-[500px]"
                 />
               </div>
             </div>
 
-            {/* ================= BOTTOM STATUS FOOTER ================= */}
-            <div className="flex items-center justify-between px-4 py-2 bg-neutral-900 border-t border-white/10 text-[11px] text-neutral-400">
+            {/* ================= BOTTOM STATUS FOOTER (GLASS) ================= */}
+            <div className="flex items-center justify-between px-4 py-2.5 bg-white/5 backdrop-blur-xl border-t border-white/10 text-[11px] text-neutral-300">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Document Ready</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse" />
+                <span className="font-medium text-neutral-200">Glass Viewer Ready</span>
               </div>
               <div className="flex items-center gap-4">
                 <a
                   href={CVPDF}
                   download="Saketh_Chokkapu_CV.pdf"
-                  className="text-blue-400 hover:underline flex items-center gap-1 font-medium"
+                  className="text-blue-400 hover:text-blue-300 hover:underline flex items-center gap-1 font-semibold"
                 >
                   <Download className="w-3 h-3" />
                   Direct Download
