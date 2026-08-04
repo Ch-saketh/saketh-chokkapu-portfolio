@@ -54,21 +54,20 @@ const Projects: React.FC<{ projects: projectItem[] }> = ({ projects }) => {
       >
         {/* ===== HEADER ===== */}
         <motion.div variants={fadeUp} className="mb-10 lg:mb-15">
-          <h2 className="text-[clamp(3.5rem,8vw,6rem)] font-black leading-[1]">
+          <h2 className="text-[clamp(3.5rem,8vw,6rem)] font-extrabold leading-[1] text-white font-funnel">
             Selected
             <br />
-            <span className="font-light text-muted-foreground">Projects</span>
+            <span className="font-light text-[#10B981]">Projects</span>
           </h2>
 
-          <p className="mt-8 max-w-2xl text-lg sm:text-xl text-muted-foreground leading-relaxed">
-            A curated selection of products, tools, and platforms I’ve built —
-            focused on real-world usability and engineering depth.
+          <p className="mt-6 max-w-2xl text-lg sm:text-xl text-neutral-400 leading-relaxed font-sans">
+            A curated selection of backend platforms, full-stack web applications, and developer tools built for performance and scalability.
           </p>
         </motion.div>
 
         {/* ===== PROJECT LIST ===== */}
         <motion.div
-          className="divide-y divide-border border-b border-border"
+          className="divide-y divide-[#1E293B] border-b border-t border-[#1E293B]"
           variants={{ hidden: {}, show: {} }}
         >
           {projects.map((project, idx) => {
@@ -83,12 +82,12 @@ const Projects: React.FC<{ projects: projectItem[] }> = ({ projects }) => {
                 onMouseEnter={() => isDesktop && setHovered(idx)}
                 onMouseLeave={() => isDesktop && setHovered(null)}
               >
-                {/* Hover Background */}
+                {/* Hover Background - Terminal Green Fill */}
                 <motion.div
                   variants={bgFill}
                   initial="hidden"
                   animate={isHovered ? "show" : "hidden"}
-                  className="lg:absolute inset-0 origin-left bg-foreground"
+                  className="lg:absolute inset-0 origin-left bg-[#00FF66]"
                 />
 
                 {/* ================= ROW ================= */}
@@ -102,13 +101,13 @@ const Projects: React.FC<{ projects: projectItem[] }> = ({ projects }) => {
       lg:px-6 lg:py-8
       cursor-pointer
       transition-colors duration-300
-      ${isHovered ? "text-background" : "text-foreground"}
+      ${isHovered ? "text-black" : "text-white"}
     `}
                 >
                   {/* Index */}
                   <span
-                    className={`font-funnel text-sm ${
-                      isHovered ? "text-background/60" : "text-muted-foreground"
+                    className={`font-mono text-sm ${
+                      isHovered ? "text-black/80 font-bold" : "text-neutral-400"
                     }`}
                   >
                     {String(idx + 1).padStart(2, "0")}
@@ -117,7 +116,7 @@ const Projects: React.FC<{ projects: projectItem[] }> = ({ projects }) => {
                   <div className="flex gap-4 items-end justify-between">
                     {/* Title + Meta Pills */}
                     <div>
-                      <h3 className="font-funnel text-[clamp(2rem,3vw,3rem)] font-bold leading-tight">
+                      <h3 className={`font-funnel text-[clamp(2rem,3vw,3rem)] font-bold leading-tight ${isHovered ? "text-black" : "text-white"}`}>
                         {project.title}
                       </h3>
 
@@ -130,8 +129,8 @@ const Projects: React.FC<{ projects: projectItem[] }> = ({ projects }) => {
             border
             ${
               isHovered
-                ? "border-background/40 text-background"
-                : "border-border text-muted-foreground"
+                ? "border-black/30 text-black font-semibold bg-black/10"
+                : "border-[#1E293B] text-neutral-400 bg-[#131924]"
             }
           `}
                         >
@@ -148,8 +147,8 @@ const Projects: React.FC<{ projects: projectItem[] }> = ({ projects }) => {
             border
             ${
               isHovered
-                ? "border-background/40 text-background"
-                : "border-border text-muted-foreground"
+                ? "border-black/30 text-black font-semibold bg-black/10"
+                : "border-[#1E293B] text-neutral-400 bg-[#131924]"
             }
           `}
                         >
@@ -172,8 +171,8 @@ const Projects: React.FC<{ projects: projectItem[] }> = ({ projects }) => {
                         size={18}
                         className={
                           isHovered
-                            ? "text-background/60"
-                            : "text-muted-foreground"
+                            ? "text-black"
+                            : "text-neutral-400"
                         }
                       />
                     </motion.span>
@@ -197,8 +196,8 @@ const Projects: React.FC<{ projects: projectItem[] }> = ({ projects }) => {
             border
             ${
               isHovered
-                ? "border-background/40 text-background"
-                : "border-border text-muted-foreground"
+                ? "border-black/30 text-black font-semibold bg-black/10"
+                : "border-[#1E293B] text-neutral-400 bg-[#131924]"
             }
           `}
                       >
@@ -219,8 +218,8 @@ const Projects: React.FC<{ projects: projectItem[] }> = ({ projects }) => {
         flex items-center gap-2 max-w-max sm:ml-auto
         ${
           isHovered
-            ? "border-background text-background"
-            : "border-border text-muted-foreground"
+            ? "border-black bg-black text-[#00FF66] font-bold"
+            : "border-[#1E293B] text-neutral-300 hover:text-[#00FF66]"
         }
       `}
                   >
@@ -237,8 +236,8 @@ const Projects: React.FC<{ projects: projectItem[] }> = ({ projects }) => {
                       size={18}
                       className={
                         isHovered
-                          ? "text-background/60"
-                          : "text-muted-foreground"
+                          ? "text-black"
+                          : "text-neutral-400"
                       }
                     />
                   </motion.span>

@@ -5,6 +5,7 @@ import PageLoader from "./components/Loaders/PageLoader";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { AnimatePresence } from "framer-motion";
+import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -33,9 +34,11 @@ function App() {
     );
 
   return (
-    <Router>
-      <AppRoutes />
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <AppRoutes />
+      </Router>
+    </ThemeProvider>
   );
 }
 

@@ -15,11 +15,11 @@ interface ServiceItem {
 
 const services: ServiceItem[] = [
   { icon: "Globe", title: "Custom Web Applications" },
-  { icon: "Server", title: "Full-Stack App Development" },
-  { icon: "Code", title: "Websites for Startups" },
-  { icon: "TrendingUp", title: "SEO Optimization" },
-  { icon: "BarChart2", title: "Google Analytics Setup" },
-  { icon: "Book", title: "Courses & Training" },
+  { icon: "Server", title: "Backend Systems Architecture" },
+  { icon: "Code", title: "API Development & Integration" },
+  { icon: "TrendingUp", title: "Performance Optimization" },
+  { icon: "BarChart2", title: "Database Systems Design" },
+  { icon: "Book", title: "Technical Code Evaluations" },
 ];
 
 const iconMap: Record<string, React.ElementType> = {
@@ -32,7 +32,7 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 const Services: React.FC = () => {
-  const topRow = [...services, ...services, ...services]; // Triple for smoother loop
+  const topRow = [...services, ...services, ...services];
   const bottomRow = [
     ...services.slice().reverse(),
     ...services.slice().reverse(),
@@ -45,8 +45,6 @@ const Services: React.FC = () => {
 
   useGSAP(
     () => {
-      // 1. Continuous Marquee
-      // Slower duration for a calmer feel (35s instead of 25s)
       gsap.to(topRowRef.current, {
         xPercent: -50,
         ease: "none",
@@ -54,13 +52,6 @@ const Services: React.FC = () => {
         duration: 35,
       });
 
-      gsap.to(bottomRowRef.current, {
-        xPercent: -50,
-        ease: "none",
-        repeat: -1,
-        duration: 35,
-      });
-      // Start box from -50 back to 0 for right scroll
       gsap.set(bottomRowRef.current, { xPercent: -50 });
       gsap.to(bottomRowRef.current, {
         xPercent: 0,
@@ -76,7 +67,7 @@ const Services: React.FC = () => {
     <section
       id="services"
       ref={containerRef}
-      className="scroll-mt-14 py-8 lg:py-16 flex flex-col relative z-0 sticky top-16"
+      className="scroll-mt-14 py-12 lg:py-20 flex flex-col relative z-0 bg-[#0B0F17]"
     >
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 w-full"
@@ -87,13 +78,12 @@ const Services: React.FC = () => {
       >
         {/* Heading */}
         <motion.div variants={fadeUp}>
-          <div className="mb-16">
-            <h2 className="font-funnel font-extrabold text-[clamp(3.5rem,8vw,6rem)] leading-[1.05] tracking-tight text-foreground">
-              What I <span className="font-extrabold">Offer</span>
+          <div className="mb-14">
+            <h2 className="font-funnel font-extrabold text-[clamp(3.5rem,8vw,6rem)] leading-[1.05] tracking-tight text-white">
+              What I <span className="font-extrabold text-[#10B981]">Offer</span>
             </h2>
-            <p className="mt-6 text-base sm:text-xl leading-[1.9] text-muted-foreground max-w-3xl">
-              Services to help bring your ideas to life — from development to
-              optimization and learning.
+            <p className="mt-4 text-base sm:text-xl leading-relaxed text-neutral-400 max-w-3xl font-sans">
+              Specialized engineering capabilities focused on high-performance backend architecture, scalable full-stack applications, and clean system design.
             </p>
           </div>
         </motion.div>
@@ -101,24 +91,26 @@ const Services: React.FC = () => {
         {/* Scroll Rows Container */}
         <motion.div
           variants={fadeUp}
-          className="space-y-16 relative overflow-hidden w-full"
+          className="space-y-12 relative overflow-hidden w-full py-4"
         >
           {/* Top Row - scroll left */}
-          <div ref={topRowRef} className="flex gap-4 sm:gap-6 md:gap-8 w-max">
+          <div ref={topRowRef} className="flex gap-6 sm:gap-8 w-max">
             {topRow.map((service, index) => {
               const Icon = iconMap[service.icon] || Code;
               return (
-                <div
+                <motion.div
                   key={`top-${index}`}
-                  className="w-[140px] sm:w-[160px] md:w-[180px] lg:w-[200px] flex-shrink-0 flex flex-col items-start cursor-pointer hover:opacity-70 transition-opacity duration-300"
+                  whileHover={{ scale: 1.08, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-[180px] sm:w-[210px] md:w-[230px] flex-shrink-0 flex flex-col items-start py-4 px-3 cursor-pointer group"
                 >
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mb-3 rounded-full border border-foreground/20">
-                    <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-foreground" />
+                  <div className="w-12 h-12 flex items-center justify-center mb-3.5 rounded-xl bg-[#00FF66]/15 border border-[#00FF66]/30 text-[#00FF66] group-hover:bg-[#00FF66] group-hover:text-black transition-all shadow-[0_0_15px_rgba(0,255,102,0.15)]">
+                    <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-foreground">
+                  <h3 className="text-sm sm:text-base font-semibold text-white group-hover:text-[#00FF66] transition-colors leading-snug">
                     {service.title}
                   </h3>
-                </div>
+                </motion.div>
               );
             })}
           </div>
@@ -126,22 +118,24 @@ const Services: React.FC = () => {
           {/* Bottom Row - scroll right */}
           <div
             ref={bottomRowRef}
-            className="flex gap-4 sm:gap-6 md:gap-8 w-max"
+            className="flex gap-6 sm:gap-8 w-max"
           >
             {bottomRow.map((service, index) => {
               const Icon = iconMap[service.icon] || Code;
               return (
-                <div
+                <motion.div
                   key={`bottom-${index}`}
-                  className="w-[140px] sm:w-[160px] md:w-[180px] lg:w-[200px] flex-shrink-0 flex flex-col items-start cursor-pointer hover:opacity-70 transition-opacity duration-300"
+                  whileHover={{ scale: 1.08, y: -3 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-[180px] sm:w-[210px] md:w-[230px] flex-shrink-0 flex flex-col items-start py-4 px-3 cursor-pointer group"
                 >
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mb-3 rounded-full border border-foreground/20">
-                    <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-foreground" />
+                  <div className="w-12 h-12 flex items-center justify-center mb-3.5 rounded-xl bg-[#00FF66]/15 border border-[#00FF66]/30 text-[#00FF66] group-hover:bg-[#00FF66] group-hover:text-black transition-all shadow-[0_0_15px_rgba(0,255,102,0.15)]">
+                    <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-foreground">
+                  <h3 className="text-sm sm:text-base font-semibold text-white group-hover:text-[#00FF66] transition-colors leading-snug">
                     {service.title}
                   </h3>
-                </div>
+                </motion.div>
               );
             })}
           </div>

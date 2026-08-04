@@ -5,8 +5,17 @@ import Skills from "../components/Home/Skills";
 import Projects from "../components/Home/Projects";
 import Services from "../components/Home/Services";
 import Contact from "../components/Home/Contact";
-import { projectItem } from "../utils/constants";
 import MLModels from "../components/Home/MLModels";
+
+import LightHero from "../components/Light/LightHero";
+import LightAbout from "../components/Light/LightAbout";
+import LightServices from "../components/Light/LightServices";
+import LightProjects from "../components/Light/LightProjects";
+import LightSkills from "../components/Light/LightSkills";
+import LightContact from "../components/Light/LightContact";
+
+import { projectItem } from "../utils/constants";
+import { useTheme } from "../context/ThemeContext";
 
 const projects: projectItem[] = [
   {
@@ -29,17 +38,16 @@ const projects: projectItem[] = [
     description:
       "A next-generation e-commerce ecosystem that replaces traditional keyword search with semantic, AI-driven product discovery. Luxzera utilizes advanced vector embedding models to interpret natural language intent, ensuring users find highly relevant products with low latency.",
     tech: ["React.js", "Spring Boot", "PostgreSQL", "Spring Security", "WebFlux", "Hugging Face API"],
-    link: "https://luxzera.vercel.app/", // Updated to your live deployment
+    link: "https://luxzera.vercel.app/",
     image: [
       "/assets/Luxzera/LX-1.png",
       "/assets/Luxzera/LX-2.png",
       "/assets/Luxzera/LX-3.png",
       "/assets/Luxzera/LX-4.png",
     ],
-    status: "in-progress", // Changed from "In Development" to "Live"
+    status: "in-progress",
     projectType: "personal",
   },
-
   {
     title: "PageMatch-Hybrid Rec Engine",
     description:
@@ -58,6 +66,21 @@ const projects: projectItem[] = [
 ];
 
 const Home: React.FC = () => {
+  const { theme } = useTheme();
+
+  if (theme === "light") {
+    return (
+      <div>
+        <LightHero />
+        <LightProjects projects={projects} />
+        <LightSkills />
+        <LightAbout />
+        <LightServices />
+        <LightContact />
+      </div>
+    );
+  }
+
   return (
     <div>
       <Hero />

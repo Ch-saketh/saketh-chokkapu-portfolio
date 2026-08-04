@@ -120,7 +120,7 @@ const Skills: React.FC = () => {
   }, []);
 
   return (
-    <section id="skills" className="pb-6 pt-24 lg:pt-26 scroll-mt-14">
+    <section id="skills" className="pb-6 pt-24 lg:pt-26 scroll-mt-14 bg-[#0B0F17]">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Heading + Description */}
         <motion.div
@@ -131,25 +131,24 @@ const Skills: React.FC = () => {
         >
           <motion.h2
             variants={sectionVariants}
-            className="text-[clamp(3.3rem,8vw,6rem)] font-black leading-[1] tracking-tight"
+            className="text-[clamp(3.3rem,8vw,6rem)] font-extrabold leading-[1] tracking-tight text-[#00FF66] font-funnel"
           >
             Skills &<br />
-            <span className="mt-2 block font-light text-muted-foreground">
+            <span className="mt-2 block font-light text-white">
               Technologies
             </span>
           </motion.h2>
           <motion.p
             variants={sectionVariants}
-            className="mt-10 text-lg sm:text-xl text-muted-foreground leading-relaxed"
+            className="mt-6 text-lg sm:text-xl text-neutral-300 leading-relaxed font-sans max-w-2xl"
           >
-            A focused stack I use to design, build and ship scalable,
-            maintainable software — from fundamentals to production.
+            A focused backend and full-stack toolkit used to design, architect, and ship high-performance, maintainable software systems.
           </motion.p>
         </motion.div>
 
-        {/* Tech Grid */}
+        {/* Tech Grid - Clean without Boxes */}
         <motion.div
-          className="mt-15 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-16"
+          className="mt-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 gap-x-16"
           variants={techContainerVariants}
           initial="hidden"
           whileInView="show"
@@ -158,19 +157,19 @@ const Skills: React.FC = () => {
           {techStack.map((tech, idx) => (
             <motion.div
               key={tech.name}
-              className={`group flex items-center gap-2 md:gap-4 cursor-default ${
+              className={`group flex items-center gap-3.5 cursor-pointer ${
                 idx % 2 === 0 ? "translate-y-0" : "translate-y-2 md:translate-y-0"
               }`}
               variants={techItemVariants}
-              whileHover={{ scale: 1.15, rotate: 2 }}
+              whileHover={{ scale: 1.12, rotate: 2 }}
             >
-              <span className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+              <span className="text-[#00FF66]/70 group-hover:text-[#00FF66] transition-colors duration-300 shrink-0">
                 {React.cloneElement(tech.icon as React.ReactElement, {
                   size: iconSize,
                   strokeWidth: 1.5,
                 })}
               </span>
-              <span className="text-[clamp(1rem,3vw,1.5rem)] font-medium tracking-tight">
+              <span className="text-[clamp(1.1rem,2.5vw,1.5rem)] font-medium tracking-tight text-white group-hover:text-[#00FF66] transition-colors">
                 {tech.name}
               </span>
             </motion.div>

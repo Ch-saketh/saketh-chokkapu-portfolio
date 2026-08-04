@@ -240,25 +240,25 @@ export const CVModal: React.FC<CVModalProps> = ({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="relative z-10 flex flex-col w-full max-w-5xl h-[88vh] sm:h-[86vh] rounded-[26px] bg-white text-neutral-900 border border-neutral-200/80 shadow-[0_25px_80px_rgba(0,0,0,0.18)] overflow-hidden transition-all duration-300 font-sans"
+            className="relative z-10 flex flex-col w-full max-w-5xl h-[88vh] sm:h-[86vh] rounded-[26px] bg-[#0B0F17] text-white border border-[#1E293B] shadow-[0_25px_80px_rgba(0,0,0,0.6)] overflow-hidden transition-all duration-300 font-sans"
           >
-            {/* ================= THIN NEAT WHITE HEADER ================= */}
-            <div className="relative flex items-center justify-between px-4 sm:px-5 py-3 bg-white border-b border-neutral-100 select-none shrink-0 gap-2">
+            {/* ================= TERMINAL GREEN HEADER ================= */}
+            <div className="relative flex items-center justify-between px-4 sm:px-5 py-3 bg-[#00FF66] text-black border-b border-[#00FF66] select-none shrink-0 gap-2 font-sans">
               {/* Single Bold Close (X) Button on Far Left */}
               <div className="flex items-center">
                 <button
                   onClick={onClose}
                   title="Close (Esc)"
-                  className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-black active:bg-neutral-900 text-neutral-700 hover:text-white border border-neutral-200/80 hover:border-black shadow-2xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer active:scale-90 shrink-0 group"
+                  className="w-8 h-8 rounded-full bg-black hover:bg-neutral-800 active:bg-neutral-900 text-white shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer active:scale-90 shrink-0 group"
                 >
-                  <X className="w-4.5 h-4.5 stroke-[2.5] transition-colors" />
+                  <X className="w-4.5 h-4.5 stroke-[2.5]" />
                 </button>
               </div>
 
               {/* Perfectly Centered Document Title */}
               <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 max-w-[45%] sm:max-w-[60%] truncate pointer-events-none">
-                <FileText className="w-4 h-4 text-[#007AFF] shrink-0" />
-                <span className="text-xs sm:text-sm font-semibold tracking-tight text-neutral-800 truncate">
+                <FileText className="w-4 h-4 text-black shrink-0" />
+                <span className="text-xs sm:text-sm font-bold tracking-tight text-black truncate">
                   Saketh Chokkapu — Resume.pdf
                 </span>
               </div>
@@ -270,7 +270,7 @@ export const CVModal: React.FC<CVModalProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Open in new tab"
-                  className="text-neutral-500 hover:text-black transition cursor-pointer hidden md:block"
+                  className="text-black/70 hover:text-black transition cursor-pointer hidden md:block"
                 >
                   <ExternalLink className="w-4 h-4" />
                 </a>
@@ -282,11 +282,11 @@ export const CVModal: React.FC<CVModalProps> = ({
                   className="
                     flex items-center gap-2 px-4 sm:px-5 py-2 
                     bg-black hover:bg-neutral-800 active:bg-neutral-900 
-                    text-white text-xs font-semibold rounded-full 
+                    text-white text-xs font-bold rounded-full 
                     transition-all shadow-sm active:scale-95 cursor-pointer shrink-0
                   "
                 >
-                  <Download className="w-3.5 h-3.5" />
+                  <Download className="w-3.5 h-3.5 text-white" />
                   <span className="hidden sm:inline">Download CV</span>
                 </a>
               </div>

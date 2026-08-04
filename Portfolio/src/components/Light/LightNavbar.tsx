@@ -3,7 +3,7 @@ import { Github, Linkedin, Mail } from "lucide-react";
 import { SocialLink } from "../../utils/constants";
 import { motion, Variants } from "framer-motion";
 import { EASE_PREMIUM } from "../../utils/animations";
-import StaggeredMenu from "./StaggeredMenu";
+import StaggeredMenu from "../Layout/StaggeredMenu";
 import { useTheme } from "../../context/ThemeContext";
 
 /* ===================== ANIMATIONS ===================== */
@@ -43,7 +43,7 @@ const navItemVariants: Variants = {
 
 /* ===================== COMPONENT ===================== */
 
-const Navbar: React.FC = () => {
+const LightNavbar: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
@@ -90,7 +90,6 @@ const Navbar: React.FC = () => {
     { label: "Email", link: "mailto:chokkapusaketh@gmail.com" },
   ];
 
-  /* Desktop navbar width logic */
   let maxWidth = windowWidth;
   let marginLeft = 0;
 
@@ -117,51 +116,28 @@ const Navbar: React.FC = () => {
             marginLeft,
             padding: scrolled ? "1rem 2rem" : "1.5rem 2rem",
             borderRadius: scrolled ? "2.5rem" : "0rem",
-            backgroundColor: theme === "light"
-              ? scrolled
-                ? "rgba(255,255,255,0.75)"
-                : "transparent"
-              : scrolled
-              ? "rgba(19, 25, 36, 0.75)"
+            backgroundColor: scrolled
+              ? "rgba(255,255,255,0.75)"
               : "transparent",
-            backdropFilter: scrolled ? "blur(20px)" : "none",
-            WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
-            boxShadow: scrolled
-              ? theme === "light"
-                ? "0 12px 32px rgba(0,0,0,0.08)"
-                : "0 20px 40px rgba(0,0,0,0.4)"
-              : "none",
-            border: scrolled
-              ? theme === "light"
-                ? "1px solid rgba(0,0,0,0.1)"
-                : "1px solid rgba(255,255,255,0.08)"
-              : "none",
+            backdropFilter: scrolled ? "blur(18px)" : "none",
+            WebkitBackdropFilter: scrolled ? "blur(18px)" : "none",
+            boxShadow: scrolled ? "0 12px 32px rgba(0,0,0,0.08)" : "none",
+            border: scrolled ? "1px solid rgba(255,255,255,0.8)" : "none",
             transition: "all 0.5s cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         >
           <div className="w-full xl:max-w-7xl mx-auto flex items-center justify-between">
-            {/* Developer Logo */}
-            <motion.a
-              href="#"
+            <motion.span
               custom={0}
               variants={navItemVariants}
               initial="hidden"
               animate="visible"
-              className="flex items-center gap-2 group cursor-pointer"
+              className="text-lg font-extrabold tracking-tight text-[#222222] font-funnel"
             >
-              {theme === "light" ? (
-                <span className="text-lg font-extrabold tracking-tight font-funnel text-[#222222]">
-                  Saketh.dev
-                </span>
-              ) : (
-                <span className="text-lg font-extrabold tracking-tight font-funnel text-white">
-                  Saketh<span style={{ color: '#00FF66' }}>.dev</span>
-                </span>
-              )}
-            </motion.a>
+              Saketh.dev
+            </motion.span>
 
-            {/* Nav Links */}
-            <ul className="flex md:gap-6 xl:gap-8 text-sm font-medium">
+            <ul className="flex md:gap-5 xl:gap-6 text-base font-medium font-jost">
               {links.map((item, i) => (
                 <motion.li
                   key={item}
@@ -172,11 +148,7 @@ const Navbar: React.FC = () => {
                 >
                   <a
                     href={`#${item.toLowerCase()}`}
-                    className={
-                      theme === "light"
-                        ? "text-neutral-600 hover:text-black transition-colors duration-200 tracking-wide font-sans font-medium"
-                        : "text-white hover:text-[#00FF66] transition-colors duration-200 tracking-wide font-sans"
-                    }
+                    className="text-neutral-700 hover:text-black transition"
                   >
                     {item}
                   </a>
@@ -184,8 +156,7 @@ const Navbar: React.FC = () => {
               ))}
             </ul>
 
-            {/* Social Icons & Theme Switcher */}
-            <div className="flex items-center md:gap-3 xl:gap-4">
+            <div className="flex items-center md:gap-4 xl:gap-5">
               {/* Theme Switcher — same bare-icon style as social icons */}
               <motion.button
                 custom={links.length + 1}
@@ -194,11 +165,7 @@ const Navbar: React.FC = () => {
                 animate="visible"
                 onClick={toggleTheme}
                 title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                className={
-                  theme === "light"
-                    ? "flex items-center justify-center text-neutral-600 hover:text-black transition-colors duration-200 cursor-pointer"
-                    : "flex items-center justify-center text-white hover:text-[#00FF66] transition-colors duration-200 cursor-pointer"
-                }
+                className="flex items-center justify-center text-neutral-700 hover:text-black transition-colors duration-200 cursor-pointer"
               >
                 {theme === "dark"
                   ? (
@@ -224,11 +191,7 @@ const Navbar: React.FC = () => {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={
-                    theme === "light"
-                      ? "flex items-center justify-center text-neutral-600 hover:text-black transition-colors duration-200"
-                      : "flex items-center justify-center text-white hover:text-[#00FF66] transition-colors duration-200"
-                  }
+                  className="text-neutral-700 hover:text-black transition"
                 >
                   {icon}
                 </motion.a>
@@ -253,4 +216,4 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default Navbar;
+export default LightNavbar;

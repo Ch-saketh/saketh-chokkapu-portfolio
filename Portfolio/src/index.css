@@ -1,27 +1,147 @@
-@import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Jost:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
   --breakpoint-ml: 400px;
   --breakpoint-xsm: 550px;
-  
-  --color-background: rgba(246, 245, 242, 1);
-  --color-foreground: rgba(34, 34, 34, 1);
-  --color-muted-foreground: rgba(46, 45, 45, 0.8);
-  --color-border: rgba(200, 200, 200, 1);
 
-  --font-jost: 'Jost', 'system-ui', 'serif';
-  --font-funnel: 'Funnel Sans', 'system-ui', 'serif'; 
+  --font-jost: 'Jost', 'system-ui', 'sans-serif';
+  --font-funnel: 'Funnel Sans', 'system-ui', 'sans-serif'; 
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
-html {
+:root {
+  background-color: #F6F5F2;
+  color: #222222;
+}
+
+html, body, #root {
   scroll-behavior: smooth;
-}
-
-body {
-  @apply bg-background text-foreground;
-  font-family: "Jost", system-ui, serif;
+  font-family: "Jost", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F6F5F2 !important;
+  color: #222222 !important;
 }
 
+/* ========================================================
+   LIGHT MODE — ORIGINAL BLACK & WHITE DESIGN
+   ======================================================== */
+html.light, html.light body, html.light #root {
+  background-color: #F6F5F2 !important;
+  color: #222222 !important;
+}
+
+html.light section {
+  background-color: #F6F5F2 !important;
+  color: #222222 !important;
+}
+
+html.light .bg-\[\#0B0F17\] {
+  background-color: #F6F5F2 !important;
+}
+
+html.light .bg-\[\#131924\]\/90,
+html.light .bg-\[\#131924\]\/80,
+html.light .bg-\[\#131924\]\/60 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(200, 200, 200, 0.8) !important;
+  color: #222222 !important;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light .bg-\[\#0B0F17\]\/80 {
+  background-color: rgba(246, 245, 242, 0.9) !important;
+  border-color: rgba(200, 200, 200, 0.8) !important;
+}
+
+html.light .border-\[\#1E293B\] {
+  border-color: rgba(200, 200, 200, 0.8) !important;
+}
+
+html.light .text-white {
+  color: #222222 !important;
+}
+
+/* Ensure Black Buttons have Crisp White Text in Light Mode */
+html.light .bg-black,
+html.light button.bg-black {
+  background-color: #000000 !important;
+  color: #FFFFFF !important;
+}
+
+html.light .text-neutral-300,
+html.light .text-neutral-400 {
+  color: #555555 !important;
+}
+
+/* Black & White Light Mode Accents */
+html.light .text-\[\#00FF66\] {
+  color: #000000 !important;
+}
+
+html.light .bg-\[\#00FF66\] {
+  background-color: #000000 !important;
+  color: #FFFFFF !important;
+}
+
+html.light .bg-\[\#00FF66\]:hover {
+  background-color: #171717 !important;
+}
+
+html.light .bg-\[\#00FF66\]\/10,
+html.light .bg-\[\#00FF66\]\/15,
+html.light .bg-\[\#00FF66\]\/20 {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+  border-color: rgba(0, 0, 0, 0.2) !important;
+  color: #000000 !important;
+}
+
+/* Navbar in Black & White Light Mode */
+html.light header {
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+html.light header a {
+  color: #222222 !important;
+}
+
+html.light header a:hover {
+  color: #000000 !important;
+}
+
+html.light footer {
+  background-color: #F6F5F2 !important;
+  border-color: rgba(200, 200, 200, 0.8) !important;
+  color: #222222 !important;
+}
+
+/* ========================================================
+   DARK MODE — DEVELOPER TERMINAL GREEN DESIGN
+   ======================================================== */
+html.dark, html.dark body, html.dark #root {
+  background-color: #0B0F17 !important;
+  color: #F8FAFC !important;
+}
+
+html.dark section {
+  background-color: #0B0F17 !important;
+  color: #F8FAFC !important;
+}
+
+/* Custom Scrollbar for Dark Theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0F17;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00FF66;
+}
