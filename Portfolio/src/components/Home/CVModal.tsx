@@ -243,18 +243,20 @@ export const CVModal: React.FC<CVModalProps> = ({
             className="relative z-10 flex flex-col w-full max-w-5xl h-[88vh] sm:h-[86vh] rounded-[26px] bg-white text-neutral-900 border border-neutral-200/80 shadow-[0_25px_80px_rgba(0,0,0,0.18)] overflow-hidden transition-all duration-300 font-sans"
           >
             {/* ================= THIN NEAT WHITE HEADER ================= */}
-            <div className="flex items-center justify-between px-4 sm:px-5 py-3 bg-white border-b border-neutral-100 select-none shrink-0 gap-2">
+            <div className="relative flex items-center justify-between px-4 sm:px-5 py-3 bg-white border-b border-neutral-100 select-none shrink-0 gap-2">
               {/* Single Sleek White Close (X) Button on Far Left */}
-              <button
-                onClick={onClose}
-                title="Close (Esc)"
-                className="w-7 h-7 rounded-full bg-neutral-100/90 hover:bg-white text-neutral-600 hover:text-black border border-neutral-200/80 shadow-2xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer active:scale-90 shrink-0"
-              >
-                <X className="w-4 h-4 stroke-[2.2]" />
-              </button>
+              <div className="flex items-center">
+                <button
+                  onClick={onClose}
+                  title="Close (Esc)"
+                  className="w-7 h-7 rounded-full bg-neutral-100/90 hover:bg-white text-neutral-600 hover:text-black border border-neutral-200/80 shadow-2xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer active:scale-90 shrink-0"
+                >
+                  <X className="w-4 h-4 stroke-[2.2]" />
+                </button>
+              </div>
 
-              {/* Document Title */}
-              <div className="flex items-center gap-2 truncate">
+              {/* Perfectly Centered Document Title */}
+              <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 max-w-[45%] sm:max-w-[60%] truncate pointer-events-none">
                 <FileText className="w-4 h-4 text-[#007AFF] shrink-0" />
                 <span className="text-xs sm:text-sm font-semibold tracking-tight text-neutral-800 truncate">
                   Saketh Chokkapu — Curriculum Vitae.pdf
