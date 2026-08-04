@@ -201,8 +201,8 @@ export const CVModal: React.FC<CVModalProps> = ({
     };
   }, [isOpen]);
 
-  const handleZoomIn = () => setZoomScale((prev) => Math.min(prev + 0.15, 2.5));
-  const handleZoomOut = () => setZoomScale((prev) => Math.max(prev - 0.15, 0.5));
+  const handleZoomIn = () => setZoomScale((prev) => Math.min(prev + 0.08, 2.0));
+  const handleZoomOut = () => setZoomScale((prev) => Math.max(prev - 0.08, 0.7));
   const handleResetZoom = () => setZoomScale(1);
 
   // Calculate position transform origins based on originRect button
@@ -404,11 +404,10 @@ export const CVModal: React.FC<CVModalProps> = ({
               onWheel={(e) => {
                 if (e.ctrlKey || e.metaKey) {
                   e.preventDefault();
-                  if (e.deltaY < 0) {
-                    setZoomScale((prev) => Math.min(prev + 0.08, 2.5));
-                  } else {
-                    setZoomScale((prev) => Math.max(prev - 0.08, 0.5));
-                  }
+                  // Fine-grained micro zoom proportional to exact finger movement
+                  const zoomSensitivity = 0.0015;
+                  const delta = -e.deltaY * zoomSensitivity;
+                  setZoomScale((prev) => Math.min(Math.max(prev + delta, 0.7), 2.0));
                 }
               }}
             >
