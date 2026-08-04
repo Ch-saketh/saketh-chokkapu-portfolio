@@ -8,12 +8,6 @@ import {
   Minimize2,
   ExternalLink,
   FileText,
-  Github,
-  Linkedin,
-  Globe,
-  Mail,
-  Phone,
-  MapPin,
 } from "lucide-react";
 import CVPDF from "/assets/sample-cv.pdf";
 
@@ -115,7 +109,7 @@ export const CVModal: React.FC<CVModalProps> = ({
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-5 md:p-8">
-          {/* Clean Light Backdrop Overlay */}
+          {/* Clean Backdrop Overlay */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -134,7 +128,7 @@ export const CVModal: React.FC<CVModalProps> = ({
             style={{ transformOrigin }}
             className={`
               relative z-10 flex flex-col w-full bg-white text-neutral-900 
-              border border-neutral-200/60 shadow-[0_20px_70px_rgba(0,0,0,0.12)] 
+              border border-transparent shadow-[0_20px_70px_rgba(0,0,0,0.15)] 
               overflow-hidden transition-all duration-300 font-sans
               ${
                 isFullscreen
@@ -143,7 +137,7 @@ export const CVModal: React.FC<CVModalProps> = ({
               }
             `}
           >
-            {/* ================= THIN NEAT PURE WHITE HEADER ================= */}
+            {/* ================= THIN NEAT WHITE HEADER ================= */}
             <div className="flex items-center justify-between px-4 sm:px-5 py-3 bg-white border-b border-neutral-100 select-none shrink-0">
               {/* Traffic Light Control Buttons */}
               <div className="flex items-center gap-2">
@@ -222,269 +216,21 @@ export const CVModal: React.FC<CVModalProps> = ({
               </div>
             </div>
 
-            {/* ================= 100% PURE WHITE DOCUMENT VIEW ================= */}
-            <div className="relative flex-1 w-full h-full bg-white overflow-y-auto p-4 sm:p-8 md:p-12 selection:bg-neutral-200">
-              <div className="max-w-3xl mx-auto bg-white text-neutral-900 font-serif leading-normal select-text">
-                {/* Header */}
-                <div className="text-center pb-6 mb-6 border-b border-neutral-200">
-                  <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-black mb-2 font-serif">
-                    Saketh Chokkapu
-                  </h1>
-                  <p className="text-xs sm:text-sm text-neutral-600 flex flex-wrap justify-center items-center gap-x-3 gap-y-1 font-sans">
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-neutral-500" />
-                      Hyderabad, India
-                    </span>
-                    <span>•</span>
-                    <a
-                      href="mailto:chokkapusaketh@gmail.com"
-                      className="flex items-center gap-1 hover:text-black hover:underline"
-                    >
-                      <Mail className="w-3.5 h-3.5 text-neutral-500" />
-                      chokkapusaketh@gmail.com
-                    </a>
-                    <span>•</span>
-                    <span className="flex items-center gap-1">
-                      <Phone className="w-3.5 h-3.5 text-neutral-500" />
-                      +91-9392345156
-                    </span>
-                  </p>
-                  <div className="flex justify-center items-center gap-4 mt-3 text-xs font-sans font-medium text-neutral-700">
-                    <a
-                      href="https://www.linkedin.com/in/saketh-chokkapu-3a668a2b9"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center gap-1 hover:text-black hover:underline"
-                    >
-                      <Linkedin className="w-3.5 h-3.5 text-blue-600" /> LinkedIn
-                    </a>
-                    <span>|</span>
-                    <a
-                      href="https://github.com/Ch-saketh"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center gap-1 hover:text-black hover:underline"
-                    >
-                      <Github className="w-3.5 h-3.5 text-neutral-900" /> GitHub
-                    </a>
-                    <span>|</span>
-                    <a
-                      href="#"
-                      className="flex items-center gap-1 hover:text-black hover:underline"
-                    >
-                      <Globe className="w-3.5 h-3.5 text-neutral-700" /> Portfolio
-                    </a>
-                  </div>
-                </div>
-
-                {/* Experience */}
-                <section className="mb-6 font-sans">
-                  <h2 className="text-sm uppercase tracking-widest font-bold text-neutral-900 border-b border-neutral-300 pb-1 mb-3">
-                    Experience
-                  </h2>
-
-                  <div className="space-y-4">
-                    <div>
-                      <div className="flex justify-between items-baseline">
-                        <h3 className="text-base font-bold text-black">
-                          Handshake AI
-                        </h3>
-                        <span className="text-xs font-semibold text-neutral-500">
-                          Remote | 2025 – Present
-                        </span>
-                      </div>
-                      <p className="text-xs font-semibold text-neutral-700 italic mb-1.5">
-                        AI Technical Trainer & Code Evaluator (Contract)
-                      </p>
-                      <ul className="list-disc list-outside ml-4 text-xs text-neutral-700 space-y-1 leading-relaxed">
-                        <li>
-                          Evaluated AI-generated code snippets and system designs across Python, Java, and SQL for logical correctness, performance, and security edge cases.
-                        </li>
-                        <li>
-                          Authored complex technical test prompts and benchmark suites to evaluate LLM reasoning capabilities and code output reliability.
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between items-baseline">
-                        <h3 className="text-base font-bold text-black">
-                          NexLevr
-                        </h3>
-                        <span className="text-xs font-semibold text-neutral-500">
-                          Remote | 2024 – Present
-                        </span>
-                      </div>
-                      <p className="text-xs font-semibold text-neutral-700 italic mb-1.5">
-                        Software Engineering Intern
-                      </p>
-                      <ul className="list-disc list-outside ml-4 text-xs text-neutral-700 space-y-1 leading-relaxed">
-                        <li>
-                          Maintained backend stability for the NexLevr platform while developing new features to enhance user engagement.
-                        </li>
-                        <li>
-                          Contributed to full-stack web development and REST API integration across core platform services.
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </section>
-
-                {/* Technical Skills */}
-                <section className="mb-6 font-sans">
-                  <h2 className="text-sm uppercase tracking-widest font-bold text-neutral-900 border-b border-neutral-300 pb-1 mb-3">
-                    Technical Skills
-                  </h2>
-                  <div className="space-y-1.5 text-xs text-neutral-800">
-                    <p>
-                      <strong className="font-semibold text-black">Languages:</strong> Java, Python, SQL, JavaScript, TypeScript
-                    </p>
-                    <p>
-                      <strong className="font-semibold text-black">Frameworks & Libraries:</strong> Spring Boot, Spring Security, Hibernate, JPA, React.js, Node.js, Express.js, Flask, REST APIs, WebSockets
-                    </p>
-                    <p>
-                      <strong className="font-semibold text-black">Tools & Databases:</strong> Docker, MongoDB, MySQL, PostgreSQL, Git, GitHub, Linux (Fedora), Hugging Face, Postman, VS Code
-                    </p>
-                  </div>
-                </section>
-
-                {/* Projects */}
-                <section className="mb-6 font-sans">
-                  <h2 className="text-sm uppercase tracking-widest font-bold text-neutral-900 border-b border-neutral-300 pb-1 mb-3">
-                    Projects
-                  </h2>
-
-                  <div className="space-y-4">
-                    <div>
-                      <div className="flex justify-between items-baseline">
-                        <h3 className="text-sm font-bold text-black">
-                          LUXZERA — Intelligent Fashion Discovery Platform{" "}
-                          <a
-                            href="https://github.com/Ch-saketh"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-blue-600 hover:underline font-normal text-xs ml-1"
-                          >
-                            [GitHub]
-                          </a>
-                        </h3>
-                        <span className="text-xs font-semibold text-neutral-500">
-                          Jan 2025 – Present
-                        </span>
-                      </div>
-                      <ul className="list-disc list-outside ml-4 text-xs text-neutral-700 space-y-1 leading-relaxed mt-1">
-                        <li>
-                          Developed a fashion discovery web app within a two-engineer team, curating complete outfits tailored to a user’s specific dimensions.
-                        </li>
-                        <li>
-                          Designed transaction-safe API endpoints in Java and Spring Boot to manage live user preference states, secure account verification, and checkout data blocks.
-                        </li>
-                        <li>
-                          Separated application logic into decoupled layers while tuning relational schemas via Hibernate to fix N+1 query loops, reducing latency from 150ms to 60ms.
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between items-baseline">
-                        <h3 className="text-sm font-bold text-black">
-                          QUANTUM-SECURE E-AUCTION SYSTEM (BB84 Protocol){" "}
-                          <a
-                            href="https://github.com/Ch-saketh"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-blue-600 hover:underline font-normal text-xs ml-1"
-                          >
-                            [GitHub]
-                          </a>
-                        </h3>
-                        <span className="text-xs font-semibold text-neutral-500">
-                          Jan 2025 – Present
-                        </span>
-                      </div>
-                      <ul className="list-disc list-outside ml-4 text-xs text-neutral-700 space-y-1 leading-relaxed mt-1">
-                        <li>
-                          Architected a tamper-proof e-auction platform built with React (Vite), Tailwind CSS, Node.js, Express.js, WebSockets, and MongoDB.
-                        </li>
-                        <li>
-                          Implemented BB84 Quantum Key Distribution (QKD) simulation to generate unique quantum keys, encrypting every bid payload for confidential transmission.
-                        </li>
-                        <li>
-                          Integrated Quantum Bit Error Rate (QBER) monitoring logic to detect eavesdropping real-time, preventing bid interception and tampering.
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between items-baseline">
-                        <h3 className="text-sm font-bold text-black">
-                          HYBRID BOOK RECOMMENDATION PLATFORM — Machine Learning Engine{" "}
-                          <a
-                            href="https://huggingface.co"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-blue-600 hover:underline font-normal text-xs ml-1"
-                          >
-                            [Hugging Face]
-                          </a>
-                        </h3>
-                        <span className="text-xs font-semibold text-neutral-500">
-                          May 2024 – June 2024
-                        </span>
-                      </div>
-                      <ul className="list-disc list-outside ml-4 text-xs text-neutral-700 space-y-1 leading-relaxed mt-1">
-                        <li>
-                          Built an end-to-end data pipeline as Team Head, processing over 3 million data rows from the Amazon Book Reviews dataset alongside structured content arrays.
-                        </li>
-                        <li>
-                          Engineered a hybrid retrieval flow combining TF-IDF textual features with a collaborative LightFM model using a sparse interaction matrix to resolve cold-start issues.
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </section>
-
-                {/* Technical Achievements */}
-                <section className="mb-6 font-sans">
-                  <h2 className="text-sm uppercase tracking-widest font-bold text-neutral-900 border-b border-neutral-300 pb-1 mb-3">
-                    Technical Achievements & Hackathons
-                  </h2>
-                  <ul className="list-disc list-outside ml-4 text-xs text-neutral-700 space-y-1.5 leading-relaxed">
-                    <li>
-                      <strong className="font-semibold text-black">
-                        Amaravati Quantum Valley Hackathon — 2nd Prize:
-                      </strong>{" "}
-                      Served as Lead Frontend Developer for Team Ekalavya (Problem Statement AQVH911); built the real-time encryption interface for a Quantum-Secure E-Auction System.
-                    </li>
-                    <li>
-                      <strong className="font-semibold text-black">
-                        National AI Hackathon — 2nd Prize:
-                      </strong>{" "}
-                      Deployed interface layout components and state management routines for an automated evaluator system detecting data anomalies under high request volumes.
-                    </li>
-                  </ul>
-                </section>
-
-                {/* Education */}
-                <section className="font-sans">
-                  <h2 className="text-sm uppercase tracking-widest font-bold text-neutral-900 border-b border-neutral-300 pb-1 mb-3">
-                    Education
-                  </h2>
-                  <div className="flex justify-between items-baseline text-xs">
-                    <div>
-                      <h3 className="font-bold text-black text-sm">
-                        SRKR Engineering College
-                      </h3>
-                      <p className="text-neutral-700">
-                        Bachelor of Technology in Computer Science (AIDS)
-                      </p>
-                    </div>
-                    <span className="font-semibold text-neutral-500">
-                      2023 – 2027
-                    </span>
-                  </div>
-                </section>
-              </div>
+            {/* ================= ORIGINAL PDF FILE PREVIEW ================= */}
+            <div className="relative flex-1 w-full h-full bg-white overflow-hidden flex items-center justify-center p-0 m-0">
+              <object
+                data={`${CVPDF}#view=FitH&toolbar=0&navpanes=0&scrollbar=1`}
+                type="application/pdf"
+                className="w-full h-full bg-white border-0 outline-none"
+                style={{ border: "none", outline: "none", background: "white" }}
+              >
+                <iframe
+                  src={`${CVPDF}#view=FitH&toolbar=0&navpanes=0&scrollbar=1`}
+                  title="Curriculum Vitae Preview"
+                  className="w-full h-full bg-white border-none outline-none"
+                  style={{ border: "none", outline: "none", background: "white" }}
+                />
+              </object>
             </div>
           </motion.div>
         </div>
