@@ -82,7 +82,7 @@ export const CVModal: React.FC<CVModalProps> = ({
       scaleY: 1,
       x: 0,
       y: 0,
-      borderRadius: isFullscreen ? "0px" : "16px",
+      borderRadius: isFullscreen ? "0px" : "26px",
       transition: {
         type: "spring",
         stiffness: 300,
@@ -115,7 +115,7 @@ export const CVModal: React.FC<CVModalProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/40 transition-opacity duration-200"
+            className="absolute inset-0 bg-black/45 transition-opacity duration-200"
           />
 
           {/* ================= LIGHT THEME macOS WINDOW ================= */}
@@ -128,12 +128,12 @@ export const CVModal: React.FC<CVModalProps> = ({
             style={{ transformOrigin }}
             className={`
               relative z-10 flex flex-col w-full bg-white text-neutral-900 
-              border border-neutral-200/90 shadow-[0_25px_80px_rgba(0,0,0,0.18)] 
+              border border-neutral-200/90 shadow-[0_30px_90px_rgba(0,0,0,0.2)] 
               overflow-hidden transition-all duration-300 font-sans
               ${
                 isFullscreen
                   ? "w-screen h-screen rounded-none border-none p-0"
-                  : "max-w-5xl h-[88vh] sm:h-[86vh] rounded-2xl"
+                  : "max-w-5xl h-[88vh] sm:h-[86vh] rounded-[26px]"
               }
             `}
           >
