@@ -8,6 +8,7 @@ import {
   Minimize2,
   ExternalLink,
   FileText,
+  Loader2,
 } from "lucide-react";
 import CVPDF from "/assets/sample-cv.pdf";
 
@@ -17,6 +18,12 @@ interface CVModalProps {
   originRect: DOMRect | null;
 }
 
+declare global {
+  interface Window {
+    pdfjsLib?: any;
+  }
+}
+
 export const CVModal: React.FC<CVModalProps> = ({
   isOpen,
   onClose,
@@ -24,7 +31,10 @@ export const CVModal: React.FC<CVModalProps> = ({
 }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Keyboard shortcut listener (Esc to close)
   useEffect(() => {
@@ -48,6 +58,80 @@ export const CVModal: React.FC<CVModalProps> = ({
       document.body.style.overflow = "auto";
     };
   }, [isOpen, isMinimized]);
+
+  // Render original PDF onto pure white HTML canvas using PDF.js
+  useEffect(() => {
+    if (!isOpen) return;
+
+    let isMounted = true;
+    setIsLoading(true);
+    setLoadError(false);
+
+    const loadAndRenderPdf = async () => {
+      try {
+        // Load PDF.js library dynamically if not present
+        if (!window.pdfjsLib) {
+          await new Promise((resolve, reject) => {
+            const script = document.createElement("script");
+            script.src =
+              "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+          });
+        }
+
+        if (!window.pdfjsLib) throw new Error("PDF.js failed to load");
+
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+          "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+        // Load document
+        const loadingTask = window.pdfjsLib.getDocument(CVPDF);
+        const pdf = await loadingTask.promise;
+
+        if (!isMounted) return;
+
+        // Render Page 1 to high-DPI canvas
+        const page = await pdf.getPage(1);
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const context = canvas.getContext("2d");
+        if (!context) return;
+
+        // Render at 2.5x resolution for ultra-sharp crisp text rendering
+        const scale = 2.5;
+        const viewport = page.getViewport({ scale });
+
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        const renderContext = {
+          canvasContext: context,
+          viewport: viewport,
+        };
+
+        await page.render(renderContext).promise;
+
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      } catch (err) {
+        console.error("PDF.js render error:", err);
+        if (isMounted) {
+          setLoadError(true);
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadAndRenderPdf();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isOpen]);
 
   // Calculate position transform origins based on originRect button
   const getGenieTransformOrigin = () => {
@@ -118,7 +202,7 @@ export const CVModal: React.FC<CVModalProps> = ({
             className="absolute inset-0 bg-black/30 transition-opacity duration-200"
           />
 
-          {/* ================= PURE WHITE macOS WINDOW ================= */}
+          {/* ================= 100% PURE WHITE macOS WINDOW ================= */}
           <motion.div
             ref={modalRef}
             variants={genieVariants}
@@ -128,7 +212,7 @@ export const CVModal: React.FC<CVModalProps> = ({
             style={{ transformOrigin }}
             className={`
               relative z-10 flex flex-col w-full bg-white text-neutral-900 
-              border border-transparent shadow-[0_20px_70px_rgba(0,0,0,0.15)] 
+              border border-neutral-200/60 shadow-[0_20px_70px_rgba(0,0,0,0.12)] 
               overflow-hidden transition-all duration-300 font-sans
               ${
                 isFullscreen
@@ -216,14 +300,32 @@ export const CVModal: React.FC<CVModalProps> = ({
               </div>
             </div>
 
-            {/* ================= ORIGINAL PDF FILE PREVIEW (PURE WHITE CANVAS) ================= */}
-            <div className="relative flex-1 w-full h-full bg-white overflow-hidden flex items-center justify-center p-0 m-0">
-              <iframe
-                src={`${CVPDF}#view=FitH&toolbar=0&navpanes=0&scrollbar=1`}
-                title="Curriculum Vitae Preview"
-                className="w-[108%] h-[108%] -m-[4%] bg-white border-none outline-none scale-[1.05] origin-top"
-                style={{ border: "none", outline: "none", background: "white" }}
+            {/* ================= 100% PURE WHITE CANVAS VIEWPORT ================= */}
+            <div className="relative flex-1 w-full h-full bg-white overflow-auto flex flex-col items-center justify-start p-4 sm:p-6 md:p-8">
+              {isLoading && (
+                <div className="flex flex-col items-center justify-center py-20 text-neutral-500 gap-3">
+                  <Loader2 className="w-6 h-6 animate-spin text-black" />
+                  <span className="text-xs font-medium">Loading Document...</span>
+                </div>
+              )}
+
+              {/* High-DPI Crisp Canvas for Original PDF Pages */}
+              <canvas
+                ref={canvasRef}
+                className={`max-w-full h-auto bg-white border border-neutral-200/80 shadow-md rounded-md transition-opacity duration-300 ${
+                  isLoading || loadError ? "hidden" : "block"
+                }`}
               />
+
+              {/* Fallback Iframe if script block or CDN fallback */}
+              {loadError && (
+                <iframe
+                  src={`${CVPDF}#view=FitH&toolbar=0&navpanes=0&scrollbar=1`}
+                  title="Curriculum Vitae Preview"
+                  className="w-full h-full bg-white border-none"
+                  style={{ border: "none", outline: "none", background: "white" }}
+                />
+              )}
             </div>
           </motion.div>
         </div>
