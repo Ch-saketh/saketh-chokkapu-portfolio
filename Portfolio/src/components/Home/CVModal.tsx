@@ -199,13 +199,13 @@ export const CVModal: React.FC<CVModalProps> = ({
                   <ExternalLink className="w-4 h-4" />
                 </a>
 
-                {/* Capsule Block Download CV Button */}
+                {/* Pure Black Capsule Block Download CV Button */}
                 <a
                   href={CVPDF}
                   download="Saketh_Chokkapu_CV.pdf"
                   className="
                     flex items-center gap-2 px-5 py-2 
-                    bg-[#007AFF] hover:bg-[#0062CC] active:bg-[#0051B3] 
+                    bg-black hover:bg-neutral-800 active:bg-neutral-900 
                     text-white text-xs font-semibold rounded-full 
                     transition-all shadow-sm active:scale-95 cursor-pointer
                   "
