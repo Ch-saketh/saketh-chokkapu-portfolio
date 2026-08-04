@@ -109,13 +109,13 @@ export const CVModal: React.FC<CVModalProps> = ({
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-5 md:p-8">
-          {/* Simple Clean Backdrop Overlay */}
+          {/* Clean Light Backdrop Overlay */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/45 transition-opacity duration-200"
+            className="absolute inset-0 bg-black/25 transition-opacity duration-200"
           />
 
           {/* ================= LIGHT THEME macOS WINDOW ================= */}
@@ -128,7 +128,7 @@ export const CVModal: React.FC<CVModalProps> = ({
             style={{ transformOrigin }}
             className={`
               relative z-10 flex flex-col w-full bg-white text-neutral-900 
-              border border-neutral-200/90 shadow-[0_30px_90px_rgba(0,0,0,0.2)] 
+              border border-neutral-100 shadow-[0_20px_70px_rgba(0,0,0,0.14)] 
               overflow-hidden transition-all duration-300 font-sans
               ${
                 isFullscreen
@@ -138,7 +138,7 @@ export const CVModal: React.FC<CVModalProps> = ({
             `}
           >
             {/* ================= THIN NEAT LIGHT HEADER ================= */}
-            <div className="flex items-center justify-between px-4 sm:px-5 py-2.5 bg-white border-b border-neutral-200 select-none">
+            <div className="flex items-center justify-between px-4 sm:px-5 py-2.5 bg-white border-b border-neutral-100 select-none">
               {/* Traffic Light Control Buttons */}
               <div className="flex items-center gap-2">
                 {/* Red: Close */}
@@ -217,11 +217,12 @@ export const CVModal: React.FC<CVModalProps> = ({
             </div>
 
             {/* ================= PDF VIEWING AREA ================= */}
-            <div className="relative flex-1 w-full h-full bg-white overflow-hidden flex items-center justify-center">
+            <div className="relative flex-1 w-full h-full bg-white overflow-hidden flex items-center justify-center p-0 m-0">
               <iframe
                 src={`${CVPDF}#view=FitH&toolbar=0&navpanes=0&scrollbar=1`}
                 title="Curriculum Vitae Preview"
-                className="w-full h-full border-none bg-white"
+                className="w-full h-full bg-white"
+                style={{ border: "none", outline: "none", margin: 0, padding: 0 }}
               />
             </div>
           </motion.div>
