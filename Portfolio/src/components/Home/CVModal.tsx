@@ -127,13 +127,13 @@ export const CVModal: React.FC<CVModalProps> = ({
             exit="exit"
             style={{ transformOrigin }}
             className={`
-              relative z-10 flex flex-col w-full bg-[#1E1E1E] text-white 
-              border border-neutral-700/60 shadow-[0_25px_70px_rgba(0,0,0,0.65)] 
+              relative z-10 flex flex-col w-full bg-[#1C1C1E] text-white 
+              border border-neutral-700/50 shadow-[0_20px_60px_rgba(0,0,0,0.6)] 
               overflow-hidden transition-all duration-300 font-sans
               ${
                 isFullscreen
                   ? "w-screen h-screen rounded-none border-none p-0"
-                  : "max-w-5xl h-[88vh] sm:h-[86vh] rounded-xl"
+                  : "max-w-5xl h-[88vh] sm:h-[86vh] rounded-lg"
               }
             `}
           >
