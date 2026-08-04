@@ -216,21 +216,14 @@ export const CVModal: React.FC<CVModalProps> = ({
               </div>
             </div>
 
-            {/* ================= ORIGINAL PDF FILE PREVIEW ================= */}
+            {/* ================= ORIGINAL PDF FILE PREVIEW (PURE WHITE CANVAS) ================= */}
             <div className="relative flex-1 w-full h-full bg-white overflow-hidden flex items-center justify-center p-0 m-0">
-              <object
-                data={`${CVPDF}#view=FitH&toolbar=0&navpanes=0&scrollbar=1`}
-                type="application/pdf"
-                className="w-full h-full bg-white border-0 outline-none"
+              <iframe
+                src={`${CVPDF}#view=FitH&toolbar=0&navpanes=0&scrollbar=1`}
+                title="Curriculum Vitae Preview"
+                className="w-[108%] h-[108%] -m-[4%] bg-white border-none outline-none scale-[1.05] origin-top"
                 style={{ border: "none", outline: "none", background: "white" }}
-              >
-                <iframe
-                  src={`${CVPDF}#view=FitH&toolbar=0&navpanes=0&scrollbar=1`}
-                  title="Curriculum Vitae Preview"
-                  className="w-full h-full bg-white border-none outline-none"
-                  style={{ border: "none", outline: "none", background: "white" }}
-                />
-              </object>
+              />
             </div>
           </motion.div>
         </div>
