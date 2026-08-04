@@ -9,8 +9,6 @@ import {
   ExternalLink,
   FileText,
   Loader2,
-  ZoomIn,
-  ZoomOut,
 } from "lucide-react";
 import CVPDF from "/assets/sample-cv.pdf";
 
@@ -29,31 +27,23 @@ declare global {
 export const CVModal: React.FC<CVModalProps> = ({
   isOpen,
   onClose,
-  originRect,
+  originRect: _originRect,
 }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
-  const [zoomScale, setZoomScale] = useState(1);
   const modalRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const annotationRef = useRef<HTMLDivElement>(null);
 
-  // Keyboard shortcut listener (Esc to close, + / - to zoom)
+  // Keyboard shortcut listener (Esc to close)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
       if (e.key === "Escape") {
         onClose();
-      } else if (e.key === "=" || e.key === "+") {
-        setZoomScale((prev) => Math.min(prev + 0.15, 2.5));
-      } else if (e.key === "-") {
-        setZoomScale((prev) => Math.max(prev - 0.15, 0.5));
-      } else if (e.key === "0" && (e.ctrlKey || e.metaKey)) {
-        e.preventDefault();
-        setZoomScale(1);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -201,57 +191,33 @@ export const CVModal: React.FC<CVModalProps> = ({
     };
   }, [isOpen]);
 
-  const handleZoomIn = () => setZoomScale((prev) => Math.min(prev + 0.08, 2.0));
-  const handleZoomOut = () => setZoomScale((prev) => Math.max(prev - 0.08, 0.7));
-  const handleResetZoom = () => setZoomScale(1);
-
-  // Calculate position transform origins based on originRect button
-  const getGenieTransformOrigin = () => {
-    if (!originRect) return "center center";
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
-    const originX = originRect.left + originRect.width / 2;
-    const originY = originRect.top + originRect.height / 2;
-
-    const xPercent = (originX / windowWidth) * 100;
-    const yPercent = (originY / windowHeight) * 100;
-
-    return `${xPercent}% ${yPercent}%`;
-  };
-
-  const transformOrigin = getGenieTransformOrigin();
-
-  // 60fps Fluid macOS Window Spring Animation
-  const genieVariants: Variants = {
+  // Premium Apple Spatial Pop-Up Animation Variants
+  const modalVariants: Variants = {
     hidden: {
       opacity: 0,
-      scale: 0.05,
-      x: originRect ? originRect.left + originRect.width / 2 - window.innerWidth / 2 : 0,
-      y: originRect ? originRect.top + originRect.height / 2 - window.innerHeight / 2 : 100,
-      borderRadius: "40px",
+      scale: 0.94,
+      y: 16,
+      filter: "blur(6px)",
     },
     visible: {
       opacity: 1,
       scale: 1,
-      x: 0,
       y: 0,
-      borderRadius: isFullscreen ? "0px" : "26px",
+      filter: "blur(0px)",
       transition: {
         type: "spring",
-        stiffness: 360,
-        damping: 26,
+        stiffness: 380,
+        damping: 28,
         mass: 0.6,
       },
     },
     exit: {
       opacity: 0,
-      scale: 0.05,
-      x: originRect ? originRect.left + originRect.width / 2 - window.innerWidth / 2 : 0,
-      y: originRect ? originRect.top + originRect.height / 2 - window.innerHeight / 2 : 100,
-      borderRadius: "40px",
+      scale: 0.96,
+      y: 12,
+      filter: "blur(4px)",
       transition: {
-        duration: 0.25,
+        duration: 0.2,
         ease: [0.32, 0, 0.67, 0],
       },
     },
@@ -269,20 +235,19 @@ export const CVModal: React.FC<CVModalProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/30 transition-opacity duration-200"
+            className="absolute inset-0 bg-black/35 backdrop-blur-xs transition-opacity duration-200"
           />
 
           {/* ================= 100% PURE WHITE macOS WINDOW ================= */}
           <motion.div
             ref={modalRef}
-            variants={genieVariants}
+            variants={modalVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
-            style={{ transformOrigin }}
             className={`
               relative z-10 flex flex-col w-full bg-white text-neutral-900 
-              border border-neutral-200/60 shadow-[0_20px_70px_rgba(0,0,0,0.12)] 
+              border border-neutral-200/80 shadow-[0_25px_80px_rgba(0,0,0,0.18)] 
               overflow-hidden transition-all duration-300 font-sans
               ${
                 isFullscreen
@@ -343,33 +308,6 @@ export const CVModal: React.FC<CVModalProps> = ({
 
               {/* Header Right Actions */}
               <div className="flex items-center gap-2 sm:gap-3">
-                {/* Zoom In & Zoom Out Control Pills */}
-                <div className="flex items-center gap-1 bg-neutral-100 rounded-full px-2 py-1 text-xs font-medium text-neutral-700">
-                  <button
-                    onClick={handleZoomOut}
-                    disabled={zoomScale <= 0.5}
-                    title="Zoom Out (-)"
-                    className="p-1 hover:bg-white rounded-full transition disabled:opacity-30 cursor-pointer"
-                  >
-                    <ZoomOut className="w-3.5 h-3.5" />
-                  </button>
-                  <button
-                    onClick={handleResetZoom}
-                    title="Reset Zoom (100%)"
-                    className="px-1.5 py-0.5 hover:bg-white rounded-full transition text-[11px] font-bold tracking-tight cursor-pointer"
-                  >
-                    {Math.round(zoomScale * 100)}%
-                  </button>
-                  <button
-                    onClick={handleZoomIn}
-                    disabled={zoomScale >= 2.5}
-                    title="Zoom In (+)"
-                    className="p-1 hover:bg-white rounded-full transition disabled:opacity-30 cursor-pointer"
-                  >
-                    <ZoomIn className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-
                 <a
                   href={CVPDF}
                   target="_blank"
@@ -401,15 +339,6 @@ export const CVModal: React.FC<CVModalProps> = ({
             <div
               ref={containerRef}
               className="relative flex-1 w-full h-full bg-white overflow-y-auto overflow-x-hidden p-0 m-0 flex flex-col items-center justify-start"
-              onWheel={(e) => {
-                if (e.ctrlKey || e.metaKey) {
-                  e.preventDefault();
-                  // Fine-grained micro zoom proportional to exact finger movement
-                  const zoomSensitivity = 0.0015;
-                  const delta = -e.deltaY * zoomSensitivity;
-                  setZoomScale((prev) => Math.min(Math.max(prev + delta, 0.7), 2.0));
-                }
-              }}
             >
               {isLoading && (
                 <div className="flex flex-col items-center justify-center py-20 text-neutral-500 gap-3">
@@ -419,13 +348,7 @@ export const CVModal: React.FC<CVModalProps> = ({
               )}
 
               {/* Edge-to-Edge Canvas + Clickable Links Layer */}
-              <div
-                style={{
-                  transform: `scale(${zoomScale})`,
-                  transformOrigin: "top center",
-                }}
-                className="relative w-full transition-transform duration-200 ease-out flex justify-center items-start p-0 m-0"
-              >
+              <div className="relative w-full flex justify-center items-start p-0 m-0">
                 <canvas
                   ref={canvasRef}
                   style={{
