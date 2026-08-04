@@ -259,7 +259,7 @@ export const CVModal: React.FC<CVModalProps> = ({
               <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 max-w-[45%] sm:max-w-[60%] truncate pointer-events-none">
                 <FileText className="w-4 h-4 text-[#007AFF] shrink-0" />
                 <span className="text-xs sm:text-sm font-semibold tracking-tight text-neutral-800 truncate">
-                  Saketh Chokkapu — Curriculum Vitae.pdf
+                  Saketh Chokkapu — Resume.pdf
                 </span>
               </div>
 
@@ -275,10 +275,10 @@ export const CVModal: React.FC<CVModalProps> = ({
                   <ExternalLink className="w-4 h-4" />
                 </a>
 
-                {/* Pure Black Capsule Block Download CV Button */}
+                {/* Pure Black Capsule Block Download Button */}
                 <a
                   href={CVPDF}
-                  download="Saketh_Chokkapu_CV.pdf"
+                  download="Saketh_Chokkapu_Resume.pdf"
                   className="
                     flex items-center gap-2 px-4 sm:px-5 py-2 
                     bg-black hover:bg-neutral-800 active:bg-neutral-900 
