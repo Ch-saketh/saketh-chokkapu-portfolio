@@ -74,7 +74,7 @@ export const CVModal: React.FC<CVModalProps> = ({
       scaleY: 0.05,
       y: originRect ? originRect.top - window.innerHeight / 2 : 100,
       x: originRect ? originRect.left - window.innerWidth / 2 : 0,
-      borderRadius: "20px",
+      borderRadius: "24px",
     },
     visible: {
       opacity: 1,
@@ -82,7 +82,7 @@ export const CVModal: React.FC<CVModalProps> = ({
       scaleY: 1,
       x: 0,
       y: 0,
-      borderRadius: isFullscreen ? "0px" : "12px",
+      borderRadius: isFullscreen ? "0px" : "16px",
       transition: {
         type: "spring",
         stiffness: 300,
@@ -109,16 +109,16 @@ export const CVModal: React.FC<CVModalProps> = ({
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-5 md:p-8">
-          {/* Simple Clean Dark Backdrop Overlay - NO BLUR */}
+          {/* Simple Clean Backdrop Overlay */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/65 transition-opacity duration-200"
+            className="absolute inset-0 bg-black/40 transition-opacity duration-200"
           />
 
-          {/* ================= macOS QUICK LOOK WINDOW ================= */}
+          {/* ================= LIGHT THEME macOS WINDOW ================= */}
           <motion.div
             ref={modalRef}
             variants={genieVariants}
@@ -127,20 +127,20 @@ export const CVModal: React.FC<CVModalProps> = ({
             exit="exit"
             style={{ transformOrigin }}
             className={`
-              relative z-10 flex flex-col w-full bg-[#1C1C1E] text-white 
-              border border-neutral-700/50 shadow-[0_20px_60px_rgba(0,0,0,0.6)] 
+              relative z-10 flex flex-col w-full bg-white text-neutral-900 
+              border border-neutral-200/90 shadow-[0_25px_80px_rgba(0,0,0,0.18)] 
               overflow-hidden transition-all duration-300 font-sans
               ${
                 isFullscreen
                   ? "w-screen h-screen rounded-none border-none p-0"
-                  : "max-w-5xl h-[88vh] sm:h-[86vh] rounded-lg"
+                  : "max-w-5xl h-[88vh] sm:h-[86vh] rounded-2xl"
               }
             `}
           >
-            {/* ================= macOS HEADER BAR ================= */}
-            <div className="flex items-center justify-between px-5 py-3.5 bg-[#2A2A2A] border-b border-neutral-700/60 select-none">
+            {/* ================= THIN NEAT LIGHT HEADER ================= */}
+            <div className="flex items-center justify-between px-4 sm:px-5 py-2.5 bg-[#F6F6F8] border-b border-neutral-200/90 select-none">
               {/* Traffic Light Control Buttons */}
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2">
                 {/* Red: Close */}
                 <button
                   onClick={onClose}
@@ -180,9 +180,9 @@ export const CVModal: React.FC<CVModalProps> = ({
               </div>
 
               {/* Document Title */}
-              <div className="flex items-center gap-2.5 truncate">
+              <div className="flex items-center gap-2 truncate">
                 <FileText className="w-4 h-4 text-[#007AFF] shrink-0" />
-                <span className="text-sm font-medium tracking-tight text-neutral-200 truncate">
+                <span className="text-xs sm:text-sm font-medium tracking-tight text-neutral-800 truncate">
                   Saketh Chokkapu — Curriculum Vitae.pdf
                 </span>
               </div>
@@ -194,20 +194,20 @@ export const CVModal: React.FC<CVModalProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Open in new tab"
-                  className="text-neutral-400 hover:text-white transition cursor-pointer hidden sm:block"
+                  className="text-neutral-500 hover:text-black transition cursor-pointer hidden sm:block"
                 >
                   <ExternalLink className="w-4 h-4" />
                 </a>
 
-                {/* Solid Apple Blue Download Button - NO GRADIENTS */}
+                {/* Capsule Block Download CV Button */}
                 <a
                   href={CVPDF}
                   download="Saketh_Chokkapu_CV.pdf"
                   className="
-                    flex items-center gap-2 px-4 py-2 
+                    flex items-center gap-2 px-5 py-2 
                     bg-[#007AFF] hover:bg-[#0062CC] active:bg-[#0051B3] 
-                    text-white text-xs font-semibold rounded-lg 
-                    transition-colors shadow-sm cursor-pointer
+                    text-white text-xs font-semibold rounded-full 
+                    transition-all shadow-sm active:scale-95 cursor-pointer
                   "
                 >
                   <Download className="w-3.5 h-3.5" />
@@ -216,8 +216,8 @@ export const CVModal: React.FC<CVModalProps> = ({
               </div>
             </div>
 
-            {/* ================= PDF VIEWING AREA (EDGE-TO-EDGE, THIN BEZEL) ================= */}
-            <div className="relative flex-1 w-full h-full bg-[#181818] overflow-hidden">
+            {/* ================= PDF VIEWING AREA ================= */}
+            <div className="relative flex-1 w-full h-full bg-[#F0F0F2] overflow-hidden">
               <iframe
                 src={`${CVPDF}#toolbar=0&navpanes=0&scrollbar=1`}
                 title="Curriculum Vitae Preview"
