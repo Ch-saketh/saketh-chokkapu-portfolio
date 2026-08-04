@@ -244,14 +244,14 @@ export const CVModal: React.FC<CVModalProps> = ({
           >
             {/* ================= THIN NEAT WHITE HEADER ================= */}
             <div className="relative flex items-center justify-between px-4 sm:px-5 py-3 bg-white border-b border-neutral-100 select-none shrink-0 gap-2">
-              {/* Single Red Close (X) Button on Far Left */}
+              {/* Single Bold Close (X) Button on Far Left */}
               <div className="flex items-center">
                 <button
                   onClick={onClose}
                   title="Close (Esc)"
-                  className="w-8 h-8 rounded-full bg-[#FF5F56] hover:bg-[#E0443E] active:bg-[#C93832] text-white border border-[#E0443E]/60 shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer active:scale-90 shrink-0"
+                  className="w-8 h-8 rounded-full bg-neutral-100 hover:bg-black active:bg-neutral-900 text-neutral-700 hover:text-white border border-neutral-200/80 hover:border-black shadow-2xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer active:scale-90 shrink-0 group"
                 >
-                  <X className="w-4.5 h-4.5 stroke-[2.5]" />
+                  <X className="w-4.5 h-4.5 stroke-[2.5] transition-colors" />
                 </button>
               </div>
 
