@@ -9,6 +9,8 @@ import {
   ExternalLink,
   FileText,
   Loader2,
+  ZoomIn,
+  ZoomOut,
 } from "lucide-react";
 import CVPDF from "/assets/sample-cv.pdf";
 
@@ -33,14 +35,23 @@ export const CVModal: React.FC<CVModalProps> = ({
   const [isMinimized, setIsMinimized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
+  const [zoomScale, setZoomScale] = useState(1);
   const modalRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Keyboard shortcut listener (Esc to close)
+  // Keyboard shortcut listener (Esc to close, + / - to zoom)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) {
+      if (!isOpen) return;
+      if (e.key === "Escape") {
         onClose();
+      } else if (e.key === "=" || e.key === "+") {
+        setZoomScale((prev) => Math.min(prev + 0.15, 2.5));
+      } else if (e.key === "-") {
+        setZoomScale((prev) => Math.max(prev - 0.15, 0.5));
+      } else if (e.key === "0" && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        setZoomScale(1);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -132,6 +143,10 @@ export const CVModal: React.FC<CVModalProps> = ({
       isMounted = false;
     };
   }, [isOpen]);
+
+  const handleZoomIn = () => setZoomScale((prev) => Math.min(prev + 0.15, 2.5));
+  const handleZoomOut = () => setZoomScale((prev) => Math.max(prev - 0.15, 0.5));
+  const handleResetZoom = () => setZoomScale(1);
 
   // Calculate position transform origins based on originRect button
   const getGenieTransformOrigin = () => {
@@ -260,7 +275,7 @@ export const CVModal: React.FC<CVModalProps> = ({
             `}
           >
             {/* ================= THIN NEAT WHITE HEADER ================= */}
-            <div className="flex items-center justify-between px-4 sm:px-5 py-3 bg-white border-b border-neutral-100 select-none shrink-0">
+            <div className="flex items-center justify-between px-4 sm:px-5 py-3 bg-white border-b border-neutral-100 select-none shrink-0 gap-2">
               {/* Traffic Light Control Buttons */}
               <div className="flex items-center gap-2">
                 {/* Red: Close */}
@@ -310,13 +325,40 @@ export const CVModal: React.FC<CVModalProps> = ({
               </div>
 
               {/* Header Right Actions */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
+                {/* Zoom In & Zoom Out Control Pills */}
+                <div className="flex items-center gap-1 bg-neutral-100 rounded-full px-2 py-1 text-xs font-medium text-neutral-700">
+                  <button
+                    onClick={handleZoomOut}
+                    disabled={zoomScale <= 0.5}
+                    title="Zoom Out (-)"
+                    className="p-1 hover:bg-white rounded-full transition disabled:opacity-30 cursor-pointer"
+                  >
+                    <ZoomOut className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    onClick={handleResetZoom}
+                    title="Reset Zoom (100%)"
+                    className="px-1.5 py-0.5 hover:bg-white rounded-full transition text-[11px] font-bold tracking-tight cursor-pointer"
+                  >
+                    {Math.round(zoomScale * 100)}%
+                  </button>
+                  <button
+                    onClick={handleZoomIn}
+                    disabled={zoomScale >= 2.5}
+                    title="Zoom In (+)"
+                    className="p-1 hover:bg-white rounded-full transition disabled:opacity-30 cursor-pointer"
+                  >
+                    <ZoomIn className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
                 <a
                   href={CVPDF}
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Open in new tab"
-                  className="text-neutral-500 hover:text-black transition cursor-pointer hidden sm:block"
+                  className="text-neutral-500 hover:text-black transition cursor-pointer hidden md:block"
                 >
                   <ExternalLink className="w-4 h-4" />
                 </a>
@@ -326,20 +368,32 @@ export const CVModal: React.FC<CVModalProps> = ({
                   href={CVPDF}
                   download="Saketh_Chokkapu_CV.pdf"
                   className="
-                    flex items-center gap-2 px-5 py-2 
+                    flex items-center gap-2 px-4 sm:px-5 py-2 
                     bg-black hover:bg-neutral-800 active:bg-neutral-900 
                     text-white text-xs font-semibold rounded-full 
-                    transition-all shadow-sm active:scale-95 cursor-pointer
+                    transition-all shadow-sm active:scale-95 cursor-pointer shrink-0
                   "
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>Download CV</span>
+                  <span className="hidden sm:inline">Download CV</span>
                 </a>
               </div>
             </div>
 
-            {/* ================= 100% PURE WHITE CANVAS VIEWPORT ================= */}
-            <div className="relative flex-1 w-full h-full bg-white overflow-auto flex flex-col items-center justify-start p-4 sm:p-6 md:p-8">
+            {/* ================= 100% PURE WHITE CANVAS VIEWPORT WITH ZOOM ================= */}
+            <div
+              className="relative flex-1 w-full h-full bg-white overflow-auto flex flex-col items-center justify-start p-4 sm:p-6 md:p-8"
+              onWheel={(e) => {
+                if (e.ctrlKey || e.metaKey) {
+                  e.preventDefault();
+                  if (e.deltaY < 0) {
+                    setZoomScale((prev) => Math.min(prev + 0.08, 2.5));
+                  } else {
+                    setZoomScale((prev) => Math.max(prev - 0.08, 0.5));
+                  }
+                }
+              }}
+            >
               {isLoading && (
                 <div className="flex flex-col items-center justify-center py-20 text-neutral-500 gap-3">
                   <Loader2 className="w-6 h-6 animate-spin text-black" />
@@ -347,13 +401,21 @@ export const CVModal: React.FC<CVModalProps> = ({
                 </div>
               )}
 
-              {/* High-DPI Crisp Canvas for Original PDF Pages */}
-              <canvas
-                ref={canvasRef}
-                className={`max-w-full h-auto bg-white border border-neutral-200/80 shadow-md rounded-md transition-opacity duration-300 ${
-                  isLoading || loadError ? "hidden" : "block"
-                }`}
-              />
+              {/* High-DPI Crisp Canvas for Original PDF with Smooth Scale */}
+              <div
+                style={{
+                  transform: `scale(${zoomScale})`,
+                  transformOrigin: "top center",
+                }}
+                className="transition-transform duration-200 ease-out flex justify-center items-center"
+              >
+                <canvas
+                  ref={canvasRef}
+                  className={`max-w-full h-auto bg-white border border-neutral-200/80 shadow-md rounded-md transition-opacity duration-300 ${
+                    isLoading || loadError ? "hidden" : "block"
+                  }`}
+                />
+              </div>
 
               {/* Fallback Iframe if script block or CDN fallback */}
               {loadError && (
