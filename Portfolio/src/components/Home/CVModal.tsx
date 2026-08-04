@@ -138,7 +138,7 @@ export const CVModal: React.FC<CVModalProps> = ({
             `}
           >
             {/* ================= THIN NEAT LIGHT HEADER ================= */}
-            <div className="flex items-center justify-between px-4 sm:px-5 py-2.5 bg-[#F6F6F8] border-b border-neutral-200/90 select-none">
+            <div className="flex items-center justify-between px-4 sm:px-5 py-2.5 bg-white border-b border-neutral-200 select-none">
               {/* Traffic Light Control Buttons */}
               <div className="flex items-center gap-2">
                 {/* Red: Close */}
@@ -217,7 +217,7 @@ export const CVModal: React.FC<CVModalProps> = ({
             </div>
 
             {/* ================= PDF VIEWING AREA ================= */}
-            <div className="relative flex-1 w-full h-full bg-[#F0F0F2] overflow-hidden">
+            <div className="relative flex-1 w-full h-full bg-white overflow-hidden">
               <iframe
                 src={`${CVPDF}#toolbar=0&navpanes=0&scrollbar=1`}
                 title="Curriculum Vitae Preview"
