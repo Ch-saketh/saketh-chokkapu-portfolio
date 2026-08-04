@@ -140,10 +140,10 @@ Building systems  | Smooth UX | Efficient architecture            </motion.p>
                   }
                   setIsCvOpen(true);
                 }}
-                className="px-10 py-4 border border-neutral-400 rounded-full hover:bg-neutral-200 transition text-center flex items-center justify-center gap-2 hover:cursor-pointer group"
+                className="px-10 py-4 border border-neutral-400 rounded-full hover:bg-black hover:text-white hover:border-black active:bg-black active:text-white active:border-black transition-all duration-300 text-center flex items-center justify-center gap-2 hover:cursor-pointer group"
               >
-                <Eye className="w-4 h-4 text-neutral-600 group-hover:text-black transition-colors" />
-                <span>View CV</span>
+                <Eye className="w-4 h-4 text-neutral-700 group-hover:text-white transition-colors" />
+                <span className="font-medium">View CV</span>
               </motion.button>
             </motion.div>
 
