@@ -147,7 +147,7 @@ export const CVModal: React.FC<CVModalProps> = ({
                 link.rel = "noopener noreferrer";
               }
               link.className =
-                "absolute cursor-pointer rounded hover:bg-[#007AFF]/10 transition-colors";
+                "absolute cursor-pointer rounded hover:bg-blue-500/15 transition-colors";
 
               // Convert PDF bounding box [x1, y1, x2, y2] to CSS coordinates
               const rect = displayViewport.convertToViewportRectangle(annot.rect);
@@ -186,13 +186,13 @@ export const CVModal: React.FC<CVModalProps> = ({
     };
   }, [isOpen]);
 
-  // World-Class Apple Spatial Spring Modal Animation
+  // Premium Apple Spatial Pop-Up Animation Variants
   const modalVariants: Variants = {
     hidden: {
       opacity: 0,
-      scale: 0.95,
-      y: 12,
-      filter: "blur(8px)",
+      scale: 0.94,
+      y: 16,
+      filter: "blur(6px)",
     },
     visible: {
       opacity: 1,
@@ -201,18 +201,18 @@ export const CVModal: React.FC<CVModalProps> = ({
       filter: "blur(0px)",
       transition: {
         type: "spring",
-        stiffness: 400,
-        damping: 30,
+        stiffness: 380,
+        damping: 28,
         mass: 0.6,
       },
     },
     exit: {
       opacity: 0,
-      scale: 0.97,
-      y: 8,
+      scale: 0.96,
+      y: 12,
       filter: "blur(4px)",
       transition: {
-        duration: 0.18,
+        duration: 0.2,
         ease: [0.32, 0, 0.67, 0],
       },
     },
@@ -223,56 +223,41 @@ export const CVModal: React.FC<CVModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 md:p-10">
-          {/* Subtle Ambient Backdrop Overlay */}
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-5 md:p-8">
+          {/* Clean Backdrop Overlay */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-200"
+            className="absolute inset-0 bg-black/35 backdrop-blur-xs transition-opacity duration-200"
           />
 
-          {/* ================= APPLE DESIGNED TAHOE WINDOW ================= */}
+          {/* ================= 100% PURE WHITE macOS WINDOW ================= */}
           <motion.div
             ref={modalRef}
             variants={modalVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="
-              relative z-10 flex flex-col w-full max-w-5xl h-[88vh] sm:h-[86vh] 
-              rounded-[28px] bg-white text-neutral-900 
-              border border-black/[0.08] 
-              shadow-[0_32px_96px_rgba(0,0,0,0.16),0_8px_24px_rgba(0,0,0,0.06)] 
-              overflow-hidden transition-all duration-300 font-sans antialiased
-            "
+            className="relative z-10 flex flex-col w-full max-w-5xl h-[88vh] sm:h-[86vh] rounded-[26px] bg-white text-neutral-900 border border-neutral-200/80 shadow-[0_25px_80px_rgba(0,0,0,0.18)] overflow-hidden transition-all duration-300 font-sans"
           >
-            {/* ================= APPLE HIG COMPACT HEADER (52px) ================= */}
-            <div className="flex items-center justify-between px-4 sm:px-6 h-[52px] bg-white/95 backdrop-blur-md border-b border-neutral-100 select-none shrink-0 gap-3">
-              {/* Apple Circular Close Button on Left */}
+            {/* ================= THIN NEAT WHITE HEADER ================= */}
+            <div className="flex items-center justify-between px-4 sm:px-5 py-3 bg-white border-b border-neutral-100 select-none shrink-0 gap-2">
+              {/* Single Sleek White Close (X) Button on Far Left */}
               <button
                 onClick={onClose}
                 title="Close (Esc)"
-                className="
-                  w-8 h-8 rounded-full bg-neutral-100/80 hover:bg-neutral-200/90 
-                  text-neutral-600 hover:text-black transition-all duration-200 
-                  flex items-center justify-center cursor-pointer active:scale-95 shrink-0
-                "
+                className="w-7 h-7 rounded-full bg-neutral-100/90 hover:bg-white text-neutral-600 hover:text-black border border-neutral-200/80 shadow-2xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer active:scale-90 shrink-0"
               >
                 <X className="w-4 h-4 stroke-[2.2]" />
               </button>
 
-              {/* Document Title Badge */}
+              {/* Document Title */}
               <div className="flex items-center gap-2 truncate">
-                <div className="w-6 h-6 rounded-md bg-[#007AFF]/10 flex items-center justify-center shrink-0">
-                  <FileText className="w-3.5 h-3.5 text-[#007AFF]" />
-                </div>
-                <span className="text-xs sm:text-sm font-semibold tracking-tight text-neutral-900 truncate">
+                <FileText className="w-4 h-4 text-[#007AFF] shrink-0" />
+                <span className="text-xs sm:text-sm font-semibold tracking-tight text-neutral-800 truncate">
                   Saketh Chokkapu — Curriculum Vitae.pdf
-                </span>
-                <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-medium tracking-wide text-neutral-500 bg-neutral-100 rounded-full">
-                  PDF
                 </span>
               </div>
 
@@ -283,12 +268,12 @@ export const CVModal: React.FC<CVModalProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   title="Open in new tab"
-                  className="w-8 h-8 rounded-full hover:bg-neutral-100 text-neutral-500 hover:text-black transition flex items-center justify-center cursor-pointer hidden md:flex"
+                  className="text-neutral-500 hover:text-black transition cursor-pointer hidden md:block"
                 >
                   <ExternalLink className="w-4 h-4" />
                 </a>
 
-                {/* Pure Black Apple Capsule Download Button */}
+                {/* Pure Black Capsule Block Download CV Button */}
                 <a
                   href={CVPDF}
                   download="Saketh_Chokkapu_CV.pdf"
@@ -296,7 +281,7 @@ export const CVModal: React.FC<CVModalProps> = ({
                     flex items-center gap-2 px-4 sm:px-5 py-2 
                     bg-black hover:bg-neutral-800 active:bg-neutral-900 
                     text-white text-xs font-semibold rounded-full 
-                    transition-all shadow-xs active:scale-95 cursor-pointer shrink-0
+                    transition-all shadow-sm active:scale-95 cursor-pointer shrink-0
                   "
                 >
                   <Download className="w-3.5 h-3.5" />
@@ -311,9 +296,9 @@ export const CVModal: React.FC<CVModalProps> = ({
               className="relative flex-1 w-full h-full bg-white overflow-y-auto overflow-x-hidden p-0 m-0 flex flex-col items-center justify-start"
             >
               {isLoading && (
-                <div className="flex flex-col items-center justify-center py-24 text-neutral-400 gap-3">
-                  <Loader2 className="w-6 h-6 animate-spin text-neutral-800" />
-                  <span className="text-xs font-medium tracking-tight text-neutral-500">Opening Document...</span>
+                <div className="flex flex-col items-center justify-center py-20 text-neutral-500 gap-3">
+                  <Loader2 className="w-6 h-6 animate-spin text-black" />
+                  <span className="text-xs font-medium">Loading Document...</span>
                 </div>
               )}
 
