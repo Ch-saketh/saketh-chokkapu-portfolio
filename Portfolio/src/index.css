@@ -143,17 +143,32 @@ html.dark section {
   color: #F8FAFC !important;
 }
 
-/* Custom Scrollbar for Dark Theme */
-::-webkit-scrollbar {
-  width: 8px;
+/* ── Scrollbar: Dark Mode ── */
+html.dark ::-webkit-scrollbar {
+  width: 6px;
 }
-::-webkit-scrollbar-track {
+html.dark ::-webkit-scrollbar-track {
   background: #0B0F17;
 }
-::-webkit-scrollbar-thumb {
+html.dark ::-webkit-scrollbar-thumb {
   background: #1E293B;
   border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover {
+html.dark ::-webkit-scrollbar-thumb:hover {
   background: #00FF66;
+}
+
+/* ── Scrollbar: Light Mode ── */
+html.light ::-webkit-scrollbar {
+  width: 6px;
+}
+html.light ::-webkit-scrollbar-track {
+  background: #F6F5F2;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #D4D4D0;
+  border-radius: 4px;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #999999;
 }

@@ -309,6 +309,7 @@ export const CVModal: React.FC<CVModalProps> = ({
             <div
               ref={containerRef}
               className="relative flex-1 w-full h-full bg-white overflow-y-auto overflow-x-hidden p-0 m-0 flex flex-col items-center justify-start"
+              style={{ scrollbarWidth: 'none' }}
             >
               {isLoading && (
                 <div className="flex flex-col items-center justify-center py-20 text-neutral-500 gap-3">
