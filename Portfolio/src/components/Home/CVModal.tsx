@@ -3,9 +3,6 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import {
   Download,
   X,
-  Minus,
-  Maximize2,
-  Minimize2,
   ExternalLink,
   FileText,
   Loader2,
@@ -29,8 +26,6 @@ export const CVModal: React.FC<CVModalProps> = ({
   onClose,
   originRect: _originRect,
 }) => {
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -52,7 +47,7 @@ export const CVModal: React.FC<CVModalProps> = ({
 
   // Lock body scroll when open
   useEffect(() => {
-    if (isOpen && !isMinimized) {
+    if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
@@ -60,7 +55,7 @@ export const CVModal: React.FC<CVModalProps> = ({
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [isOpen, isMinimized]);
+  }, [isOpen]);
 
   // Render original PDF onto pure white HTML canvas edge-to-edge with ZERO GAPS
   useEffect(() => {
@@ -245,58 +240,18 @@ export const CVModal: React.FC<CVModalProps> = ({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className={`
-              relative z-10 flex flex-col w-full bg-white text-neutral-900 
-              border border-neutral-200/80 shadow-[0_25px_80px_rgba(0,0,0,0.18)] 
-              overflow-hidden transition-all duration-300 font-sans
-              ${
-                isFullscreen
-                  ? "w-screen h-screen rounded-none border-none p-0"
-                  : "max-w-5xl h-[88vh] sm:h-[86vh] rounded-[26px]"
-              }
-            `}
+            className="relative z-10 flex flex-col w-full max-w-5xl h-[88vh] sm:h-[86vh] rounded-[26px] bg-white text-neutral-900 border border-neutral-200/80 shadow-[0_25px_80px_rgba(0,0,0,0.18)] overflow-hidden transition-all duration-300 font-sans"
           >
             {/* ================= THIN NEAT WHITE HEADER ================= */}
             <div className="flex items-center justify-between px-4 sm:px-5 py-3 bg-white border-b border-neutral-100 select-none shrink-0 gap-2">
-              {/* Traffic Light Control Buttons */}
-              <div className="flex items-center gap-2">
-                {/* Red: Close */}
-                <button
-                  onClick={onClose}
-                  title="Close (Esc)"
-                  className="w-3.5 h-3.5 rounded-full bg-[#FF5F56] border border-[#E0443E]/60 flex items-center justify-center group cursor-pointer"
-                >
-                  <X className="w-2.5 h-2.5 text-neutral-950 opacity-0 group-hover:opacity-100 transition-opacity stroke-[3]" />
-                </button>
-
-                {/* Yellow: Minimize */}
-                <button
-                  onClick={() => {
-                    setIsMinimized(true);
-                    setTimeout(() => {
-                      onClose();
-                      setIsMinimized(false);
-                    }, 400);
-                  }}
-                  title="Minimize"
-                  className="w-3.5 h-3.5 rounded-full bg-[#FFBD2E] border border-[#DEA123]/60 flex items-center justify-center group cursor-pointer"
-                >
-                  <Minus className="w-2.5 h-2.5 text-neutral-950 opacity-0 group-hover:opacity-100 transition-opacity stroke-[3]" />
-                </button>
-
-                {/* Green: Fullscreen */}
-                <button
-                  onClick={() => setIsFullscreen(!isFullscreen)}
-                  title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
-                  className="w-3.5 h-3.5 rounded-full bg-[#27C93F] border border-[#1AAB29]/60 flex items-center justify-center group cursor-pointer"
-                >
-                  {isFullscreen ? (
-                    <Minimize2 className="w-2.5 h-2.5 text-neutral-950 opacity-0 group-hover:opacity-100 transition-opacity stroke-[3]" />
-                  ) : (
-                    <Maximize2 className="w-2.5 h-2.5 text-neutral-950 opacity-0 group-hover:opacity-100 transition-opacity stroke-[3]" />
-                  )}
-                </button>
-              </div>
+              {/* Single Sleek White Close (X) Button on Far Left */}
+              <button
+                onClick={onClose}
+                title="Close (Esc)"
+                className="w-7 h-7 rounded-full bg-neutral-100/90 hover:bg-white text-neutral-600 hover:text-black border border-neutral-200/80 shadow-2xs hover:shadow-md transition-all duration-200 flex items-center justify-center cursor-pointer active:scale-90 shrink-0"
+              >
+                <X className="w-4 h-4 stroke-[2.2]" />
+              </button>
 
               {/* Document Title */}
               <div className="flex items-center gap-2 truncate">
