@@ -217,9 +217,9 @@ export const CVModal: React.FC<CVModalProps> = ({
             </div>
 
             {/* ================= PDF VIEWING AREA ================= */}
-            <div className="relative flex-1 w-full h-full bg-white overflow-hidden">
+            <div className="relative flex-1 w-full h-full bg-white overflow-hidden flex items-center justify-center">
               <iframe
-                src={`${CVPDF}#toolbar=0&navpanes=0&scrollbar=1`}
+                src={`${CVPDF}#view=FitH&toolbar=0&navpanes=0&scrollbar=1`}
                 title="Curriculum Vitae Preview"
                 className="w-full h-full border-none bg-white"
               />
