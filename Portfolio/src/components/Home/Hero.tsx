@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Eye } from "lucide-react";
 import YourImg from "/assets/yourimage.png";
-import CVPDF from "/assets/sample-cv.pdf";
 import { handleMailClick, SocialLink } from "../../utils/constants";
 import {
   staggerContainerSlow,
@@ -11,10 +10,14 @@ import {
   scaleReveal,
   hoverScale,
 } from "../../utils/animations";
+import CVModal from "./CVModal";
 
 /* ===================== COMPONENT ===================== */
 
 const Hero: React.FC = () => {
+  const [isCvOpen, setIsCvOpen] = useState(false);
+  const [originRect, setOriginRect] = useState<DOMRect | null>(null);
+  const viewCvBtnRef = useRef<HTMLButtonElement>(null);
   const socials: SocialLink[] = [
     { href: "https://github.com/Ch-saketh", icon: <Github /> },
     { href: "https://www.linkedin.com/in/saketh-chokkapu-3a668a2b9", icon: <Linkedin /> },
@@ -127,15 +130,21 @@ Building systems  | Smooth UX | Efficient architecture            </motion.p>
                 Let’s collaborate
               </motion.button>
 
-              <motion.a
+              <motion.button
+                ref={viewCvBtnRef}
                 whileHover={hoverScale}
                 whileTap={{ scale: 0.98 }}
-                href={CVPDF}
-                download
-                className="px-10 py-4 border border-neutral-400 rounded-full hover:bg-neutral-200 transition text-center"
+                onClick={() => {
+                  if (viewCvBtnRef.current) {
+                    setOriginRect(viewCvBtnRef.current.getBoundingClientRect());
+                  }
+                  setIsCvOpen(true);
+                }}
+                className="px-10 py-4 border border-neutral-400 rounded-full hover:bg-neutral-200 transition text-center flex items-center justify-center gap-2 hover:cursor-pointer group"
               >
-                Download CV
-              </motion.a>
+                <Eye className="w-4 h-4 text-neutral-600 group-hover:text-black transition-colors" />
+                <span>View CV</span>
+              </motion.button>
             </motion.div>
 
             <motion.div
@@ -198,6 +207,13 @@ Building systems  | Smooth UX | Efficient architecture            </motion.p>
           </motion.div>
         </div>
       </div>
+
+      {/* macOS Genie CV Modal */}
+      <CVModal
+        isOpen={isCvOpen}
+        onClose={() => setIsCvOpen(false)}
+        originRect={originRect}
+      />
     </section>
   );
 };
