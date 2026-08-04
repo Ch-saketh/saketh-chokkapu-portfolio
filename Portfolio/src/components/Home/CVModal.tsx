@@ -180,10 +180,10 @@ export const CVModal: React.FC<CVModalProps> = ({
               </div>
 
               {/* Document Title */}
-              <div className="flex items-center gap-2 truncate">
+              <div className="flex items-center gap-2.5 truncate">
                 <FileText className="w-4 h-4 text-[#007AFF] shrink-0" />
                 <span className="text-sm font-medium tracking-tight text-neutral-200 truncate">
-                  Saketh_Chokkapu_CV.pdf
+                  Saketh Chokkapu — Curriculum Vitae.pdf
                 </span>
               </div>
 
