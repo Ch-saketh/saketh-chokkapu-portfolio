@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Github, Linkedin, Mail } from "lucide-react";
-import { SocialLink } from "../../utils/constants";
+import { GMAIL_URL, handleMailClick, SocialLink } from "../../utils/constants";
 import { motion, Variants } from "framer-motion";
 import { EASE_PREMIUM } from "../../utils/animations";
 import StaggeredMenu from "./StaggeredMenu";
@@ -75,7 +75,7 @@ const Navbar: React.FC = () => {
   const socials: SocialLink[] = [
     { href: "https://github.com/Ch-saketh", icon: <Github className="w-5 h-5" /> },
     { href: "https://www.linkedin.com/in/saketh-chokkapu-3a668a2b9", icon: <Linkedin className="w-5 h-5" /> },
-    { href: "mailto:chokkapusaketh@gmail.com", icon: <Mail className="w-5 h-5" /> },
+    { href: GMAIL_URL, icon: <Mail className="w-5 h-5" /> },
   ];
 
   const menuItems = links.map((item) => ({
@@ -87,7 +87,7 @@ const Navbar: React.FC = () => {
   const staggeredSocials = [
     { label: "GitHub", link: "https://github.com/Ch-saketh" },
     { label: "LinkedIn", link: "https://www.linkedin.com/in/saketh-chokkapu-3a668a2b9" },
-    { label: "Email", link: "mailto:chokkapusaketh@gmail.com" },
+    { label: "Email", link: GMAIL_URL },
   ];
 
   /* Desktop navbar width logic */
@@ -222,8 +222,9 @@ const Navbar: React.FC = () => {
                   initial="hidden"
                   animate="visible"
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={(e) => href.startsWith("mailto:") && handleMailClick(e)}
+                  target={href.startsWith("mailto:") ? "_self" : "_blank"}
+                  rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                   className={
                     theme === "light"
                       ? "flex items-center justify-center text-neutral-600 hover:text-black transition-colors duration-200"

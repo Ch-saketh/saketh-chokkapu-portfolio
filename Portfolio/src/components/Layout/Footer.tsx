@@ -6,7 +6,7 @@ import {
   MessageCircle,
   Terminal,
 } from "lucide-react";
-import { handleMailClick } from "../../utils/constants";
+import { GMAIL_URL } from "../../utils/constants";
 
 /* ===================== COMPONENT ===================== */
 
@@ -73,8 +73,9 @@ const Footer: React.FC = () => {
             </h4>
             <div className="flex flex-col gap-2.5 text-neutral-300 font-sans">
               <a
-                href="mailto:chokkapusaketh@gmail.com"
-                onClick={(e) => handleMailClick(e)}
+                href={GMAIL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="
                   flex items-center gap-2.5
                   text-neutral-300

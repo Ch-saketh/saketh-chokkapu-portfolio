@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Eye } from "lucide-react";
 import YourImg from "/assets/yourimage.png";
-import { handleMailClick, SocialLink } from "../../utils/constants";
+import { GMAIL_URL, SocialLink } from "../../utils/constants";
 import {
   staggerContainerSlow,
   fadeUp,
@@ -20,7 +20,7 @@ const LightHero: React.FC = () => {
   const socials: SocialLink[] = [
     { href: "https://github.com/Ch-saketh", icon: <Github className="w-5 h-5" /> },
     { href: "https://www.linkedin.com/in/saketh-chokkapu-3a668a2b9", icon: <Linkedin className="w-5 h-5" /> },
-    { href: "mailto:chokkapusaketh@gmail.com", icon: <Mail className="w-5 h-5" /> },
+    { href: GMAIL_URL, icon: <Mail className="w-5 h-5" /> },
   ];
 
   return (
@@ -119,10 +119,11 @@ const LightHero: React.FC = () => {
               className="flex justify-start items-center gap-5 sm:gap-6"
             >
               {socials.map(({ href, icon }, i) => (
-                <a key={i} href={href}
-                  onClick={(e) => href.startsWith("mailto:") && handleMailClick(e)}
-                  target={href.startsWith("mailto:") ? "_self" : "_blank"}
-                  rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                <a
+                  key={i}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-neutral-500 hover:text-black transition-colors p-1"
                 >
                   {icon}

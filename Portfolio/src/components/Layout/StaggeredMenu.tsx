@@ -1,6 +1,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import "./StaggeredMenu.css";
+import { handleMailClick } from "../../utils/constants";
 
 export interface StaggeredMenuItem {
   label: string;
@@ -655,9 +656,14 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     <li key={s.label + i} className="sm-socials-item">
                       <a
                         href={s.link}
-                        onClick={toggleMenu}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        onClick={(e) => {
+                          if (s.link.startsWith("mailto:")) {
+                            handleMailClick(e);
+                          }
+                          toggleMenu();
+                        }}
+                        target={s.link.startsWith("mailto:") ? "_self" : "_blank"}
+                        rel={s.link.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                         className={`sm-socials-link text-[1.2rem] font-medium no-underline relative inline-block py-[2px] transition-colors duration-300 ${
                           theme === "light"
                             ? "text-[#222222] hover:text-black"

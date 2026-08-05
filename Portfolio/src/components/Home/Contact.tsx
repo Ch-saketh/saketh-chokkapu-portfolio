@@ -5,8 +5,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import React from "react";
-import { motion } from "framer-motion";
-import { handleMailClick } from "../../utils/constants";
+import { GMAIL_URL, handleMailClick } from "../../utils/constants";
 
 /* =======================
    TYPES & DATA
@@ -18,7 +17,7 @@ interface SocialLinkItem {
   action: string;
   icon: React.ReactNode;
   href: string;
-  isPrimary: boolean;
+  isPrimary?: boolean;
 }
 
 const Contact: React.FC = () => {
@@ -44,7 +43,7 @@ const Contact: React.FC = () => {
       handle: "Detailed inquiries",
       action: "Send Mail",
       icon: <Mail className="w-5 h-5 text-[#00FF66]" />,
-      href: "mailto:chokkapusaketh@gmail.com",
+      href: GMAIL_URL,
       isPrimary: false,
     },
   ];
@@ -58,82 +57,52 @@ const Contact: React.FC = () => {
         <div className="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
           {/* ================= LEFT — EDITORIAL ================= */}
           <div className="flex flex-col justify-center">
-            <h2 className="font-funnel max-w-xl text-[clamp(3.5rem,8vw,6rem)] font-extrabold leading-[1] tracking-tight text-white">
-              Let’s create
-              <br />
-              something
-              <span className="mt-2 block font-light text-[#00FF66]">
-                meaningful
-              </span>
+            <h2 className="font-funnel font-extrabold text-[clamp(2.8rem,7vw,4.5rem)] leading-[1.05] tracking-tight text-white mb-6">
+              Let’s build something <br />
+              <span className="text-[#00FF66]">exceptional</span>.
             </h2>
-
-            <p className="mt-6 max-w-lg text-lg sm:text-xl text-neutral-300 leading-relaxed font-sans">
-              Whether it’s a product, startup idea, or a complex engineering challenge — I’m always open to thoughtful conversations.
+            <p className="text-[#00FF66] text-lg sm:text-xl font-medium tracking-tight mb-4 font-sans">
+              Currently open for full-stack engineering roles, freelance opportunities, and collaborative technical projects.
             </p>
-
-            <p className="mt-6 text-sm font-mono tracking-wide text-[#00FF66]">
-              Expect a reply within 24 hours.
+            <p className="text-neutral-300 text-base sm:text-lg leading-relaxed font-sans max-w-xl">
+              Whether you need scalable web systems, clean API integrations, database optimization, or custom software solutions — let’s connect.
             </p>
           </div>
 
-          {/* ================= RIGHT — SOCIAL CARDS ================= */}
-          <div className="relative">
-            <div className="relative rounded-3xl border border-[#1E293B] p-6 sm:p-8 space-y-4 bg-[#0B0F17]/80 backdrop-blur-md flex flex-col justify-center h-full">
-              {socialLinks.map((link) => (
-                <motion.a
-                  key={link.platform}
-                  href={link.href}
-                  onClick={(e) => link.platform === "Email" && handleMailClick(e)}
-                  target={link.platform === "Email" ? "_self" : "_blank"}
-                  rel={link.platform === "Email" ? undefined : "noopener noreferrer"}
-                  whileHover={{
-                    scale: 1.03,
-                    rotate: [0, -1, 1, -0.5, 0],
-                    transition: { duration: 0.2 },
-                  }}
-                  whileTap={{ scale: 0.97 }}
-                  className="group relative flex items-center justify-between
-                           w-full rounded-2xl border border-[#1E293B] px-6 py-5
-                           bg-[#131924]/60 text-white transition-all duration-300
-                           hover:bg-[#00FF66] hover:text-black hover:border-[#00FF66] hover:shadow-[0_0_25px_rgba(0,255,102,0.25)] cursor-pointer"
-                >
-                  <div className="flex items-center gap-5">
-                    <span className="p-2.5 rounded-xl bg-[#0B0F17] border border-[#1E293B] group-hover:border-black/20 text-[#00FF66] group-hover:text-black transition-colors">
-                      {link.icon}
-                    </span>
-                    <div>
-                      <h3 className="text-lg font-bold leading-tight group-hover:text-black transition-colors">
-                        {link.platform}
-                      </h3>
-                      <p className="text-sm text-neutral-400 group-hover:text-black/80 font-sans">
-                        {link.handle}
-                      </p>
-                    </div>
+          {/* ================= RIGHT — DIRECT CHANNELS ================= */}
+          <div className="flex flex-col gap-4">
+            {socialLinks.map((link, idx) => (
+              <a
+                key={idx}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => link.platform === "Email" && handleMailClick(e)}
+                className={`group flex items-center justify-between p-5 sm:p-6 rounded-2xl border transition-all duration-300 ${
+                  link.isPrimary
+                    ? "bg-[#00FF66]/10 border-[#00FF66]/40 hover:border-[#00FF66] hover:bg-[#00FF66]/20"
+                    : "bg-[#0B0F17]/60 border-neutral-800 hover:border-[#00FF66]/50 hover:bg-[#131924]"
+                }`}
+              >
+                <div className="flex items-center gap-4 sm:gap-5">
+                  <div className="p-3 rounded-xl bg-[#0B0F17] border border-neutral-800 group-hover:border-[#00FF66]/40 transition-colors">
+                    {link.icon}
                   </div>
-
-                  <div className="flex items-center gap-3">
-                    {link.isPrimary && (
-                      <span
-                        className="hidden sm:flex px-3 py-1 text-[10px] uppercase tracking-wider
-                                     font-bold rounded-full bg-[#00FF66]/20 text-[#00FF66] border border-[#00FF66]/40
-                                     group-hover:bg-black group-hover:text-[#00FF66] group-hover:border-transparent transition-colors"
-                      >
-                        {link.action}
-                      </span>
-                    )}
-                    <ArrowUpRight className="w-5 h-5 text-neutral-400 group-hover:text-black group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+                  <div>
+                    <h3 className="font-funnel font-bold text-lg sm:text-xl text-white group-hover:text-[#00FF66] transition-colors">
+                      {link.platform}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-neutral-400 font-sans">
+                      {link.handle}
+                    </p>
                   </div>
-
-                  {/* Mobile Pulse for Primary */}
-                  {link.isPrimary && (
-                    <span className="absolute top-3 right-3 flex h-2 w-2 sm:hidden">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00FF66] opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00FF66]"></span>
-                    </span>
-                  )}
-                </motion.a>
-              ))}
-            </div>
+                </div>
+                <div className="flex items-center gap-2 text-xs sm:text-sm font-mono text-[#00FF66] font-medium">
+                  <span>{link.action}</span>
+                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </div>

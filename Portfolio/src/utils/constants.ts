@@ -1,5 +1,7 @@
 import React from "react";
 
+export const GMAIL_URL = "https://mail.google.com/mail/?view=cm&fs=1&to=chokkapusaketh@gmail.com";
+
 export type SocialLink = {
   href: string;
   icon: React.ReactNode;
@@ -42,7 +44,6 @@ export interface GameItem {
   status: "completed" | "in-progress" | "Hackathon-Winner";
 }
 
-
 export type serviceItem = {
   icon: string;
   title: string;
@@ -58,24 +59,13 @@ export type contactMessage = {
 };
 
 export const handleMailClick = (
-  e: React.MouseEvent<HTMLAnchorElement>,
+  e?: React.MouseEvent<HTMLAnchorElement>,
   email = "chokkapusaketh@gmail.com"
 ) => {
-  e.preventDefault();
-
-  const isMobile =
-    typeof navigator !== "undefined" &&
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
-
-  if (isMobile) {
-    window.location.href = `mailto:${email}`;
-  } else {
-    window.open(
-      `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`,
-      "_blank",
-      "noopener,noreferrer"
-    );
-  }
+  if (e) e.preventDefault();
+  window.open(
+    `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`,
+    "_blank",
+    "noopener,noreferrer"
+  );
 };
