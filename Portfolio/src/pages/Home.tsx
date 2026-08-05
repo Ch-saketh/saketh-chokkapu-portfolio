@@ -13,6 +13,7 @@ import LightServices from "../components/Light/LightServices";
 import LightProjects from "../components/Light/LightProjects";
 import LightSkills from "../components/Light/LightSkills";
 import LightContact from "../components/Light/LightContact";
+import LightMLModels from "../components/Light/LightMLModels";
 
 import { projectItem } from "../utils/constants";
 import { useTheme } from "../context/ThemeContext";
@@ -73,6 +74,7 @@ const Home: React.FC = () => {
       <div>
         <LightHero />
         <LightProjects projects={projects} />
+        <LightMLModels />
         <LightSkills />
         <LightAbout />
         <LightServices />
