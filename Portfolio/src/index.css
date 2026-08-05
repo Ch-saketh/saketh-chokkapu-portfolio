@@ -22,7 +22,27 @@ html, body, #root {
   -moz-osx-font-smoothing: grayscale;
   background-color: #F6F5F2 !important;
   color: #222222 !important;
+  /* Safari: prevent text size adjustment on orientation change */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
+
+/* Safari: remove tap highlight on interactive elements */
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+/* Safari: ensure min-h-screen uses correct viewport height */
+.min-h-screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+.h-screen {
+  height: 100vh;
+  height: 100dvh;
+}
+
 
 /* ========================================================
    LIGHT MODE — ORIGINAL BLACK & WHITE DESIGN

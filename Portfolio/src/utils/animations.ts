@@ -4,17 +4,14 @@ import { Variants } from "framer-motion";
    CONSTANTS
    ========================================= */
 
-// Premium, editorial-style easing
-// [0.22, 1, 0.36, 1] is a classic "easeOutExpo" variation that feels very premium
-export const EASE_PREMIUM: [number, number, number, number] = [
-  0.22, 1, 0.36, 1,
-];
+// Premium, editorial easing
+export const EASE_PREMIUM: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-// Slower, more deliberate standard duration
-export const DURATION_FAST = 0.6;
-export const DURATION_MEDIUM = 0.9;
-export const DURATION_SLOW = 1.2;
-export const DURATION_VERY_SLOW = 1.5;
+// Tightened durations — fast but still premium feel
+export const DURATION_FAST   = 0.35;
+export const DURATION_MEDIUM = 0.55;
+export const DURATION_SLOW   = 0.75;
+export const DURATION_VERY_SLOW = 1.0;
 
 export const TRANSITION_DEFAULT = {
   duration: DURATION_MEDIUM,
@@ -27,45 +24,42 @@ export const TRANSITION_DEFAULT = {
 
 /**
  * Standard container stagger
- * Use this on parent elements (sections, lists)
  */
 export const staggerContainer: Variants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
+      staggerChildren: 0.08,
+      delayChildren: 0.05,
     },
   },
 };
 
 /**
- * Slower stagger for hero/intro sections
+ * Hero stagger — slightly slower than standard but NOT blocking
  */
 export const staggerContainerSlow: Variants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.4,
+      staggerChildren: 0.09,
+      delayChildren: 0.08,
     },
   },
 };
 
 /**
- * Standard fade up reveal
- * Low Y-offset, clean opacity fade
+ * Standard fade up — NO blur (blur is GPU-expensive, causes lag)
+ * Uses only transform + opacity (compositor-only, 60fps on any device)
  */
 export const fadeUp: Variants = {
   hidden: {
     opacity: 0,
-    y: 20, // Reduced from typical 40-50px for subtlety
-    filter: "blur(4px)",
+    y: 18,
   },
   show: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: {
       duration: DURATION_MEDIUM,
       ease: EASE_PREMIUM,
@@ -74,18 +68,16 @@ export const fadeUp: Variants = {
 };
 
 /**
- * Slower fade up for headings or hero elements
+ * Slower fade up for headings — NO blur
  */
 export const fadeUpSlow: Variants = {
   hidden: {
     opacity: 0,
-    y: 30,
-    filter: "blur(8px)",
+    y: 24,
   },
   show: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: {
       duration: DURATION_SLOW,
       ease: EASE_PREMIUM,
@@ -94,18 +86,16 @@ export const fadeUpSlow: Variants = {
 };
 
 /**
- * Subtle scale reveal (for images, cards)
+ * Scale reveal for images/cards — NO blur
  */
 export const scaleReveal: Variants = {
   hidden: {
     opacity: 0,
-    scale: 0.96, // Very subtle scale from 0.96
-    filter: "blur(4px)",
+    scale: 0.97,
   },
   show: {
     opacity: 1,
     scale: 1,
-    filter: "blur(0px)",
     transition: {
       duration: DURATION_SLOW,
       ease: EASE_PREMIUM,
@@ -114,7 +104,7 @@ export const scaleReveal: Variants = {
 };
 
 /**
- * Line separator reveal (width 0 -> 100%)
+ * Line separator reveal
  */
 export const lineReveal: Variants = {
   hidden: {
@@ -133,14 +123,14 @@ export const lineReveal: Variants = {
 };
 
 /**
- * Hover Animations (Use inline whileHover or these variants)
+ * Hover Animations
  */
 export const hoverScale = {
   scale: 1.02,
-  transition: { duration: 0.4, ease: EASE_PREMIUM },
+  transition: { duration: 0.25, ease: EASE_PREMIUM },
 };
 
 export const hoverFade = {
   opacity: 0.7,
-  transition: { duration: 0.3, ease: EASE_PREMIUM },
+  transition: { duration: 0.2, ease: EASE_PREMIUM },
 };
