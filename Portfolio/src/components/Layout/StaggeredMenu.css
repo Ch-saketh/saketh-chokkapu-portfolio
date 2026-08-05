@@ -219,3 +219,29 @@
     filter: invert(100%);
   }
 }
+
+/* ========================================================
+   THEME OVERRIDES FOR MOBILE NAV TOGGLE & ICON
+   ======================================================== */
+html.dark .sm-toggle,
+html.dark .sm-toggle-textWrap,
+html.dark .sm-toggle-textInner,
+html.dark .sm-toggle-line {
+  color: #FFFFFF !important;
+}
+
+html.dark .sm-icon-line {
+  background-color: #FFFFFF !important;
+}
+
+html.light .sm-toggle,
+html.light .sm-toggle-textWrap,
+html.light .sm-toggle-textInner,
+html.light .sm-toggle-line {
+  color: #222222 !important;
+}
+
+html.light .sm-icon-line {
+  background-color: #222222 !important;
+}
+

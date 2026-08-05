@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { Eye } from "lucide-react";
+import { Github, Linkedin, Mail, Eye } from "lucide-react";
 import YourImg from "/assets/yourimage.png";
+import { handleMailClick, SocialLink } from "../../utils/constants";
 import {
   staggerContainerSlow,
   fadeUp,
@@ -16,57 +17,52 @@ const Hero: React.FC = () => {
   const [originRect, setOriginRect] = useState<DOMRect | null>(null);
   const viewCvBtnRef = useRef<HTMLButtonElement>(null);
 
+  const socials: SocialLink[] = [
+    { href: "https://github.com/Ch-saketh", icon: <Github className="w-5 h-5" /> },
+    { href: "https://www.linkedin.com/in/saketh-chokkapu-3a668a2b9", icon: <Linkedin className="w-5 h-5" /> },
+    { href: "mailto:chokkapusaketh@gmail.com", icon: <Mail className="w-5 h-5" /> },
+  ];
+
   return (
-    <section className="relative w-full overflow-hidden bg-[#0B0F17]"
+    <section className="relative w-full overflow-hidden bg-[#0B0F17] text-white"
       style={{ height: '100dvh', minHeight: '100dvh' }}
     >
       {/* Green radial glows */}
       <div className="absolute top-1/4 left-1/6 w-[30vw] h-[30vw] max-w-96 max-h-96 bg-[#00FF66]/8 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[25vw] h-[25vw] max-w-80 max-h-80 bg-[#00FF66]/4 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Mobile portrait ghost — behind text, only on mobile */}
-      <div className="sm:hidden absolute inset-0 pointer-events-none flex items-end justify-end z-0">
-        <img
-          src={YourImg}
-          alt=""
-          aria-hidden="true"
-          fetchPriority="high"
-          className="h-[45%] w-auto object-contain object-bottom opacity-10 grayscale"
-        />
-      </div>
-
       {/* Desktop layout: left text + right portrait */}
       <div className="relative h-full w-full flex items-center">
 
         {/* Left: text content */}
-        <div className="relative z-10 w-full sm:w-[55%] md:w-[52%] lg:w-[50%] xl:w-[48%] h-full flex items-center px-5 sm:px-8 md:px-10 lg:px-12 xl:px-16 pt-20 sm:pt-24 pb-8">
+        <div className="relative z-10 w-full sm:w-[55%] md:w-[52%] lg:w-[50%] xl:w-[48%] h-full flex items-center px-6 sm:px-8 md:px-10 lg:px-12 xl:px-16 pt-20 sm:pt-24 pb-8">
           <motion.div
             variants={staggerContainerSlow}
             initial="hidden"
             animate="show"
-            className="w-full"
+            className="w-full text-left"
           >
             <motion.p variants={fadeUp}
-              className="font-mono text-xs sm:text-sm tracking-widest text-[#00FF66] mb-3 uppercase font-medium text-center sm:text-left"
+              className="font-mono text-xs sm:text-sm tracking-widest text-[#00FF66] mb-3 uppercase font-medium text-left"
             >
               HELLO, I AM
             </motion.p>
 
             <motion.h1 variants={fadeUpSlow}
-              className="font-funnel font-extrabold leading-[0.92] tracking-tight text-[#00FF66] mb-4 md:mb-5 text-center sm:text-left"
-              style={{ fontSize: 'clamp(3.5rem, 10vw, 7.5rem)' }}
+              className="font-funnel font-extrabold leading-[0.92] tracking-tight text-[#00FF66] mb-4 md:mb-5 text-left"
+              style={{ fontSize: 'clamp(3.2rem, 9vw, 7.5rem)' }}
             >
               Saketh
             </motion.h1>
 
             <motion.p variants={fadeUp}
-              className="font-jost text-[0.6rem] sm:text-xs md:text-sm tracking-widest text-[#00FF66]/80 mb-4 md:mb-5 uppercase font-medium text-center sm:text-left"
+              className="font-jost text-[0.65rem] sm:text-xs md:text-sm tracking-widest text-[#00FF66]/80 mb-4 md:mb-5 uppercase font-medium text-left"
             >
               BUILDING SYSTEMS | SMOOTH UX | EFFICIENT ARCHITECTURE
             </motion.p>
 
             <motion.p variants={fadeUp}
-              className="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed mb-5 md:mb-7 font-sans text-center sm:text-left max-w-xs sm:max-w-none mx-auto sm:mx-0"
+              className="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed mb-5 md:mb-7 font-sans text-left"
             >
               I build high-performance, visually stunning web applications and
               digital experiences focused on modern design and scalable architecture.
@@ -74,7 +70,7 @@ const Hero: React.FC = () => {
 
             {/* Stats */}
             <motion.div variants={fadeUp}
-              className="flex justify-center sm:justify-start gap-6 sm:gap-8 md:gap-10 mb-6 md:mb-7 text-center"
+              className="flex justify-start gap-6 sm:gap-8 md:gap-10 mb-6 md:mb-7 text-left"
             >
               {[
                 { val: "10+", label: "Projects" },
@@ -119,10 +115,26 @@ const Hero: React.FC = () => {
                 <span className="font-medium">View CV</span>
               </motion.button>
             </motion.div>
+
+            {/* Socials */}
+            <motion.div variants={fadeUp}
+              className="flex justify-start items-center gap-5 sm:gap-6"
+            >
+              {socials.map(({ href, icon }, i) => (
+                <a key={i} href={href}
+                  onClick={(e) => href.startsWith("mailto:") && handleMailClick(e)}
+                  target={href.startsWith("mailto:") ? "_self" : "_blank"}
+                  rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                  className="text-[#00FF66]/70 hover:text-[#00FF66] transition-colors p-1"
+                >
+                  {icon}
+                </a>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
 
-        {/* Right: portrait image — hidden on mobile (shown as ghost above) */}
+        {/* Right: portrait image — desktop only */}
         <motion.div
           variants={scaleReveal}
           initial="hidden"

@@ -28,49 +28,38 @@ const LightHero: React.FC = () => {
       className="relative w-full overflow-hidden bg-[#F6F5F2] text-[#222222]"
       style={{ height: '100dvh', minHeight: '100dvh' }}
     >
-      {/* Mobile portrait ghost */}
-      <div className="sm:hidden absolute inset-0 pointer-events-none flex items-end justify-end z-0">
-        <img
-          src={YourImg}
-          alt=""
-          aria-hidden="true"
-          fetchPriority="high"
-          className="h-[45%] w-auto object-contain object-bottom opacity-15 grayscale"
-        />
-      </div>
-
       {/* Desktop layout */}
       <div className="relative h-full w-full flex items-center">
 
         {/* Left: text content */}
-        <div className="relative z-10 w-full sm:w-[55%] md:w-[52%] lg:w-[50%] xl:w-[48%] h-full flex items-center px-5 sm:px-8 md:px-10 lg:px-12 xl:px-16 pt-20 sm:pt-24 pb-8">
+        <div className="relative z-10 w-full sm:w-[55%] md:w-[52%] lg:w-[50%] xl:w-[48%] h-full flex items-center px-6 sm:px-8 md:px-10 lg:px-12 xl:px-16 pt-20 sm:pt-24 pb-8">
           <motion.div
             variants={staggerContainerSlow}
             initial="hidden"
             animate="show"
-            className="w-full"
+            className="w-full text-left"
           >
             <motion.p variants={fadeUp}
-              className="font-jost text-xs sm:text-sm tracking-widest text-neutral-500 mb-3 uppercase font-medium text-center sm:text-left"
+              className="font-jost text-xs sm:text-sm tracking-widest text-neutral-500 mb-3 uppercase font-medium text-left"
             >
               HELLO, I AM
             </motion.p>
 
             <motion.h1 variants={fadeUpSlow}
-              className="font-funnel font-extrabold leading-[0.92] tracking-tight text-[#222222] mb-4 md:mb-5 text-center sm:text-left"
-              style={{ fontSize: 'clamp(3.5rem, 10vw, 7.5rem)' }}
+              className="font-funnel font-extrabold leading-[0.92] tracking-tight text-[#222222] mb-4 md:mb-5 text-left"
+              style={{ fontSize: 'clamp(3.2rem, 9vw, 7.5rem)' }}
             >
               Saketh
             </motion.h1>
 
             <motion.p variants={fadeUp}
-              className="font-jost text-[0.6rem] sm:text-xs md:text-sm tracking-widest text-neutral-500 mb-4 md:mb-5 uppercase font-medium text-center sm:text-left"
+              className="font-jost text-[0.65rem] sm:text-xs md:text-sm tracking-widest text-neutral-500 mb-4 md:mb-5 uppercase font-medium text-left"
             >
               BUILDING SYSTEMS | SMOOTH UX | EFFICIENT ARCHITECTURE
             </motion.p>
 
             <motion.p variants={fadeUp}
-              className="text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed mb-5 md:mb-7 text-center sm:text-left max-w-xs sm:max-w-none mx-auto sm:mx-0"
+              className="text-sm sm:text-base md:text-lg text-neutral-600 leading-relaxed mb-5 md:mb-7 font-sans text-left"
             >
               I build high-performance, visually stunning web applications and
               digital experiences focused on modern design and scalable architecture.
@@ -78,7 +67,7 @@ const LightHero: React.FC = () => {
 
             {/* Stats */}
             <motion.div variants={fadeUp}
-              className="flex justify-center sm:justify-start gap-6 sm:gap-8 md:gap-10 mb-6 md:mb-7 text-center"
+              className="flex justify-start gap-6 sm:gap-8 md:gap-10 mb-6 md:mb-7 text-left"
             >
               {[
                 { val: "10+", label: "Projects" },
@@ -89,7 +78,7 @@ const LightHero: React.FC = () => {
                   <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-funnel font-bold leading-none text-[#222222]">
                     {val}
                   </p>
-                  <p className="mt-1 text-[0.55rem] sm:text-[0.6rem] md:text-xs tracking-widest text-neutral-500 uppercase">
+                  <p className="mt-1 text-[0.55rem] sm:text-[0.6rem] md:text-xs tracking-widest text-neutral-500 uppercase font-mono">
                     {label}
                   </p>
                 </div>
@@ -127,7 +116,7 @@ const LightHero: React.FC = () => {
 
             {/* Socials */}
             <motion.div variants={fadeUp}
-              className="flex justify-center sm:justify-start items-center gap-6"
+              className="flex justify-start items-center gap-5 sm:gap-6"
             >
               {socials.map(({ href, icon }, i) => (
                 <a key={i} href={href}
@@ -143,7 +132,7 @@ const LightHero: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Right: portrait — hidden on mobile */}
+        {/* Right: portrait — desktop only */}
         <motion.div
           variants={scaleReveal}
           initial="hidden"

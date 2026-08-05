@@ -485,85 +485,109 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         {/* FLOATING PILL HEADER */}
         <div
           className="
-    fixed top-4 left-1/2 -translate-x-1/2
-    z-50
-    pointer-events-auto w-[90vw]
-  "
+            fixed top-4 left-1/2 -translate-x-1/2
+            z-50
+            pointer-events-auto w-[90vw] max-w-md
+          "
         >
           <div
-            className="
-      flex items-center justify-between gap-6
-      px-5 py-3
-      rounded-full
-      bg-white/10 backdrop-blur-xl
-      border border-white/20
-      shadow-xl
-    "
+            className={`
+              flex items-center justify-between gap-4
+              px-5 py-3
+              rounded-full
+              backdrop-blur-xl shadow-xl transition-all duration-300
+              ${
+                theme === "light"
+                  ? "bg-white/90 border border-neutral-300 text-[#222222]"
+                  : "bg-[#131924]/90 border border-neutral-700/80 text-white"
+              }
+            `}
           >
-            {/* LEFT: NAME */}
-            <span className="text-lg font-jost font-bold">Dev</span>
+            {/* LEFT: NAME LOGO */}
+            <a href="#" className="flex items-center gap-1.5 cursor-pointer">
+              {theme === "light" ? (
+                <span className="text-base font-extrabold tracking-tight font-funnel text-[#222222]">
+                  Saketh.dev
+                </span>
+              ) : (
+                <span className="text-base font-extrabold tracking-tight font-funnel text-white">
+                  Saketh<span style={{ color: '#00FF66' }}>.dev</span>
+                </span>
+              )}
+            </a>
 
-            {/* MIDDLE-RIGHT: THEME TOGGLE */}
-            <div className="flex items-center gap-3 ml-auto mr-3">
+            {/* MIDDLE-RIGHT: THEME TOGGLE & MENU TOGGLE */}
+            <div className="flex items-center gap-3 ml-auto">
               {onThemeToggle && (
                 <button
                   onClick={onThemeToggle}
                   title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                  className="flex items-center justify-center text-foreground opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
+                  className={`flex items-center justify-center transition-colors cursor-pointer p-1 rounded-full ${
+                    theme === "light"
+                      ? "text-neutral-700 hover:text-black"
+                      : "text-white hover:text-[#00FF66]"
+                  }`}
                   type="button"
                 >
                   {theme === "dark" ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <circle cx="12" cy="12" r="4"/>
                       <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
                     </svg>
                   ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
                     </svg>
                   )}
                 </button>
               )}
-            </div>
 
-            {/* RIGHT: MENU BUTTON */}
-            <button
-              ref={toggleBtnRef}
-              className={`sm-toggle text-foreground`}
-              aria-label={open ? "Close menu" : "Open menu"}
-              aria-expanded={open}
-              aria-controls="staggered-menu-panel"
-              onClick={toggleMenu}
-              type="button"
-            >
-              {/* TEXT ANIMATION */}
-              <span
-                ref={textWrapRef}
-                className="sm-toggle-textWrap"
-                aria-hidden="true"
+              {/* RIGHT: MENU TOGGLE BUTTON */}
+              <button
+                ref={toggleBtnRef}
+                className={`sm-toggle font-medium transition-colors ${
+                  theme === "light" ? "text-[#222222]" : "text-white"
+                }`}
+                style={{ color: theme === "light" ? "#222222" : "#FFFFFF" }}
+                aria-label={open ? "Close menu" : "Open menu"}
+                aria-expanded={open}
+                aria-controls="staggered-menu-panel"
+                onClick={toggleMenu}
+                type="button"
               >
-                <span ref={textInnerRef} className="sm-toggle-textInner">
-                  {textLines.map((l, i) => (
-                    <span className="sm-toggle-line" key={i}>
-                      {l}
-                    </span>
-                  ))}
+                {/* TEXT ANIMATION */}
+                <span
+                  ref={textWrapRef}
+                  className="sm-toggle-textWrap"
+                  aria-hidden="true"
+                >
+                  <span ref={textInnerRef} className="sm-toggle-textInner">
+                    {textLines.map((l, i) => (
+                      <span className="sm-toggle-line" key={i}>
+                        {l}
+                      </span>
+                    ))}
+                  </span>
                 </span>
-              </span>
 
-              {/* PLUS ICON */}
-              <span ref={iconRef} className="sm-icon" aria-hidden="true">
-                <span ref={plusHRef} className="sm-icon-line" />
-                <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
-              </span>
-            </button>
+                {/* PLUS ICON */}
+                <span ref={iconRef} className="sm-icon" aria-hidden="true">
+                  <span ref={plusHRef} className="sm-icon-line" style={{ background: theme === "light" ? "#222222" : "#FFFFFF" }} />
+                  <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" style={{ background: theme === "light" ? "#222222" : "#FFFFFF" }} />
+                </span>
+              </button>
+            </div>
           </div>
         </div>
 
         <aside
           id="staggered-menu-panel"
           ref={panelRef}
-          className="staggered-menu-panel absolute top-0 right-0 h-[100dvh] max-h-[100dvh] bg-background flex flex-col p-[6em_2em_2em_2em] overflow-y-auto z-10 backdrop-blur-[12px]"
+          className={`staggered-menu-panel absolute top-0 right-0 h-[100dvh] max-h-[100dvh] flex flex-col p-[6em_2em_2em_2em] overflow-y-auto z-10 backdrop-blur-[12px] transition-colors duration-300 ${
+            theme === "light"
+              ? "bg-[#F6F5F2] text-[#222222]"
+              : "bg-[#0B0F17] text-white"
+          }`}
           style={{
             WebkitBackdropFilter: "blur(12px)",
             pointerEvents: open ? "auto" : "none",
@@ -583,7 +607,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     key={it.label + idx}
                   >
                     <a
-                      className="sm-panel-item relative font-semibold cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline text-[3rem] pr-[1.9em] sm:text-[3.4rem] pr-[1.2em]"
+                      className={`sm-panel-item relative font-semibold cursor-pointer leading-none tracking-[-2px] uppercase transition-colors duration-150 inline-block no-underline text-[3rem] pr-[1.9em] sm:text-[3.4rem] ${
+                        theme === "light"
+                          ? "text-[#222222] hover:text-black"
+                          : "text-white hover:text-[#00FF66]"
+                      }`}
                       href={it.link}
                       onClick={toggleMenu}
                       aria-label={it.ariaLabel}
@@ -600,7 +628,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                   className="sm-panel-itemWrap relative overflow-hidden leading-none"
                   aria-hidden="true"
                 >
-                  <span className="sm-panel-item relative text-black font-semibold text-[4rem] cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline pr-[1.4em]">
+                  <span className="sm-panel-item relative font-semibold text-[4rem] cursor-pointer leading-none tracking-[-2px] uppercase transition-colors duration-150 inline-block no-underline pr-[1.4em]">
                     <span className="sm-panel-itemLabel inline-block [transform-origin:50%_100%] will-change-transform">
                       No items
                     </span>
@@ -614,7 +642,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 className="sm-socials mt-auto pt-8 flex flex-col gap-3"
                 aria-label="Social links"
               >
-                <h3 className="sm-socials-title m-0 text-base font-medium [color:var(--sm-accent,var(--foreground))]">
+                <h3 className={`sm-socials-title m-0 text-base font-medium ${
+                  theme === "light" ? "text-neutral-500" : "text-[#00FF66]"
+                }`}>
                   Socials
                 </h3>
                 <ul
@@ -628,7 +658,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                         onClick={toggleMenu}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="sm-socials-link text-[1.2rem] font-medium text-[#111] no-underline relative inline-block py-[2px] transition-[color,opacity] duration-300 ease-linear"
+                        className={`sm-socials-link text-[1.2rem] font-medium no-underline relative inline-block py-[2px] transition-colors duration-300 ${
+                          theme === "light"
+                            ? "text-[#222222] hover:text-black"
+                            : "text-white hover:text-[#00FF66]"
+                        }`}
                       >
                         {s.label}
                       </a>

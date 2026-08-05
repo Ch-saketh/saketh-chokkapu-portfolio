@@ -129,19 +129,12 @@ html.light .border-\[\#00FF66\]\/50 {
 
 
 
-/* Navbar in Black & White Light Mode */
-html.light header {
-  background-color: transparent;
-  border-color: transparent;
-  box-shadow: none;
-}
-
 html.light header a {
-  color: #222222 !important;
+  color: #222222;
 }
 
 html.light header a:hover {
-  color: #000000 !important;
+  color: #000000;
 }
 
 html.light footer {

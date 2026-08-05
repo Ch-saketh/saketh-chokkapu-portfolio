@@ -62,8 +62,8 @@ const MLModels: React.FC = () => {
         className="mx-auto max-w-6xl px-4 sm:px-6"
       >
         {/* Header */}
-        <motion.div variants={fadeUp} className="mb-10 lg:mb-15">
-          <h2 className="text-[clamp(3.2rem,7vw,5.5rem)] font-extrabold leading-[1.1] tracking-tight font-funnel text-white">
+        <motion.div variants={fadeUp} className="mb-8 sm:mb-12">
+          <h2 className="text-[clamp(2.8rem,7vw,5.5rem)] font-extrabold leading-[1.1] tracking-tight font-funnel text-white">
             Machine Learning
             <br />
             <span className="font-light text-[#00FF66]">
@@ -71,7 +71,7 @@ const MLModels: React.FC = () => {
             </span>
           </h2>
 
-          <p className="mt-8 max-w-2xl text-lg sm:text-xl text-neutral-300 leading-relaxed font-sans">
+          <p className="mt-4 sm:mt-8 max-w-2xl text-base sm:text-lg md:text-xl text-neutral-300 leading-relaxed font-sans">
             Custom-trained and fine-tuned machine learning models designed for
             Natural Language Processing, recommendation engines, and semantic search.
           </p>
@@ -81,83 +81,86 @@ const MLModels: React.FC = () => {
         <motion.div variants={stagger}>
           <motion.div
             variants={fadeUp}
-            className="bg-[#131924] border border-neutral-800 rounded-2xl text-white shadow-xl"
+            className="bg-[#131924] border border-neutral-800 rounded-2xl text-white shadow-xl overflow-hidden"
           >
             <div
               className="
-                grid grid-cols-1 gap-10 px-6 py-8 sm:px-10 sm:py-12
+                grid grid-cols-1 gap-8 p-5 sm:p-8 md:p-12
                 lg:grid-cols-[1fr_1.2fr]
               "
             >
               {/* Left Column */}
               <motion.div variants={fadeUp} className="flex flex-col justify-between">
                 <div>
-                  <h3 className="text-[clamp(1.6rem,4vw,2.2rem)] font-semibold tracking-tight text-[#00FF66] font-funnel">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-[#00FF66] font-funnel">
                     Deployed ML Models
                   </h3>
 
-                  <p className="mt-4 leading-relaxed max-w-md text-neutral-300 text-sm sm:text-base">
+                  <p className="mt-3 leading-relaxed max-w-md text-neutral-300 text-sm sm:text-base">
                     Custom model checkpoints hosted on Hugging Face, optimized for embedding
                     generation and sentence similarity tasks.
                   </p>
                 </div>
 
-                <div className="mt-8 hidden lg:block">
+                <div className="mt-6 sm:mt-8">
                   <div className="flex items-center gap-2 text-xs text-[#00FF66] font-mono">
-                    <Brain className="animate-pulse" size={14} />
+                    <Brain className="animate-pulse shrink-0" size={14} />
                     <span>Active Deployment</span>
                   </div>
                 </div>
               </motion.div>
 
               {/* Right Column - Model Details */}
-              <motion.div variants={fadeUp} className="space-y-6 flex flex-col justify-between">
+              <motion.div variants={fadeUp} className="space-y-6 flex flex-col justify-between pt-4 lg:pt-0 border-t lg:border-t-0 border-neutral-800/80">
                 <div>
                   {/* Model Header */}
-                  <div className="flex items-center gap-3">
-                    <Cpu size={18} className="text-[#00FF66]" />
-                    <span className="font-mono text-base sm:text-lg font-bold break-all text-white">
+                  <div className="flex items-center gap-2.5">
+                    <Cpu size={18} className="text-[#00FF66] shrink-0" />
+                    <span className="font-mono text-sm sm:text-base md:text-lg font-bold break-all text-white">
                       {mlModel.name}
                     </span>
                   </div>
 
                   {/* Model Description */}
-                  <p className="mt-4 text-sm sm:text-base leading-relaxed text-neutral-300">
+                  <p className="mt-3 text-xs sm:text-sm md:text-base leading-relaxed text-neutral-300">
                     {mlModel.description}
                   </p>
 
                   {/* Meta Tags */}
-                  <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                     <div className="flex items-center gap-2 text-xs font-mono text-neutral-300">
-                      <Tag size={14} className="text-[#00FF66]" />
-                      <span>Task: {mlModel.tags.task}</span>
+                      <Tag size={14} className="text-[#00FF66] shrink-0" />
+                      <span className="truncate">Task: {mlModel.tags.task}</span>
                     </div>
 
                     <div className="flex items-center gap-2 text-xs font-mono text-neutral-300">
-                      <Cpu size={14} className="text-[#00FF66]" />
-                      <span>Library: {mlModel.tags.library}</span>
+                      <Cpu size={14} className="text-[#00FF66] shrink-0" />
+                      <span className="truncate">Library: {mlModel.tags.library}</span>
                     </div>
 
                     <div className="flex items-center gap-2 text-xs font-mono text-neutral-300">
-                      <Database size={14} className="text-[#00FF66]" />
-                      <span className="truncate">Dataset: {mlModel.tags.dataset}</span>
+                      <Database size={14} className="text-[#00FF66] shrink-0" />
+                      <span className="truncate" title={`Dataset: ${mlModel.tags.dataset}`}>
+                        Dataset: {mlModel.tags.dataset}
+                      </span>
                     </div>
 
                     <div className="flex items-center gap-2 text-xs font-mono text-neutral-300">
-                      <Scale size={14} className="text-[#00FF66]" />
-                      <span>License: {mlModel.tags.license}</span>
+                      <Scale size={14} className="text-[#00FF66] shrink-0" />
+                      <span className="truncate">License: {mlModel.tags.license}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* CTA Button */}
-                <div className="pt-4">
+                <div className="pt-2 sm:pt-4">
                   <a
                     href={mlModel.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="
-                      inline-flex items-center gap-2
+                      w-full sm:w-auto
+                      inline-flex items-center justify-center gap-2
                       rounded-full
                       border border-[#00FF66]/30
                       bg-[#00FF66]/10
@@ -168,7 +171,6 @@ const MLModels: React.FC = () => {
                       hover:bg-[#00FF66]
                       hover:text-black
                       hover:shadow-lg
-                      hover:scale-[1.03]
                     "
                     aria-label="View on Hugging Face"
                   >
