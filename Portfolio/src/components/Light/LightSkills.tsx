@@ -14,23 +14,18 @@ import {
 } from "lucide-react";
 
 const DockerIcon: React.FC<{ size?: number; className?: string }> = ({
-  size = 24,
+  size = 36,
   className,
 }) => (
-  <span
+  <img
+    src="/social.png"
+    alt="Docker"
     style={{
       width: size,
       height: size,
-      maskImage: `url('/assets/docker.svg')`,
-      WebkitMaskImage: `url('/assets/docker.svg')`,
-      maskSize: "contain",
-      WebkitMaskSize: "contain",
-      maskRepeat: "no-repeat",
-      WebkitMaskRepeat: "no-repeat",
-      maskPosition: "center",
-      WebkitMaskPosition: "center",
+      filter: "brightness(0)",
     }}
-    className={`inline-block shrink-0 bg-current ${className || ""}`}
+    className={`object-contain shrink-0 ${className || ""}`}
   />
 );
 
@@ -155,7 +150,7 @@ const LightSkills: React.FC = () => {
               variants={techItemVariants}
               whileHover={{ scale: 1.15, rotate: 2 }}
             >
-              <span className="text-neutral-500 group-hover:text-[#222222] transition-colors duration-300">
+              <span className="text-neutral-500 group-hover:text-[#222222] transition-colors duration-300 flex items-center justify-center">
                 {React.cloneElement(tech.icon as React.ReactElement, {
                   size: iconSize,
                   strokeWidth: 1.5,

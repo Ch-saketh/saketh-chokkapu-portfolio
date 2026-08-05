@@ -13,25 +13,31 @@ const journeyItems = [
     year: "2023",
     title: "Started Programming Journey",
     details:
-      "Explored the world of code for the first time, learning the basic logic and structure of software.",
+      "Explored the world of code for the first time, learning the basic logic, memory structures, and overall architecture of software. Spent significant time building core problem-solving habits through data structures, algorithms, and fundamental computer science principles.",
   },
   {
     year: "2024",
-    title: "Building Fundamentals",
+    title: "Building Fundamentals & Machine Learning",
     details:
-      "I focused on learning development fundamentals and building initial projects. I explored full-stack concepts and started understanding how different parts of an application work together.",
+      "Focused on full-stack fundamentals and machine learning. As Team Head for a Hybrid Book Recommendation Platform, I processed 3M+ Amazon review rows, engineered a TF-IDF & LightFM matrix factorization engine with WARP loss, and optimized precision@5 from 0.0087 to 0.1688, deploying the trained inference model to Hugging Face.",
   },
   {
     year: "2025",
-    title: "Entering Web Development, Full-stack Projects",
+    title: "Full-Stack Web & Cryptographic Desktop Projects",
     details:
-      "I focused on building real-world applications and improving my understanding of how systems work. I developed full-stack projects, worked on backend logic and performance, and participated in hackathons where I secured 2nd and 3rd prizes. I also explored concepts beyond just development, like system design and low-level thinking, while consistently improving through hands-on projects.",
+      "Engineered real-world full-stack and desktop systems. Developed LuxZera (Spring Boot/React/PostgreSQL) with dimension-mapping, resolving Hibernate N+1 queries to cut read latency from 150ms to 60ms. Built QMail, a privacy-focused Electron.js desktop client with IMAP/SMTP handlers and AES-256/RSA file encryption.",
+  },
+  {
+    year: "2025",
+    title: "National Hackathon Victories",
+    details:
+      "Participated in national-level hackathons where I secured top placements under high-pressure competitive sprints. Won 3rd Prize at the Amaravati Quantum Valley Hackathon for Team Ekalavya as Lead Frontend Developer by building the full real-time auction portal UI and linking backend security layers. Secured 2nd Prize at the National AI Hackathon by deploying state management routines and debugging live data anomalies for an automated evaluation system under sudden traffic spikes.",
   },
   {
     year: "2026",
     title: "Current Focus",
     details:
-      "Building real-world full-stack applications with a strong focus on backend logic, system behavior, and smooth user experience.",
+      "Building real-world full-stack and data-driven applications with a strong focus on backend logic, database optimizations, machine learning pipeline integration, system behavior, and smooth user experiences.",
   },
 ];
 
@@ -55,24 +61,25 @@ const LightAbout = () => {
       >
         <motion.h2
           variants={fadeUp}
-          className="font-funnel font-extrabold text-[clamp(3.5rem,9vw,7rem)] leading-[1.02] tracking-tight max-w-4xl"
+          className="font-funnel font-semibold text-[clamp(3.5rem,9vw,7rem)] leading-[1.02] tracking-tight max-w-4xl text-[#222222]"
         >
-          About Me
+          About <span className="font-normal text-neutral-500">Me</span>
         </motion.h2>
 
         <motion.p
           variants={fadeUp}
-          className="mt-6 md:mt-8 max-w-3xl text-base sm:text-xl leading-[1.9] text-neutral-700"
+          className="mt-6 md:mt-8 max-w-3xl text-base sm:text-xl leading-[1.9] text-neutral-700 font-sans"
         >
-          I build practical, real-world systems focused on performance, usability, and making applications run smoothly in everyday use.
+          I build practical, high-performance systems focused on backend behavior, scalable architecture, and intelligent machine learning pipelines.
           <br />
-          <br />I work on full-stack applications, focusing on how different parts of a system come together to create a simple and smooth user experience.
+          <br />
+          I work across full-stack and data-driven systems, connecting performant backend services and ML engines with crisp, responsive user interfaces.
         </motion.p>
 
         <motion.div variants={staggerContainerSlow} className="mt-12 lg:mt-24">
           <motion.p
             variants={fadeUp}
-            className="mb-10 text-xs sm:text-sm tracking-[0.35em] uppercase text-neutral-600"
+            className="mb-10 text-xs sm:text-sm tracking-[0.35em] uppercase text-neutral-600 font-mono font-normal"
           >
             Journey
           </motion.p>
@@ -99,12 +106,12 @@ const LightAbout = () => {
                     className="cursor-pointer py-2 sm:py-3 lg:py-4"
                   >
                     <div className="lg:hidden space-y-2">
-                      <span className="font-funnel text-sm sm:text-base text-neutral-500 mb-2">
+                      <span className="font-mono text-sm text-neutral-500 font-normal mb-2 inline-block">
                         {item.year}
                       </span>
 
                       <div className="flex items-center justify-between gap-6 mt-2">
-                        <h4 className="font-semibold text-xl sm:text-3xl leading-tight tracking-tight text-neutral-900">
+                        <h4 className={`font-medium text-xl sm:text-3xl leading-tight tracking-tight ${isActive ? "text-[#222222]" : "text-neutral-800"}`}>
                           {item.title}
                         </h4>
 
@@ -115,7 +122,7 @@ const LightAbout = () => {
                             stiffness: 360,
                             damping: 22,
                           }}
-                          className="text-neutral-500"
+                          className={isActive ? "text-[#222222]" : "text-neutral-400"}
                         >
                           <Plus size={24} />
                         </motion.span>
@@ -124,11 +131,11 @@ const LightAbout = () => {
 
                     <div className="hidden lg:flex items-center justify-between gap-10">
                       <div className="flex items-center gap-10">
-                        <span className="font-mono text-sm text-neutral-500 w-14">
+                        <span className="font-mono text-sm text-neutral-500 font-normal w-14">
                           {item.year}
                         </span>
 
-                        <h4 className="font-semibold text-[clamp(1.9rem,3vw,2.5rem)] leading-tight tracking-tight text-neutral-900 max-w-3xl">
+                        <h4 className={`font-medium text-[clamp(1.9rem,3vw,2.5rem)] leading-tight tracking-tight transition-colors ${isActive ? "text-[#222222]" : "text-neutral-800"}`}>
                           {item.title}
                         </h4>
                       </div>
@@ -140,7 +147,7 @@ const LightAbout = () => {
                           stiffness: 360,
                           damping: 22,
                         }}
-                        className="text-neutral-500"
+                        className={isActive ? "text-[#222222]" : "text-neutral-400"}
                       >
                         <Plus size={26} />
                       </motion.span>
@@ -166,14 +173,14 @@ const LightAbout = () => {
                         }}
                         className="overflow-hidden"
                       >
-                        <p className="mt-3 max-w-3xl text-neutral-700 text-base sm:text-lg leading-[1.85]">
+                        <p className="mt-3 max-w-3xl text-neutral-600 text-base sm:text-lg leading-[1.85] font-sans">
                           {item.details}
                         </p>
                       </motion.div>
                     )}
                   </AnimatePresence>
 
-                  <div className="mt-4 lg:mt-8 h-px bg-[#E2E8F0]" />
+                  <div className="mt-4 lg:mt-8 h-px bg-neutral-300" />
                 </motion.div>
               );
             })}

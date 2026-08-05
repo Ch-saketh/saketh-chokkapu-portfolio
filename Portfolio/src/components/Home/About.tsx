@@ -15,25 +15,31 @@ const journeyItems = [
     year: "2023",
     title: "Started Programming Journey",
     details:
-      "Explored the world of code for the first time, learning the basic logic and structure of software.",
+      "Explored the world of code for the first time, learning the basic logic, memory structures, and overall architecture of software. Spent significant time building core problem-solving habits through data structures, algorithms, and fundamental computer science principles.",
   },
   {
     year: "2024",
-    title: "Building Fundamentals",
+    title: "Building Fundamentals & Machine Learning",
     details:
-      "I focused on learning development fundamentals and building initial projects. I explored full-stack concepts and started understanding how different parts of an application work together.",
+      "Focused on full-stack fundamentals and machine learning. As Team Head for a Hybrid Book Recommendation Platform, I processed 3M+ Amazon review rows, engineered a TF-IDF & LightFM matrix factorization engine with WARP loss, and optimized precision@5 from 0.0087 to 0.1688, deploying the trained inference model to Hugging Face.",
   },
   {
     year: "2025",
-    title: "Entering Web Development, Full-stack Projects",
+    title: "Full-Stack Web & Cryptographic Desktop Projects",
     details:
-      "I focused on building real-world applications and improving my understanding of how systems work. I developed full-stack projects, worked on backend logic and performance, and participated in hackathons where I secured 2nd and 3rd prizes. I also explored concepts beyond just development, like system design and low-level thinking, while consistently improving through hands-on projects.",
+      "Engineered real-world full-stack and desktop systems. Developed LuxZera (Spring Boot/React/PostgreSQL) with dimension-mapping, resolving Hibernate N+1 queries to cut read latency from 150ms to 60ms. Built QMail, a privacy-focused Electron.js desktop client with IMAP/SMTP handlers and AES-256/RSA file encryption.",
+  },
+  {
+    year: "2025",
+    title: "National Hackathon Victories",
+    details:
+      "Participated in national-level hackathons where I secured top placements under high-pressure competitive sprints. Won 3rd Prize at the Amaravati Quantum Valley Hackathon for Team Ekalavya as Lead Frontend Developer by building the full real-time auction portal UI and linking backend security layers. Secured 2nd Prize at the National AI Hackathon by deploying state management routines and debugging live data anomalies for an automated evaluation system under sudden traffic spikes.",
   },
   {
     year: "2026",
     title: "Current Focus",
     details:
-      "Building real-world full-stack applications with a strong focus on backend logic, system behavior, and smooth user experience.",
+      "Building real-world full-stack and data-driven applications with a strong focus on backend logic, database optimizations, machine learning pipeline integration, system behavior, and smooth user experiences.",
   },
 ];
 
@@ -70,9 +76,10 @@ const About = () => {
           variants={fadeUp}
           className="mt-6 md:mt-8 max-w-3xl text-base sm:text-xl leading-[1.9] text-neutral-300 font-sans"
         >
-            I build practical, high-performance systems focused on backend behavior, scalable architecture, and making digital applications run effortlessly.
+          I build practical, high-performance systems focused on backend behavior, scalable architecture, and intelligent machine learning pipelines.
           <br />
-          <br />I work across full-stack systems, connecting performant backend services with crisp, responsive user interfaces.
+          <br />
+          I work across full-stack and data-driven systems, connecting performant backend services and ML engines with crisp, responsive user interfaces.
         </motion.p>
 
         {/* JOURNEY */}
