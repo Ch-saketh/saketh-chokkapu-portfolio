@@ -25,6 +25,8 @@ export interface StaggeredMenuProps {
   closeOnClickAway?: boolean;
   onMenuOpen?: () => void;
   onMenuClose?: () => void;
+  theme?: "light" | "dark";
+  onThemeToggle?: () => void;
 }
 
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
@@ -41,6 +43,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   closeOnClickAway = true,
   onMenuOpen,
   onMenuClose,
+  theme = "dark",
+  onThemeToggle,
 }: StaggeredMenuProps) => {
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
@@ -499,7 +503,30 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             {/* LEFT: NAME */}
             <span className="text-lg font-jost font-bold">Dev</span>
 
-            {/* RIGHT: EXISTING MENU BUTTON */}
+            {/* MIDDLE-RIGHT: THEME TOGGLE */}
+            <div className="flex items-center gap-3 ml-auto mr-3">
+              {onThemeToggle && (
+                <button
+                  onClick={onThemeToggle}
+                  title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                  className="flex items-center justify-center text-foreground opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
+                  type="button"
+                >
+                  {theme === "dark" ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="4"/>
+                      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                    </svg>
+                  )}
+                </button>
+              )}
+            </div>
+
+            {/* RIGHT: MENU BUTTON */}
             <button
               ref={toggleBtnRef}
               className={`sm-toggle text-foreground`}

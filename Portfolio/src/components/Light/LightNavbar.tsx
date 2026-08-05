@@ -209,6 +209,8 @@ const LightNavbar: React.FC = () => {
             socialItems={staggeredSocials}
             onMenuOpen={() => setMenuOpen(true)}
             onMenuClose={() => setMenuOpen(false)}
+            theme={theme}
+            onThemeToggle={toggleTheme}
           />
         </>
       )}

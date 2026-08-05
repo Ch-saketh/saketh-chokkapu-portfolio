@@ -19,23 +19,33 @@ const Hero: React.FC = () => {
   const viewCvBtnRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-[#0B0F17] pt-20 sm:pt-24 pb-8 flex items-center">
+    <section className="relative w-full min-h-screen overflow-hidden bg-[#0B0F17] pt-20 sm:pt-24 pb-12 flex items-center">
       {/* Background Terminal Green Radial Glow */}
       <div className="absolute top-1/4 left-1/6 w-96 h-96 bg-[#00FF66]/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#00FF66]/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="xl:max-w-7xl mx-auto px-4 sm:px-6 w-full h-full">
-        <div className="flex gap-20 h-full lg:items-center">
+      {/* Mobile portrait — ghost behind text */}
+      <div className="sm:hidden absolute inset-0 z-0 pointer-events-none flex items-end justify-end">
+        <img
+          src={YourImg}
+          alt=""
+          aria-hidden="true"
+          className="h-[50vh] w-auto object-contain object-bottom opacity-15 grayscale"
+        />
+      </div>
+
+      <div className="xl:max-w-7xl mx-auto px-5 sm:px-6 w-full relative z-10">
+        <div className="flex h-full lg:items-center">
           {/* LEFT — TEXT */}
           <motion.div
             variants={staggerContainerSlow}
             initial="hidden"
             animate="show"
-            className="w-full max-w-2xl z-10 relative"
+            className="w-full sm:max-w-xl md:max-w-2xl z-10 relative"
           >
             <motion.p
               variants={fadeUp}
-              className="font-mono text-xs sm:text-sm tracking-widest text-[#00FF66] mb-4 uppercase font-medium"
+              className="font-mono text-xs sm:text-sm tracking-widest text-[#00FF66] mb-3 uppercase font-medium text-center sm:text-left"
             >
               HELLO, I AM
             </motion.p>
@@ -43,13 +53,14 @@ const Hero: React.FC = () => {
             <motion.h1
               variants={fadeUpSlow}
               className="
-                text-[clamp(3.5rem,9.5vw,7.5rem)]
+                text-[clamp(4rem,14vw,7.5rem)]
                 font-funnel
                 font-extrabold
-                leading-[0.95]
+                leading-[0.92]
                 tracking-tight
                 text-[#00FF66]
-                mb-5 md:mb-8
+                mb-4 md:mb-6
+                text-center sm:text-left
               "
             >
               Saketh
@@ -57,90 +68,70 @@ const Hero: React.FC = () => {
 
             <motion.p
               variants={fadeUp}
-              className="sm:max-w-sm lg:max-w-xl font-jost text-base sm:text-xl tracking-wider text-[#00FF66] mb-6 uppercase font-medium"
+              className="font-jost text-[0.65rem] sm:text-base tracking-wider text-[#00FF66] mb-4 md:mb-5 uppercase font-medium text-center sm:text-left"
             >
               BUILDING SYSTEMS | SMOOTH UX | EFFICIENT ARCHITECTURE
             </motion.p>
 
             <motion.p
               variants={fadeUp}
-              className="sm:max-w-sm md:max-w-md lg:max-w-xl text-base sm:text-xl text-neutral-300 leading-relaxed mb-8 font-sans"
+              className="text-sm sm:text-base md:text-xl text-neutral-300 leading-relaxed mb-6 md:mb-8 font-sans text-center sm:text-left max-w-sm sm:max-w-none mx-auto sm:mx-0"
             >
               I build high-performance, visually stunning web applications and
               digital experiences focused on modern design and scalable
               architecture.
             </motion.p>
 
-            {/* Counter Stats Badge */}
+            {/* Counter Stats */}
             <motion.div
               variants={fadeUp}
-              className="
-                mt-6
-                mb-8
-                gap-10
-                flex
-                justify-center
-                sm:justify-start
-                text-center
-              "
+              className="flex justify-center sm:justify-start gap-8 sm:gap-10 mb-7 md:mb-8 text-center"
             >
-              <div>
-                <p className="text-3xl sm:text-5xl font-funnel font-extrabold leading-none text-[#00FF66]">
-                  10+
-                </p>
-                <p className="mt-2 text-xs tracking-widest text-[#00FF66]/80 uppercase font-mono">
-                  Projects
-                </p>
-              </div>
-
-              <div>
-                <p className="text-3xl sm:text-5xl font-funnel font-extrabold leading-none text-[#00FF66]">
-                  100+
-                </p>
-                <p className="mt-2 text-xs tracking-widest text-[#00FF66]/80 uppercase font-mono">
-                  Commits
-                </p>
-              </div>
-
-              <div>
-                <p className="text-3xl sm:text-5xl font-funnel font-extrabold leading-none text-[#00FF66]">
-                  2+
-                </p>
-                <p className="mt-2 text-xs tracking-widest text-[#00FF66]/80 uppercase font-mono">
-                  Years Exp
-                </p>
-              </div>
+              {[
+                { val: "10+", label: "Projects" },
+                { val: "100+", label: "Commits" },
+                { val: "2+", label: "Years Exp" },
+              ].map(({ val, label }) => (
+                <div key={label}>
+                  <p className="text-2xl sm:text-4xl md:text-5xl font-funnel font-extrabold leading-none text-[#00FF66]">
+                    {val}
+                  </p>
+                  <p className="mt-1 text-[0.6rem] sm:text-xs tracking-widest text-[#00FF66]/70 uppercase font-mono">
+                    {label}
+                  </p>
+                </div>
+              ))}
             </motion.div>
 
             {/* Buttons */}
             <motion.div
               variants={fadeUp}
-              className="flex flex-col sm:flex-row gap-4 sm:gap-6"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-5 mb-7 md:mb-8"
             >
               <motion.button
                 whileHover={hoverScale}
-                whileTap={{ scale: 0.98 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() =>
                   document
                     .querySelector("#contact")
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="px-10 py-4 bg-[#00FF66] hover:bg-[#00D655] active:bg-[#00B347] text-black font-semibold rounded-full shadow-lg shadow-[#00FF66]/20 transition hover:cursor-pointer text-center"
+                className="w-full sm:w-auto px-8 py-4 bg-[#00FF66] hover:bg-[#00D655] text-black font-semibold rounded-full shadow-lg shadow-[#00FF66]/20 transition text-sm sm:text-base"
               >
-                Let’s collaborate
+                Let's collaborate
               </motion.button>
 
               <motion.button
                 ref={viewCvBtnRef}
                 whileHover={hoverScale}
-                whileTap={{ scale: 0.98 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => {
                   if (viewCvBtnRef.current) {
                     setOriginRect(viewCvBtnRef.current.getBoundingClientRect());
                   }
                   setIsCvOpen(true);
                 }}
-                className="px-10 py-4 border border-[#00FF66]/40 bg-[#131924]/80 rounded-full text-[#00FF66] hover:bg-[#00FF66] hover:text-black hover:border-[#00FF66] active:bg-[#00FF66] active:text-black transition-all duration-300 text-center flex items-center justify-center gap-2 hover:cursor-pointer group"
+                className="w-full sm:w-auto px-8 py-4 border border-[#00FF66]/40 bg-[#131924]/80 rounded-full text-[#00FF66] hover:bg-[#00FF66] hover:text-black hover:border-[#00FF66] transition-all duration-300 text-center flex items-center justify-center gap-2 group text-sm sm:text-base"
               >
                 <Eye className="w-4 h-4 text-[#00FF66] group-hover:text-black transition-colors" />
                 <span className="font-medium">View CV</span>
