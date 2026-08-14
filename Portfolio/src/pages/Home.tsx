@@ -1,6 +1,7 @@
 import React from "react";
 import Hero from "../components/Home/Hero";
 import About from "../components/Home/About";
+import Experience from "../components/Home/Experience";
 import Skills from "../components/Home/Skills";
 import Projects from "../components/Home/Projects";
 import Services from "../components/Home/Services";
@@ -9,6 +10,7 @@ import MLModels from "../components/Home/MLModels";
 
 import LightHero from "../components/Light/LightHero";
 import LightAbout from "../components/Light/LightAbout";
+import LightExperience from "../components/Light/LightExperience";
 import LightServices from "../components/Light/LightServices";
 import LightProjects from "../components/Light/LightProjects";
 import LightSkills from "../components/Light/LightSkills";
@@ -75,6 +77,7 @@ const Home: React.FC = () => {
         <LightHero />
         <LightProjects projects={projects} />
         <LightMLModels />
+        <LightExperience />
         <LightSkills />
         <LightAbout />
         <LightServices />
@@ -88,6 +91,7 @@ const Home: React.FC = () => {
       <Hero />
       <Projects projects={projects} />
       <MLModels />
+      <Experience />
       <Skills />
       <About />
       <Services />

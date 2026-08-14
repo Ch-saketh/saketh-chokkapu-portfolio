@@ -144,6 +144,12 @@ const Footer: React.FC = () => {
                 Selected Projects
               </a>
               <a
+                href="#experience"
+                className="hover:text-[#00FF66] transition-colors"
+              >
+                Work & Experience
+              </a>
+              <a
                 href="#services"
                 className="hover:text-[#00FF66] transition-colors"
               >

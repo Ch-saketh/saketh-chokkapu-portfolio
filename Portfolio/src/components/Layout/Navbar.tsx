@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
     if (windowWidth >= 768) setMenuOpen(false);
   }, [windowWidth]);
 
-  const links = ["Projects", "Services", "Skills", "About", "Contact"];
+  const links = ["Projects", "Experience", "Services", "Skills", "About", "Contact"];
 
   const socials: SocialLink[] = [
     { href: "https://github.com/Ch-saketh", icon: <Github className="w-5 h-5" /> },
