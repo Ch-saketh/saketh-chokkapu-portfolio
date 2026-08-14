@@ -31,16 +31,16 @@ const Hero: React.FC = () => {
       <div className="absolute top-1/4 left-1/6 w-[30vw] h-[30vw] max-w-96 max-h-96 bg-[#00FF66]/8 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[25vw] h-[25vw] max-w-80 max-h-80 bg-[#00FF66]/4 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Desktop layout: left text + right portrait */}
+      {/* Hero content container */}
       <div className="relative h-full w-full flex items-center">
 
-        {/* Left: text content */}
-        <div className="relative z-10 w-full sm:w-[55%] md:w-[52%] lg:w-[50%] xl:w-[48%] h-full flex items-center px-6 sm:px-8 md:px-10 lg:px-12 xl:px-16 pt-20 sm:pt-24 pb-8">
+        {/* Left: text content (Full width on mobile/tablet, 50% on desktop) */}
+        <div className="relative z-10 w-full lg:w-[50%] xl:w-[48%] h-full flex items-center px-6 sm:px-10 md:px-14 lg:px-12 xl:px-16 pt-20 sm:pt-24 pb-8">
           <motion.div
             variants={staggerContainerSlow}
             initial="hidden"
             animate="show"
-            className="w-full text-left"
+            className="w-full text-left max-w-2xl lg:max-w-none"
           >
             <motion.p variants={fadeUp}
               className="font-mono text-xs sm:text-sm tracking-widest text-[#00FF66] mb-3 uppercase font-medium text-left"
@@ -135,19 +135,19 @@ const Hero: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Right: portrait image — desktop only */}
+        {/* Right: portrait image — desktop (lg: 1024px+) only */}
         <motion.div
           variants={scaleReveal}
           initial="hidden"
           animate="show"
-          className="hidden sm:block absolute right-0 bottom-0 h-full z-0 pointer-events-none"
-          style={{ width: 'clamp(380px, 56%, 900px)' }}
+          className="hidden lg:block absolute right-0 bottom-0 h-full z-0 pointer-events-none"
+          style={{ width: 'clamp(380px, 48%, 800px)' }}
         >
           <img
             src={YourImg}
             alt="Saketh"
             fetchPriority="high"
-            className="absolute bottom-0 right-0 h-[130%] w-auto max-w-none object-contain object-bottom grayscale transition-all duration-700 ease-out hover:grayscale-0 hover:scale-[1.03] pointer-events-auto"
+            className="absolute bottom-0 right-0 h-full max-h-[115%] w-auto max-w-none object-contain object-bottom grayscale transition-all duration-700 ease-out hover:grayscale-0 hover:scale-[1.02] pointer-events-auto"
           />
         </motion.div>
       </div>

@@ -28,19 +28,22 @@ const LightHero: React.FC = () => {
       className="relative w-full overflow-hidden bg-[#F6F5F2] text-[#222222]"
       style={{ height: '100dvh', minHeight: '100dvh' }}
     >
-      {/* Desktop layout */}
+      {/* Soft radial glow */}
+      <div className="absolute top-1/4 left-1/6 w-[30vw] h-[30vw] max-w-96 max-h-96 bg-neutral-300/30 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Hero content container */}
       <div className="relative h-full w-full flex items-center">
 
-        {/* Left: text content */}
-        <div className="relative z-10 w-full sm:w-[55%] md:w-[52%] lg:w-[50%] xl:w-[48%] h-full flex items-center px-6 sm:px-8 md:px-10 lg:px-12 xl:px-16 pt-20 sm:pt-24 pb-8">
+        {/* Left: text content (Full width on mobile/tablet, 50% on desktop) */}
+        <div className="relative z-10 w-full lg:w-[50%] xl:w-[48%] h-full flex items-center px-6 sm:px-10 md:px-14 lg:px-12 xl:px-16 pt-20 sm:pt-24 pb-8">
           <motion.div
             variants={staggerContainerSlow}
             initial="hidden"
             animate="show"
-            className="w-full text-left"
+            className="w-full text-left max-w-2xl lg:max-w-none"
           >
             <motion.p variants={fadeUp}
-              className="font-jost text-xs sm:text-sm tracking-widest text-neutral-500 mb-3 uppercase font-medium text-left"
+              className="font-mono text-xs sm:text-sm tracking-widest text-neutral-500 mb-3 uppercase font-medium text-left"
             >
               HELLO, I AM
             </motion.p>
@@ -53,7 +56,7 @@ const LightHero: React.FC = () => {
             </motion.h1>
 
             <motion.p variants={fadeUp}
-              className="font-jost text-[0.65rem] sm:text-xs md:text-sm tracking-widest text-neutral-500 mb-4 md:mb-5 uppercase font-medium text-left"
+              className="font-jost text-[0.65rem] sm:text-xs md:text-sm tracking-widest text-neutral-600 mb-4 md:mb-5 uppercase font-medium text-left"
             >
               BUILDING SYSTEMS | SMOOTH UX | EFFICIENT ARCHITECTURE
             </motion.p>
@@ -75,7 +78,7 @@ const LightHero: React.FC = () => {
                 { val: "2+", label: "Years Exp" },
               ].map(({ val, label }) => (
                 <div key={label}>
-                  <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-funnel font-bold leading-none text-[#222222]">
+                  <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-funnel font-extrabold leading-none text-[#222222]">
                     {val}
                   </p>
                   <p className="mt-1 text-[0.55rem] sm:text-[0.6rem] md:text-xs tracking-widest text-neutral-500 uppercase font-mono">
@@ -93,8 +96,7 @@ const LightHero: React.FC = () => {
                 whileHover={hoverScale}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="w-full sm:w-auto px-7 py-3.5 bg-black rounded-full hover:bg-neutral-900 transition font-medium text-sm md:text-base"
-                style={{ color: 'white' }}
+                className="w-full sm:w-auto px-7 py-3.5 bg-[#222222] hover:bg-black text-white font-semibold rounded-full shadow-lg transition text-sm md:text-base cursor-pointer"
               >
                 Let's collaborate
               </motion.button>
@@ -107,10 +109,10 @@ const LightHero: React.FC = () => {
                   if (viewCvBtnRef.current) setOriginRect(viewCvBtnRef.current.getBoundingClientRect());
                   setIsCvOpen(true);
                 }}
-                className="w-full sm:w-auto px-7 py-3.5 border border-neutral-400 rounded-full hover:bg-black hover:border-black transition-all duration-300 flex items-center justify-center gap-2 group text-sm md:text-base"
+                className="w-full sm:w-auto px-7 py-3.5 border border-neutral-300 bg-white/80 rounded-full text-[#222222] hover:bg-[#222222] hover:text-white hover:border-[#222222] transition-all duration-300 flex items-center justify-center gap-2 group text-sm md:text-base cursor-pointer"
               >
-                <Eye className="w-4 h-4 text-neutral-600 group-hover:text-white transition-colors" />
-                <span className="font-medium group-hover:text-white transition-colors">View CV</span>
+                <Eye className="w-4 h-4 text-[#222222] group-hover:text-white transition-colors" />
+                <span className="font-medium">View CV</span>
               </motion.button>
             </motion.div>
 
@@ -133,19 +135,19 @@ const LightHero: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Right: portrait — desktop only */}
+        {/* Right: portrait image — desktop (lg: 1024px+) only */}
         <motion.div
           variants={scaleReveal}
           initial="hidden"
           animate="show"
-          className="hidden sm:block absolute right-0 bottom-0 h-full z-0 pointer-events-none"
-          style={{ width: 'clamp(380px, 56%, 900px)' }}
+          className="hidden lg:block absolute right-0 bottom-0 h-full z-0 pointer-events-none"
+          style={{ width: 'clamp(380px, 48%, 800px)' }}
         >
           <img
             src={YourImg}
             alt="Saketh"
             fetchPriority="high"
-            className="absolute bottom-0 right-0 h-[130%] w-auto max-w-none object-contain object-bottom grayscale transition-all duration-700 ease-out hover:grayscale-0 hover:scale-[1.03] pointer-events-auto"
+            className="absolute bottom-0 right-0 h-full max-h-[115%] w-auto max-w-none object-contain object-bottom grayscale transition-all duration-700 ease-out hover:grayscale-0 hover:scale-[1.02] pointer-events-auto"
           />
         </motion.div>
       </div>
