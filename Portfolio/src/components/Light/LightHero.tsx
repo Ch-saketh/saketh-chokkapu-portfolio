@@ -135,19 +135,19 @@ const LightHero: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Right: portrait image — desktop (lg: 1024px+) only */}
+        {/* Right: portrait image — desktop & tablet */}
         <motion.div
           variants={scaleReveal}
           initial="hidden"
           animate="show"
-          className="hidden lg:block absolute right-0 bottom-0 h-full z-0 pointer-events-none"
-          style={{ width: 'clamp(380px, 48%, 800px)' }}
+          className="hidden sm:block absolute right-0 bottom-0 h-full z-0 pointer-events-none"
+          style={{ width: 'clamp(440px, 62%, 1100px)' }}
         >
           <img
             src={YourImg}
             alt="Saketh"
             fetchPriority="high"
-            className="absolute bottom-0 right-0 h-full max-h-[115%] w-auto max-w-none object-contain object-bottom grayscale transition-all duration-700 ease-out hover:grayscale-0 hover:scale-[1.02] pointer-events-auto"
+            className="absolute bottom-0 right-0 h-[145%] w-auto max-w-none object-contain object-bottom grayscale transition-all duration-700 ease-out hover:grayscale-0 hover:scale-[1.03] pointer-events-auto"
           />
         </motion.div>
       </div>
