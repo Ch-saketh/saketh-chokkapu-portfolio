@@ -120,7 +120,7 @@ const LightExperience: React.FC = () => {
                 <div
                   className={`
                     relative z-10
-                    py-6 lg:py-8
+                    py-6 md:py-8 lg:py-10
                     grid grid-cols-1 lg:grid-cols-12
                     items-center gap-4 lg:gap-8
                     transition-colors duration-200
@@ -134,9 +134,41 @@ const LightExperience: React.FC = () => {
 
                   <div className="flex gap-4 items-end justify-between lg:col-span-5">
                     <div>
-                      <h3 className="font-funnel text-[clamp(2rem,3vw,3rem)] font-bold leading-tight">
+                      <h3 className="font-funnel text-[clamp(2rem,3.2vw,3.2rem)] font-bold leading-tight">
                         {exp.company}
                       </h3>
+
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <span
+                          className={`
+                            rounded-full px-3 py-[5px]
+                            text-[11px] font-medium tracking-wide
+                            border
+                            ${
+                              isHovered
+                                ? "border-[#F6F5F2]/40 text-[#F6F5F2]"
+                                : "border-neutral-400 text-neutral-600"
+                            }
+                          `}
+                        >
+                          {exp.role}
+                        </span>
+
+                        <span
+                          className={`
+                            rounded-full px-3 py-[5px]
+                            text-[11px] font-medium tracking-wide
+                            border
+                            ${
+                              isHovered
+                                ? "border-[#F6F5F2]/40 text-[#F6F5F2]"
+                                : "border-neutral-400 text-neutral-600"
+                            }
+                          `}
+                        >
+                          {exp.type}
+                        </span>
+                      </div>
                     </div>
 
                     <motion.span
@@ -151,13 +183,13 @@ const LightExperience: React.FC = () => {
                     </motion.span>
                   </div>
 
-                  {/* Role & Period Pills */}
+                  {/* Period & Location Pills */}
                   <div className="hidden lg:flex lg:col-span-4 items-center gap-2">
                     <span
                       className={`
                         rounded-full px-3 py-[5px]
                         text-[11px] font-medium tracking-wide
-                        border
+                        border flex items-center gap-1.5
                         ${
                           isHovered
                             ? "border-[#F6F5F2]/40 text-[#F6F5F2]"
@@ -165,14 +197,15 @@ const LightExperience: React.FC = () => {
                         }
                       `}
                     >
-                      {exp.role}
+                      <Calendar className="w-3 h-3" />
+                      {exp.period}
                     </span>
 
                     <span
                       className={`
                         rounded-full px-3 py-[5px]
                         text-[11px] font-medium tracking-wide
-                        border
+                        border flex items-center gap-1.5
                         ${
                           isHovered
                             ? "border-[#F6F5F2]/40 text-[#F6F5F2]"
@@ -180,7 +213,8 @@ const LightExperience: React.FC = () => {
                         }
                       `}
                     >
-                      {exp.period}
+                      <MapPin className="w-3 h-3" />
+                      {exp.location}
                     </span>
                   </div>
 
@@ -226,24 +260,6 @@ const LightExperience: React.FC = () => {
                       className="relative z-10 overflow-hidden"
                     >
                       <div className="max-w-6xl px-4 lg:px-6 py-6 border-t border-neutral-300/60">
-                        {/* Expanded Role Header */}
-                        <div className="flex flex-wrap items-center gap-3 mb-4">
-                          <h4 className={`font-funnel text-xl font-bold ${isHovered ? "text-[#F6F5F2]" : "text-[#222222]"}`}>
-                            {exp.role}
-                          </h4>
-                          <span className={`text-xs font-mono px-2.5 py-0.5 rounded-full border ${isHovered ? "border-[#F6F5F2]/40 text-[#F6F5F2] bg-[#F6F5F2]/10" : "border-neutral-400 text-neutral-700 bg-neutral-200/80"}`}>
-                            {exp.type}
-                          </span>
-                          <div className={`flex items-center gap-1.5 text-xs font-mono ${isHovered ? "text-[#F6F5F2]/80 font-medium" : "text-neutral-600"}`}>
-                            <Calendar className="w-3.5 h-3.5" />
-                            <span>{exp.period}</span>
-                          </div>
-                          <div className={`flex items-center gap-1.5 text-xs font-mono ${isHovered ? "text-[#F6F5F2]/80 font-medium" : "text-neutral-600"}`}>
-                            <MapPin className="w-3.5 h-3.5" />
-                            <span>{exp.location}</span>
-                          </div>
-                        </div>
-
                         {/* Bullet Highlights */}
                         <ul className="flex flex-col gap-3 text-sm sm:text-base leading-relaxed font-sans">
                           {exp.highlights.map((point, pIdx) => (

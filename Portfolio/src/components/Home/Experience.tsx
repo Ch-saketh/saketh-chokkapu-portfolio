@@ -122,8 +122,8 @@ const Experience: React.FC = () => {
                     relative z-10
                     flex flex-col sm:flex-row sm:items-center lg:grid lg:grid-cols-[70px_1.4fr_1.6fr_auto_24px]
                     gap-2 sm:gap-6
-                    px-2 py-4 md:px-4 md:py-6
-                    lg:px-6 lg:py-8
+                    px-2 py-6 md:px-4 md:py-8
+                    lg:px-6 lg:py-10
                     cursor-pointer
                     transition-colors duration-300
                     ${isHovered ? "text-black" : "text-white"}
@@ -139,11 +139,45 @@ const Experience: React.FC = () => {
                   </span>
 
                   <div className="flex gap-4 items-end justify-between">
-                    {/* Company Name ONLY */}
+                    {/* Title + Meta Pills */}
                     <div>
-                      <h3 className={`font-funnel text-[clamp(2rem,3vw,3rem)] font-bold leading-tight ${isHovered ? "text-black" : "text-white"}`}>
+                      <h3 className={`font-funnel text-[clamp(2rem,3.2vw,3.2rem)] font-bold leading-tight ${isHovered ? "text-black" : "text-white"}`}>
                         {exp.company}
                       </h3>
+
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {/* Role Pill */}
+                        <span
+                          className={`
+                            rounded-full px-3 py-[5px]
+                            text-[11px] font-medium tracking-wide
+                            border
+                            ${
+                              isHovered
+                                ? "border-black/30 text-black font-semibold bg-black/10"
+                                : "border-[#1E293B] text-neutral-300 bg-[#131924]"
+                            }
+                          `}
+                        >
+                          {exp.role}
+                        </span>
+
+                        {/* Type Pill */}
+                        <span
+                          className={`
+                            rounded-full px-3 py-[5px]
+                            text-[11px] font-medium tracking-wide
+                            border
+                            ${
+                              isHovered
+                                ? "border-black/30 text-black font-semibold bg-black/10"
+                                : "border-[#1E293B] text-neutral-400 bg-[#131924]"
+                            }
+                          `}
+                        >
+                          {exp.type}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Chevron for smaller screens */}
@@ -159,13 +193,13 @@ const Experience: React.FC = () => {
                     </motion.span>
                   </div>
 
-                  {/* Role & Period Pills (Main Row) */}
-                  <div className="hidden lg:flex flex-wrap items-center gap-2">
+                  {/* Period & Location Pills */}
+                  <div className="hidden lg:flex items-center gap-2">
                     <span
                       className={`
                         rounded-full px-3 py-[5px]
                         text-[11px] font-medium tracking-wide
-                        border
+                        border flex items-center gap-1.5
                         ${
                           isHovered
                             ? "border-black/30 text-black font-semibold bg-black/10"
@@ -173,14 +207,15 @@ const Experience: React.FC = () => {
                         }
                       `}
                     >
-                      {exp.role}
+                      <Calendar className="w-3 h-3" />
+                      {exp.period}
                     </span>
 
                     <span
                       className={`
                         rounded-full px-3 py-[5px]
                         text-[11px] font-medium tracking-wide
-                        border
+                        border flex items-center gap-1.5
                         ${
                           isHovered
                             ? "border-black/30 text-black font-semibold bg-black/10"
@@ -188,11 +223,12 @@ const Experience: React.FC = () => {
                         }
                       `}
                     >
-                      {exp.period}
+                      <MapPin className="w-3 h-3" />
+                      {exp.location}
                     </span>
                   </div>
 
-                  {/* View Details Label */}
+                  {/* View Details Button */}
                   <span
                     className={`
                       rounded-full px-4 py-[7px]
@@ -233,24 +269,6 @@ const Experience: React.FC = () => {
                       className="relative z-10 overflow-hidden"
                     >
                       <div className="max-w-6xl px-4 lg:px-6 py-6 border-t border-[#1E293B]/40">
-                        {/* Expanded Role Header */}
-                        <div className="flex flex-wrap items-center gap-3 mb-4">
-                          <h4 className={`font-funnel text-xl font-bold ${isHovered ? "text-black" : "text-white"}`}>
-                            {exp.role}
-                          </h4>
-                          <span className={`text-xs font-mono px-2.5 py-0.5 rounded-full border ${isHovered ? "border-black/30 text-black bg-black/10" : "border-[#00FF66]/30 text-[#00FF66] bg-[#00FF66]/10"}`}>
-                            {exp.type}
-                          </span>
-                          <div className={`flex items-center gap-1.5 text-xs font-mono ${isHovered ? "text-black/80 font-medium" : "text-neutral-400"}`}>
-                            <Calendar className="w-3.5 h-3.5" />
-                            <span>{exp.period}</span>
-                          </div>
-                          <div className={`flex items-center gap-1.5 text-xs font-mono ${isHovered ? "text-black/80 font-medium" : "text-neutral-400"}`}>
-                            <MapPin className="w-3.5 h-3.5" />
-                            <span>{exp.location}</span>
-                          </div>
-                        </div>
-
                         {/* Bullet Highlights */}
                         <ul className="flex flex-col gap-3 text-sm sm:text-base leading-relaxed font-sans">
                           {exp.highlights.map((point, pIdx) => (
