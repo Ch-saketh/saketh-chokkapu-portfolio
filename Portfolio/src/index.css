@@ -83,10 +83,19 @@ html.light .text-white {
   color: #222222 !important;
 }
 
-/* Ensure Black Buttons have Crisp White Text in Light Mode */
+/* Ensure Black and Dark Buttons have Crisp White Text in Light Mode */
 html.light .bg-black,
-html.light button.bg-black {
-  background-color: #000000 !important;
+html.light button.bg-black,
+html.light .bg-\[\#222222\],
+html.light button.bg-\[\#222222\] {
+  background-color: #222222 !important;
+  color: #FFFFFF !important;
+}
+
+html.light .bg-black *,
+html.light button.bg-black *,
+html.light .bg-\[\#222222\] *,
+html.light button.bg-\[\#222222\] * {
   color: #FFFFFF !important;
 }
 

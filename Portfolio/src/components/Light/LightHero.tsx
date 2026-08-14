@@ -98,7 +98,7 @@ const LightHero: React.FC = () => {
                 onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
                 className="w-full sm:w-auto px-7 py-3.5 bg-[#222222] hover:bg-black text-white font-semibold rounded-full shadow-lg transition text-sm md:text-base cursor-pointer"
               >
-                Let's collaborate
+                <span className="text-white" style={{ color: "#FFFFFF" }}>Let's collaborate</span>
               </motion.button>
 
               <motion.button
