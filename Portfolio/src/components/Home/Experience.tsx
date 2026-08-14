@@ -120,7 +120,7 @@ const Experience: React.FC = () => {
                   onClick={() => setExpanded(isExpanded ? null : idx)}
                   className={`
                     relative z-10
-                    flex flex-col sm:flex-row sm:items-center lg:grid lg:grid-cols-[70px_1.5fr_1.5fr_auto_24px]
+                    flex flex-col sm:flex-row sm:items-center lg:grid lg:grid-cols-[70px_1.4fr_1.6fr_auto_24px]
                     gap-2 sm:gap-6
                     px-2 py-4 md:px-4 md:py-6
                     lg:px-6 lg:py-8
@@ -139,45 +139,11 @@ const Experience: React.FC = () => {
                   </span>
 
                   <div className="flex gap-4 items-end justify-between">
-                    {/* Title + Meta Pills */}
+                    {/* Company Name ONLY */}
                     <div>
                       <h3 className={`font-funnel text-[clamp(2rem,3vw,3rem)] font-bold leading-tight ${isHovered ? "text-black" : "text-white"}`}>
                         {exp.company}
                       </h3>
-
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {/* Role Pill */}
-                        <span
-                          className={`
-                            rounded-full px-3 py-[5px]
-                            text-[11px] font-medium tracking-wide
-                            border
-                            ${
-                              isHovered
-                                ? "border-black/30 text-black font-semibold bg-black/10"
-                                : "border-[#1E293B] text-neutral-300 bg-[#131924]"
-                            }
-                          `}
-                        >
-                          {exp.role}
-                        </span>
-
-                        {/* Type Pill */}
-                        <span
-                          className={`
-                            rounded-full px-3 py-[5px]
-                            text-[11px] font-medium tracking-wide
-                            border
-                            ${
-                              isHovered
-                                ? "border-black/30 text-black font-semibold bg-black/10"
-                                : "border-[#1E293B] text-neutral-400 bg-[#131924]"
-                            }
-                          `}
-                        >
-                          {exp.type}
-                        </span>
-                      </div>
                     </div>
 
                     {/* Chevron for smaller screens */}
@@ -193,16 +159,37 @@ const Experience: React.FC = () => {
                     </motion.span>
                   </div>
 
-                  {/* Period & Location */}
-                  <div className="hidden lg:flex items-center gap-4 text-xs font-mono">
-                    <div className="flex items-center gap-1.5">
-                      <Calendar className={`w-3.5 h-3.5 ${isHovered ? "text-black" : "text-[#00FF66]"}`} />
-                      <span className={isHovered ? "text-black font-semibold" : "text-neutral-300"}>{exp.period}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <MapPin className={`w-3.5 h-3.5 ${isHovered ? "text-black" : "text-[#00FF66]"}`} />
-                      <span className={isHovered ? "text-black font-semibold" : "text-neutral-400"}>{exp.location}</span>
-                    </div>
+                  {/* Role & Period Pills (Main Row) */}
+                  <div className="hidden lg:flex flex-wrap items-center gap-2">
+                    <span
+                      className={`
+                        rounded-full px-3 py-[5px]
+                        text-[11px] font-medium tracking-wide
+                        border
+                        ${
+                          isHovered
+                            ? "border-black/30 text-black font-semibold bg-black/10"
+                            : "border-[#1E293B] text-neutral-300 bg-[#131924]"
+                        }
+                      `}
+                    >
+                      {exp.role}
+                    </span>
+
+                    <span
+                      className={`
+                        rounded-full px-3 py-[5px]
+                        text-[11px] font-medium tracking-wide
+                        border
+                        ${
+                          isHovered
+                            ? "border-black/30 text-black font-semibold bg-black/10"
+                            : "border-[#1E293B] text-neutral-400 bg-[#131924]"
+                        }
+                      `}
+                    >
+                      {exp.period}
+                    </span>
                   </div>
 
                   {/* View Details Label */}
@@ -245,7 +232,26 @@ const Experience: React.FC = () => {
                       transition={{ duration: 0.45, ease: EASE_PREMIUM }}
                       className="relative z-10 overflow-hidden"
                     >
-                      <div className="max-w-6xl px-4 py-6">
+                      <div className="max-w-6xl px-4 lg:px-6 py-6 border-t border-[#1E293B]/40">
+                        {/* Expanded Role Header */}
+                        <div className="flex flex-wrap items-center gap-3 mb-4">
+                          <h4 className={`font-funnel text-xl font-bold ${isHovered ? "text-black" : "text-white"}`}>
+                            {exp.role}
+                          </h4>
+                          <span className={`text-xs font-mono px-2.5 py-0.5 rounded-full border ${isHovered ? "border-black/30 text-black bg-black/10" : "border-[#00FF66]/30 text-[#00FF66] bg-[#00FF66]/10"}`}>
+                            {exp.type}
+                          </span>
+                          <div className={`flex items-center gap-1.5 text-xs font-mono ${isHovered ? "text-black/80 font-medium" : "text-neutral-400"}`}>
+                            <Calendar className="w-3.5 h-3.5" />
+                            <span>{exp.period}</span>
+                          </div>
+                          <div className={`flex items-center gap-1.5 text-xs font-mono ${isHovered ? "text-black/80 font-medium" : "text-neutral-400"}`}>
+                            <MapPin className="w-3.5 h-3.5" />
+                            <span>{exp.location}</span>
+                          </div>
+                        </div>
+
+                        {/* Bullet Highlights */}
                         <ul className="flex flex-col gap-3 text-sm sm:text-base leading-relaxed font-sans">
                           {exp.highlights.map((point, pIdx) => (
                             <li key={pIdx} className="flex items-start gap-3">
