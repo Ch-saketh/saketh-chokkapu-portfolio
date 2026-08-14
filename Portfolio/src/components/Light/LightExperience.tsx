@@ -1,6 +1,7 @@
-import React from "react";
-import { motion, Variants } from "framer-motion";
-import { Briefcase, Calendar, MapPin } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, Calendar, MapPin } from "lucide-react";
+import { staggerContainer, fadeUp, EASE_PREMIUM } from "../../utils/animations";
 
 export interface ExperienceItem {
   company: string;
@@ -35,113 +36,226 @@ const experiences: ExperienceItem[] = [
   },
 ];
 
-const sectionVariants: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+const useMediaQuery = (query: string) => {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => setMatches(media.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [matches, query]);
+
+  return matches;
 };
 
-const containerVariants: Variants = {
-  hidden: {},
+const bgFill = {
+  hidden: { scaleX: 0 },
   show: {
+    scaleX: 1,
     transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1,
+      duration: 0.35,
+      ease: EASE_PREMIUM,
     },
   },
 };
 
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
-};
-
 const LightExperience: React.FC = () => {
+  const [hovered, setHovered] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState<number | null>(null);
+
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+
   return (
-    <section id="experience" className="py-20 lg:py-28 scroll-mt-14 bg-[#F6F5F2] text-[#222222]">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Section Heading */}
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.25 }}
-          variants={sectionVariants}
-        >
-          <motion.h2
-            variants={sectionVariants}
-            className="text-[clamp(3.3rem,8vw,6rem)] font-black leading-[1] tracking-tight text-[#222222] font-funnel"
-          >
+    <section id="experience" className="scroll-mt-14 py-8 lg:py-16 bg-[#F6F5F2] text-[#222222]">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+        className="mx-auto max-w-6xl px-4 sm:px-6"
+      >
+        {/* ===== HEADER ===== */}
+        <motion.div variants={fadeUp} className="mb-10 lg:mb-15">
+          <h2 className="text-[clamp(3.5rem,8vw,6rem)] font-extrabold leading-[1] text-[#222222] font-funnel">
             Work &<br />
-            <span className="mt-2 block font-light text-neutral-500">
-              Experience
-            </span>
-          </motion.h2>
-          <motion.p
-            variants={sectionVariants}
-            className="mt-6 text-lg sm:text-xl text-neutral-600 leading-relaxed font-sans max-w-2xl"
-          >
-            Commercial engineering roles, AI system evaluation, and backend API contributions.
-          </motion.p>
+            <span className="font-light text-neutral-500">Experience</span>
+          </h2>
+
+          <p className="mt-6 max-w-2xl text-lg sm:text-xl text-neutral-600 leading-relaxed font-sans">
+            Commercial engineering experience, AI technical training, and production software contributions.
+          </p>
         </motion.div>
 
-        {/* Experience List Grid */}
+        {/* ===== EXPERIENCE LIST ===== */}
         <motion.div
-          className="mt-14 flex flex-col gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
+          className="divide-y divide-neutral-300 border-b border-t border-neutral-300"
+          variants={{ hidden: {}, show: {} }}
         >
-          {experiences.map((exp, idx) => (
-            <motion.div
-              key={idx}
-              variants={cardVariants}
-              whileHover={{ y: -4 }}
-              className="group relative rounded-3xl border border-neutral-300 bg-white/90 hover:border-neutral-800 p-6 sm:p-8 md:p-10 transition-all duration-300 shadow-md hover:shadow-xl backdrop-blur-xl"
-            >
-              {/* Header: Company & Role */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neutral-200">
-                <div className="space-y-1.5">
-                  <div className="flex items-center gap-3 flex-wrap">
-                    <h3 className="text-2xl sm:text-3xl font-extrabold font-funnel text-[#222222] group-hover:text-black transition-colors">
-                      {exp.company}
-                    </h3>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-neutral-200/80 border border-neutral-300 text-neutral-800">
-                      <Briefcase className="w-3.5 h-3.5" />
-                      {exp.type}
+          {experiences.map((exp, idx) => {
+            const isHovered = hovered === idx;
+            const isExpanded = expanded === idx;
+
+            return (
+              <motion.div
+                key={exp.company}
+                variants={fadeUp}
+                onMouseEnter={() => isDesktop && setHovered(idx)}
+                onMouseLeave={() => isDesktop && setHovered(null)}
+                onClick={() => setExpanded(isExpanded ? null : idx)}
+                className="relative cursor-pointer transition-colors"
+              >
+                {/* Hover Background - Dark Fill */}
+                <motion.div
+                  variants={bgFill}
+                  initial="hidden"
+                  animate={isHovered ? "show" : "hidden"}
+                  className="absolute inset-0 bg-[#222222] origin-left z-0"
+                />
+
+                {/* ================= ROW ================= */}
+                <div
+                  className={`
+                    relative z-10
+                    py-6 lg:py-8
+                    grid grid-cols-1 lg:grid-cols-12
+                    items-center gap-4 lg:gap-8
+                    transition-colors duration-200
+                    ${isHovered ? "text-[#F6F5F2]" : "text-[#222222]"}
+                  `}
+                >
+                  {/* Index */}
+                  <span className="hidden lg:block font-mono text-sm opacity-60">
+                    0{idx + 1}
+                  </span>
+
+                  <div className="flex gap-4 items-end justify-between lg:col-span-5">
+                    <div>
+                      <h3 className="font-funnel text-[clamp(2rem,3vw,3rem)] font-bold leading-tight">
+                        {exp.company}
+                      </h3>
+
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <span
+                          className={`
+                            rounded-full px-3 py-[5px]
+                            text-[11px] font-medium tracking-wide
+                            border
+                            ${
+                              isHovered
+                                ? "border-[#F6F5F2]/40 text-[#F6F5F2]"
+                                : "border-neutral-400 text-neutral-600"
+                            }
+                          `}
+                        >
+                          {exp.role}
+                        </span>
+
+                        <span
+                          className={`
+                            rounded-full px-3 py-[5px]
+                            text-[11px] font-medium tracking-wide
+                            border
+                            ${
+                              isHovered
+                                ? "border-[#F6F5F2]/40 text-[#F6F5F2]"
+                                : "border-neutral-400 text-neutral-600"
+                            }
+                          `}
+                        >
+                          {exp.type}
+                        </span>
+                      </div>
+                    </div>
+
+                    <motion.span
+                      animate={{ rotate: isExpanded ? 180 : 0 }}
+                      transition={{ duration: 0.3, ease: EASE_PREMIUM }}
+                      className="lg:hidden flex items-center justify-center"
+                    >
+                      <ChevronDown
+                        size={18}
+                        className={isHovered ? "text-[#F6F5F2]" : "text-neutral-500"}
+                      />
+                    </motion.span>
+                  </div>
+
+                  {/* Period & Location */}
+                  <div className="hidden lg:flex lg:col-span-4 items-center gap-4 text-xs font-mono opacity-80">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5" />
+                      <span>{exp.period}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5" />
+                      <span>{exp.location}</span>
+                    </div>
+                  </div>
+
+                  {/* Action Label */}
+                  <div className="flex items-center justify-between lg:justify-end lg:col-span-2">
+                    <span
+                      className={`
+                        rounded-full px-4 py-[7px]
+                        text-[11px] font-medium tracking-wide
+                        border transition-colors
+                        flex items-center gap-2
+                        ${
+                          isHovered
+                            ? "border-[#F6F5F2] bg-[#F6F5F2] text-[#222222] font-bold"
+                            : "border-neutral-300 text-neutral-700 hover:text-black"
+                        }
+                      `}
+                    >
+                      {isExpanded ? "Hide Details" : "View Details"}
                     </span>
+
+                    <motion.span
+                      animate={{ rotate: isExpanded ? 180 : 0 }}
+                      transition={{ duration: 0.3, ease: EASE_PREMIUM }}
+                      className="hidden lg:flex items-center justify-center ml-3"
+                    >
+                      <ChevronDown
+                        size={18}
+                        className={isHovered ? "text-[#F6F5F2]" : "text-neutral-500"}
+                      />
+                    </motion.span>
                   </div>
-                  <p className="text-base sm:text-lg text-neutral-700 font-medium font-sans">
-                    {exp.role}
-                  </p>
                 </div>
 
-                {/* Date & Location */}
-                <div className="flex items-center gap-4 text-xs sm:text-sm font-mono text-neutral-500">
-                  <div className="flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4 text-neutral-600" />
-                    <span>{exp.period}</span>
-                  </div>
-                  <span className="w-1 h-1 rounded-full bg-neutral-400" />
-                  <div className="flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4 text-neutral-600" />
-                    <span>{exp.location}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Highlights Bullet List */}
-              <ul className="mt-6 flex flex-col gap-3.5 text-neutral-700 text-sm sm:text-base font-sans leading-relaxed">
-                {exp.highlights.map((point, pIdx) => (
-                  <li key={pIdx} className="flex items-start gap-3">
-                    <span className="mt-1.5 w-2 h-2 rounded-full bg-neutral-800 shrink-0" />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+                {/* ================= EXPANDED CONTENT ================= */}
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.45, ease: EASE_PREMIUM }}
+                      className="relative z-10 overflow-hidden"
+                    >
+                      <div className="max-w-6xl px-4 py-6">
+                        <ul className="flex flex-col gap-3 text-sm sm:text-base leading-relaxed font-sans">
+                          {exp.highlights.map((point, pIdx) => (
+                            <li key={pIdx} className="flex items-start gap-3">
+                              <span className={`mt-2 w-2 h-2 rounded-full shrink-0 ${isHovered ? "bg-[#F6F5F2]" : "bg-[#222222]"}`} />
+                              <span className={isHovered ? "text-[#F6F5F2]/90 font-medium" : "text-neutral-700"}>
+                                {point}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 };
