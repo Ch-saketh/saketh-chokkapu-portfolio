@@ -133,6 +133,12 @@ const LightFooter: React.FC = () => {
                 Projects
               </a>
               <a
+                href="#experience"
+                className="hover:text-black transition-colors"
+              >
+                Experience
+              </a>
+              <a
                 href="#services"
                 className="hover:text-black transition-colors"
               >
