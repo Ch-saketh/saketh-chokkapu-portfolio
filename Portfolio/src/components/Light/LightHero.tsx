@@ -141,13 +141,13 @@ const LightHero: React.FC = () => {
           initial="hidden"
           animate="show"
           className="hidden lg:block absolute right-0 bottom-0 h-full z-0 pointer-events-none"
-          style={{ width: 'clamp(600px, 70%, 1320px)' }}
+          style={{ width: 'clamp(520px, 62%, 1150px)' }}
         >
           <img
             src={YourImg}
             alt="Saketh"
             fetchPriority="high"
-            className="absolute bottom-0 right-0 h-[148%] xl:h-[162%] w-auto max-w-none object-contain object-bottom grayscale transition-all duration-700 ease-out hover:grayscale-0 hover:scale-[1.03] pointer-events-auto"
+            className="absolute bottom-0 right-0 h-[132%] xl:h-[142%] w-auto max-w-none object-contain object-bottom grayscale transition-all duration-700 ease-out hover:grayscale-0 hover:scale-[1.03] pointer-events-auto"
           />
         </motion.div>
       </div>
