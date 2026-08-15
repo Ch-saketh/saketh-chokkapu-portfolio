@@ -141,13 +141,13 @@ const Hero: React.FC = () => {
           initial="hidden"
           animate="show"
           className="hidden lg:block absolute right-0 bottom-0 h-full z-0 pointer-events-none"
-          style={{ width: 'clamp(380px, 48%, 850px)' }}
+          style={{ width: 'clamp(420px, 54%, 960px)' }}
         >
           <img
             src={YourImg}
             alt="Saketh"
             fetchPriority="high"
-            className="absolute bottom-0 right-0 h-full max-h-[125%] w-auto max-w-none object-contain object-bottom grayscale transition-all duration-700 ease-out hover:grayscale-0 hover:scale-[1.03] pointer-events-auto"
+            className="absolute bottom-0 right-0 h-full max-h-[135%] w-auto max-w-none object-contain object-bottom grayscale transition-all duration-700 ease-out hover:grayscale-0 hover:scale-[1.03] pointer-events-auto"
           />
         </motion.div>
       </div>
