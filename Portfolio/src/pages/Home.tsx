@@ -37,18 +37,18 @@ const projects: projectItem[] = [
     projectType: "personal",
   },
   {
-    title: "Luxzera",
+    title: "Weavly",
     description:
-      "A next-generation e-commerce ecosystem that replaces traditional keyword search with semantic, AI-driven product discovery. Luxzera utilizes advanced vector embedding models to interpret natural language intent, ensuring users find highly relevant products with low latency.",
+      "A next-generation e-commerce ecosystem that replaces traditional keyword search with semantic, AI-driven product discovery. Weavly utilizes advanced vector embedding models to interpret natural language intent, ensuring users find highly relevant products with low latency.",
     tech: ["React.js", "Spring Boot", "PostgreSQL", "Spring Security", "WebFlux", "Hugging Face API"],
-    link: "https://luxzera.vercel.app/",
+    link: "https://www.weavly.store/",
     image: [
       "/assets/Luxzera/LX-1.png",
       "/assets/Luxzera/LX-2.png",
       "/assets/Luxzera/LX-3.png",
       "/assets/Luxzera/LX-4.png",
     ],
-    status: "in-progress",
+    status: "completed",
     projectType: "personal",
   },
   {

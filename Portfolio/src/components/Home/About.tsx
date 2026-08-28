@@ -27,7 +27,7 @@ const journeyItems = [
     year: "2025",
     title: "Full-Stack Web & Cryptographic Desktop Projects",
     details:
-      "Engineered real-world full-stack and desktop systems. Developed LuxZera (Spring Boot/React/PostgreSQL) with dimension-mapping, resolving Hibernate N+1 queries to cut read latency from 150ms to 60ms. Built QMail, a privacy-focused Electron.js desktop client with IMAP/SMTP handlers and AES-256/RSA file encryption.",
+      "Engineered real-world full-stack and desktop systems. Developed Weavly (Spring Boot/React/PostgreSQL) with dimension-mapping, resolving Hibernate N+1 queries to cut read latency from 150ms to 60ms. Built QMail, a privacy-focused Electron.js desktop client with IMAP/SMTP handlers and AES-256/RSA file encryption.",
   },
   {
     year: "2025",
